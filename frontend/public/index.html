@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI VOGUE - Luxury Fashion Technology</title>
+    <meta name="description" content="Imagine the look, see it in 2D, wear it in reality. Luxury tech for modern fashion journeys.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/styles.css">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" as="style">
+</head>
+<body>
+    <!-- Header with animated logo -->
+    <header id="main-header">
+        <div class="menu-toggle" id="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="header-logo" id="header-logo">AI VOGUE</div>
+    </header>
+
+    <!-- Navigation Drawer -->
+    <nav class="nav-drawer">
+        <button class="nav-close" id="nav-close" aria-label="Close navigation">
+            <span></span>
+            <span></span>
+        </button>
+        
+        <ul class="nav-links">
+            <li><a href="categories.html">Vogue Vision</a></li>
+            <li><a href="revibe.html">Revibe</a></li>
+            <li><a href="creative-threads.html">Creative Threads</a></li>
+            <li><a href="mirrorx.html">MirrorX</a></li>
+            <li><a href="prism-ai-appwrite.html">Prism AI</a></li>
+            <li><a href="style-lease.html">Style Lease</a></li>
+            <li><a href="twinfit.html">TwinFit</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        
+        <div class="nav-icons">
+            <a href="profile.html" aria-label="Account" class="account-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </a>
+            <a href="#" aria-label="Shopping cart">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="m16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Overlay -->
+    <div class="overlay"></div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" data-parallax="0.5">
+            <video class="hero-video" autoplay muted loop playsinline>
+                <source src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_5mb.mp4" type="video/mp4">
+            </video>
+            <div class="hero-overlay"></div>
+            
+            <div class="hero-content fade-in">
+                <div class="hero-title-container">
+                    <h1 class="hero-brand" id="hero-brand">AI VOGUE</h1>
+                </div>
+                <p class="hero-subtitle">Luxury tech for modern fashion journeys.</p>
+                
+                <div class="hero-buttons">
+                    <a href="#ai-feed" class="btn btn-primary">Explore AI Fashion</a>
+                    <a href="twinfit.html" class="btn btn-secondary">Try TwinFit</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Fashion Feed Section -->
+        <section id="ai-feed" class="ai-feed">
+            <div class="container">
+                <div class="feed-header fade-in">
+                    <h2 class="section-title">AI-Generated Fashion Inspiration</h2>
+                    <div class="feed-status">
+                        <span class="live-indicator"></span>
+                        <span class="update-time">Updated 2 mins ago</span>
+                    </div>
+                </div>
+                
+                <div class="feed-grid">
+                    <div class="feed-card fade-in" data-style="professional">
+                        <div class="ai-generated-look">
+                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&h=800&fit=crop" 
+                                 alt="AI Generated Professional Look" 
+                                 class="look-image">
+                            <div class="ai-badge">✨ AI Generated</div>
+                            <div class="occasion-tag">Professional</div>
+                        </div>
+                        <div class="look-details">
+                            <h3 class="look-title">Executive Power Ensemble</h3>
+                            <p class="look-description">Created by Prism AI for: Board Meeting</p>
+                            <div class="ai-insights">
+                                <span class="confidence-score">98% Match</span>
+                                <span class="style-tags">Sophisticated • Confident</span>
+                            </div>
+                            <button class="recreate-btn" onclick="window.location.href='categories.html'">
+                                Recreate This Look
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="feed-card fade-in" data-style="casual">
+                        <div class="ai-generated-look">
+                            <img src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=600&h=800&fit=crop" 
+                                 alt="AI Generated Casual Look" 
+                                 class="look-image">
+                            <div class="ai-badge">✨ AI Generated</div>
+                            <div class="occasion-tag">Weekend</div>
+                        </div>
+                        <div class="look-details">
+                            <h3 class="look-title">Effortless Chic</h3>
+                            <p class="look-description">Created by Prism AI for: Brunch Date</p>
+                            <div class="ai-insights">
+                                <span class="confidence-score">95% Match</span>
+                                <span class="style-tags">Relaxed • Stylish</span>
+                            </div>
+                            <button class="recreate-btn" onclick="window.location.href='mirrorx.html'">
+                                Try in MirrorX AR
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="feed-card fade-in" data-style="evening">
+                        <div class="ai-generated-look">
+                            <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&h=800&fit=crop" 
+                                 alt="AI Generated Evening Look" 
+                                 class="look-image">
+                            <div class="ai-badge">✨ AI Generated</div>
+                            <div class="occasion-tag">Evening</div>
+                        </div>
+                        <div class="look-details">
+                            <h3 class="look-title">Midnight Elegance</h3>
+                            <p class="look-description">Created by Prism AI for: Gala Event</p>
+                            <div class="ai-insights">
+                                <span class="confidence-score">99% Match</span>
+                                <span class="style-tags">Glamorous • Timeless</span>
+                            </div>
+                            <button class="recreate-btn" onclick="window.location.href='twinfit.html'">
+                                Find Perfect Fit
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="feed-card fade-in" data-style="street">
+                        <div class="ai-generated-look">
+                            <img src="https://images.unsplash.com/photo-1544441893-675973e31985?w=600&h=800&fit=crop" 
+                                 alt="AI Generated Street Style" 
+                                 class="look-image">
+                            <div class="ai-badge">✨ AI Generated</div>
+                            <div class="occasion-tag">Street Style</div>
+                        </div>
+                        <div class="look-details">
+                            <h3 class="look-title">Urban Edge</h3>
+                            <p class="look-description">Created by Prism AI for: City Explorer</p>
+                            <div class="ai-insights">
+                                <span class="confidence-score">94% Match</span>
+                                <span class="style-tags">Edgy • Contemporary</span>
+                            </div>
+                            <button class="recreate-btn" onclick="window.location.href='creative-threads.html'">
+                                Customize Style
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="feed-card fade-in" data-style="minimalist">
+                        <div class="ai-generated-look">
+                            <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&h=800&fit=crop" 
+                                 alt="AI Generated Minimalist Look" 
+                                 class="look-image">
+                            <div class="ai-badge">✨ AI Generated</div>
+                            <div class="occasion-tag">Minimalist</div>
+                        </div>
+                        <div class="look-details">
+                            <h3 class="look-title">Pure Simplicity</h3>
+                            <p class="look-description">Created by Prism AI for: Art Gallery Opening</p>
+                            <div class="ai-insights">
+                                <span class="confidence-score">97% Match</span>
+                                <span class="style-tags">Clean • Modern</span>
+                            </div>
+                            <button class="recreate-btn" onclick="window.location.href='categories.html'">
+                                Shop This Vibe
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="feed-card fade-in" data-style="bold">
+                        <div class="ai-generated-look">
+                            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&h=800&fit=crop" 
+                                 alt="AI Generated Bold Look" 
+                                 class="look-image">
+                            <div class="ai-badge">✨ AI Generated</div>
+                            <div class="occasion-tag">Statement</div>
+                        </div>
+                        <div class="look-details">
+                            <h3 class="look-title">Avant-Garde Vision</h3>
+                            <p class="look-description">Created by Prism AI for: Fashion Week</p>
+                            <div class="ai-insights">
+                                <span class="confidence-score">96% Match</span>
+                                <span class="style-tags">Bold • Artistic</span>
+                            </div>
+                            <button class="recreate-btn" onclick="window.location.href='revibe.html'">
+                                Revibe Your Wardrobe
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="feed-cta fade-in">
+                    <div class="cta-content">
+                        <h3>Want Your Personal AI Fashion Feed?</h3>
+                        <p>Get real-time, personalized style recommendations tailored just for you</p>
+                        <a href="prism-ai.html" class="btn btn-primary">Generate Your AI Feed</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features" data-parallax="0.3">
+            <div class="container">
+                <h2 class="section-title fade-in">Revolutionary Fashion Technology</h2>
+                
+                <div class="features-grid">
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </div>
+                        <h3>Vogue Vision</h3>
+                        <p>AI-powered style recommendations tailored to your unique aesthetic and lifestyle.</p>
+                        <a href="categories.html" class="feature-link">Discover More</a>
+                    </div>
+                    
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M23 4v6h-6"></path>
+                                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                            </svg>
+                        </div>
+                        <h3>Revibe</h3>
+                        <p>Transform your existing wardrobe with sustainable upcycling and redesign solutions.</p>
+                        <a href="revibe.html" class="feature-link">Learn More</a>
+                    </div>
+                    
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M15 3h6v6"></path>
+                                <path d="M9 21H3v-6"></path>
+                                <path d="M21 3l-7 7"></path>
+                                <path d="M3 21l7-7"></path>
+                            </svg>
+                        </div>
+                        <h3>MirrorX</h3>
+                        <p>Augmented reality try-on experience that brings fashion to life before you buy.</p>
+                        <a href="mirrorx.html" class="feature-link">Try Now</a>
+                    </div>
+                    
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </div>
+                        <h3>TwinFit</h3>
+                        <p>Find your perfect fit with AI-powered body scanning and size recommendations.</p>
+                        <a href="twinfit.html" class="feature-link">Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Editorial Section -->
+        <section class="editorial" data-parallax="0.4">
+            <div class="editorial-content">
+                <div class="editorial-text fade-in">
+                    <h2 class="text-reveal">The Future of Fashion is Here</h2>
+                    <p>Experience the intersection of luxury craftsmanship and cutting-edge technology. AI VOGUE redefines how you discover, try, and wear fashion.</p>
+                    <a href="about.html" class="btn btn-primary">Our Story</a>
+                </div>
+                <div class="editorial-image fade-in">
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop" 
+                         alt="Fashion Technology" 
+                         data-parallax="0.2">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About AI VOGUE</h3>
+                <ul>
+                    <li><a href="about.html">Our Story</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="categories.html">Vogue Vision</a></li>
+                    <li><a href="mirrorx.html">MirrorX AR</a></li>
+                    <li><a href="twinfit.html">TwinFit</a></li>
+                    <li><a href="style-lease.html">Style Lease</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Policies</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Return Policy</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Stay Connected</h3>
+                <p>Subscribe to our newsletter for the latest in luxury fashion technology.</p>
+                <div class="newsletter">
+                    <input type="email" placeholder="Enter your email" aria-label="Email for newsletter">
+                    <button type="button" onclick="AIVogue.subscribeNewsletter(this.previousElementSibling.value)">Subscribe</button>
+                </div>
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a href="mailto:hello@aivogue.com" aria-label="Email">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 AI VOGUE. All rights reserved. Luxury fashion technology redefined.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/parallax.js"></script>
+</body>
+</html>

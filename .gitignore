@@ -1,0 +1,139 @@
+# AI VOGUE - Git Ignore File
+
+# Archive folder (temporary files)
+archive/
+
+# Environment variables and secrets
+.env
+.env.local
+.env.production
+*.key
+*_key.txt
+api-keys.js
+
+# Node modules
+node_modules/
+package-lock.json
+yarn.lock
+
+# Build outputs
+dist/
+build/
+*.min.js
+*.min.css
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS files
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+.temp/
+
+# Compressed files (except in archive)
+*.tar.gz
+*.zip
+*.rar
+*.7z
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Dependencies
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache
+.parcel-cache
+
+# Next.js build output
+.next
+out
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# Gatsby files
+.cache/
+# public - temporarily disabled to allow edits
+
+# VuePress build output
+.vuepress/dist
+
+# Serverless directories
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# Appwrite
+.appwrite/
+
+# Local development
+*.local
+
+# Database dumps
+*.sql
+*.sqlite
+*.db
+
+# Media files (if too large)
+# Uncomment if needed:
+# *.mp4
+# *.mov
+# *.avi
+# *.mkv
+# *.webm
+
+# Large assets (uncomment if needed)
+# frontend/assets/videos/
+# *.psd
+# *.ai
+# *.sketch

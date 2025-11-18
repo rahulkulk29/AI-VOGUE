@@ -1,0 +1,16 @@
+# AI VOGUE Python Backend - Environment Variables
+# Copy this file to .env and update with your actual values
+
+GEMINI_API_KEY=AIzaSyDGZdru4jUqEfaZFG9L0bmvbhpg0pVl64Q
+GEMINI_MODEL=gemini-2.5-flash
+FLASK_ENV=development
+FLASK_DEBUG=True
+CORS_ORIGINS=http://localhost:8000,http://127.0.0.1:8000
+MAX_TOKENS=512
+TEMPERATURE=0.7
+REQUEST_TIMEOUT=30
+
+# Appwrite Configuration (for reference - not used in Python backend)
+APPWRITE_ENDPOINT=https://nyc.cloud.appwrite.io/v1
+APPWRITE_PROJECT_ID=68dd18860033ab7dffac
+APPWRITE_DATABASE_ID=68dd21f50029362dfb7a

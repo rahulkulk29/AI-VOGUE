@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prism AI - Personalized Beauty & Fashion Assistant - AI VOGUE</title>
+    <meta name="description" content="Experience AI VOGUE's revolutionary Prism AI - your personalized beauty and fashion consultant powered by advanced AI technology.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/prism-ai.css">
+    <link rel="stylesheet" href="../css/prism-products.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="gucci-header-page">
+    <!-- Skip Links for Accessibility -->
+    <div class="skip-links">
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+        <a href="#chat-section" class="skip-link">Skip to chat</a>
+        <a href="#onboarding-modal" class="skip-link">Skip to quiz</a>
+    </div>
+    
+    <!-- Header - Exact replica from shirts.html -->
+    <header class="gucci-header">
+        <div class="gucci-header-left">
+            <a href="contact.html" class="gucci-contact-link">Contact Us</a>
+        </div>
+        
+        <div class="gucci-header-center">
+            <a href="index.html" class="gucci-logo">AI VOGUE</a>
+        </div>
+        
+        <div class="gucci-header-right">
+            <button class="gucci-icon" id="authButton" aria-label="Account" onclick="handleAuthClick()">
+                <i class="fas fa-user"></i>
+            </button>
+            <button class="gucci-icon gucci-search-icon" aria-label="Search">
+                <i class="fas fa-magnifying-glass"></i>
+            </button>
+            <button class="gucci-menu-btn" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+                <span>MENU</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Gucci Overlay Background -->
+    <div class="gucci-overlay-bg"></div>
+    
+    <!-- Gucci Overlay -->
+    <div class="gucci-overlay">
+        <button class="gucci-close-btn" aria-label="Close">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="gucci-overlay-search">
+            <input type="text" class="gucci-search-input" placeholder="Search AI VOGUE..." aria-label="Search products">
+        </div>
+        
+        <nav class="gucci-overlay-nav">
+            <a href="categories.html" class="gucci-nav-link">Vogue Vision</a>
+            <a href="revibe.html" class="gucci-nav-link">Revibe</a>
+            <a href="creative-threads.html" class="gucci-nav-link">Creative Threads</a>
+            <a href="mirrorx.html" class="gucci-nav-link">MirrorX</a>
+            <a href="prism-ai-appwrite.html" class="gucci-nav-link active">Prism AI</a>
+            <a href="style-lease.html" class="gucci-nav-link">Style Lease</a>
+            <a href="twinfit.html" class="gucci-nav-link">TwinFit</a>
+            <a href="about.html" class="gucci-nav-link">About</a>
+            <a href="contact.html" class="gucci-nav-link">Contact</a>
+        </nav>
+    </div>
+
+    <!-- Parallax Background -->
+    <div class="prism-background">
+        <div class="parallax-layer layer-1"></div>
+        <div class="parallax-layer layer-2"></div>
+        <div class="parallax-layer layer-3"></div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content" class="prism-main" role="main">
+        <!-- Hero Section -->
+        <section class="prism-hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="prism-title">Prism AI</h1>
+                    <p class="prism-subtitle">Your Personal Beauty & Fashion Consultant</p>
+                    <div class="prism-features">
+                        <div class="feature-item">
+                            <i class="fas fa-magic"></i>
+                            <span>AI-Powered Recommendations</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-camera"></i>
+                            <span>Image Analysis</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-user-circle"></i>
+                            <span>Personalized Profile</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Enhanced Onboarding Quiz Modal with 11 Questions -->
+        <div id="onboarding-modal" class="modal-overlay active" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-description">
+            <div class="modal-content">
+                <div class="quiz-header">
+                    <h2 id="modal-title">Let's Get to Know You</h2>
+                    <p id="modal-description">Answer a few questions to personalize your experience</p>
+                    <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="11" aria-label="Quiz progress">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <span class="progress-text">Question <span id="current-question">1</span> of <span id="total-questions">11</span></span>
+                </div>
+                
+                <div class="quiz-content">
+                    <!-- Question 1: Skin Type -->      
+                    <div class="question-card active" data-question="1" role="group" aria-labelledby="question-1-title">
+                        <h3 id="question-1-title">What's your skin type?</h3>
+                        <div class="answer-options" role="radiogroup" aria-labelledby="question-1-title">
+                            <button class="answer-btn" data-value="oily" role="radio" aria-checked="false" tabindex="0">
+                                <i class="fas fa-droplet"></i> Oily
+                            </button>
+                            <button class="answer-btn" data-value="dry" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-sun"></i> Dry
+                            </button>
+                            <button class="answer-btn" data-value="combination" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-balance-scale"></i> Combination
+                            </button>
+                            <button class="answer-btn" data-value="normal" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-check-circle"></i> Normal
+                            </button>
+                            <button class="answer-btn" data-value="sensitive" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-heart"></i> Sensitive
+                            </button>
+                            <button class="answer-btn" data-value="unsure" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-question-circle"></i> Not Sure
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Question 2: Primary Skin Concern -->
+                    <div class="question-card" data-question="2" role="group" aria-labelledby="question-2-title">
+                        <h3 id="question-2-title">What's your primary skin concern?</h3>
+                        <div class="answer-options" role="radiogroup" aria-labelledby="question-2-title">
+                            <button class="answer-btn" data-value="acne" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-ban"></i> Acne & Breakouts
+                            </button>
+                            <button class="answer-btn" data-value="aging" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-hourglass-half"></i> Anti-Aging
+                            </button>
+                            <button class="answer-btn" data-value="dryness" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-tint-slash"></i> Dryness
+                            </button>
+                            <button class="answer-btn" data-value="sensitivity" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-exclamation-triangle"></i> Sensitivity
+                            </button>
+                            <button class="answer-btn" data-value="pigmentation" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-moon"></i> Dark Spots
+                            </button>
+                            <button class="answer-btn" data-value="pores" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-circle"></i> Large Pores
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Question 3: Hair Type (NEW) -->
+                    <div class="question-card" data-question="3" role="group" aria-labelledby="question-3-title">
+                        <h3 id="question-3-title">What's your hair type?</h3>
+                        <div class="answer-options" role="radiogroup" aria-labelledby="question-3-title">
+                            <button class="answer-btn" data-value="straight" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-grip-lines"></i> Straight
+                            </button>
+                            <button class="answer-btn" data-value="wavy" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-water"></i> Wavy
+                            </button>
+                            <button class="answer-btn" data-value="curly" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-wind"></i> Curly
+                            </button>
+                            <button class="answer-btn" data-value="coily" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-tornado"></i> Coily
+                            </button>
+                            <button class="answer-btn" data-value="bald" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-circle-notch"></i> Bald/No Hair
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Question 4: Hair Texture (NEW) -->
+                    <div class="question-card" data-question="4" role="group" aria-labelledby="question-4-title">
+                        <h3 id="question-4-title">What's your hair texture?</h3>
+                        <div class="answer-options" role="radiogroup" aria-labelledby="question-4-title">
+                            <button class="answer-btn" data-value="fine" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-feather"></i> Fine
+                            </button>
+                            <button class="answer-btn" data-value="medium" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-equals"></i> Medium
+                            </button>
+                            <button class="answer-btn" data-value="thick" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-bars"></i> Thick
+                            </button>
+                            <button class="answer-btn" data-value="na" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-minus"></i> Not Applicable
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Question 5: Hair Concern (NEW) -->
+                    <div class="question-card" data-question="5" role="group" aria-labelledby="question-5-title">
+                        <h3 id="question-5-title">What's your primary hair concern?</h3>
+                        <div class="answer-options" role="radiogroup" aria-labelledby="question-5-title">
+                            <button class="answer-btn" data-value="dryness" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-sun"></i> Dryness
+                            </button>
+                            <button class="answer-btn" data-value="oiliness" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-droplet"></i> Oiliness
+                            </button>
+                            <button class="answer-btn" data-value="damage" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-bolt"></i> Damage
+                            </button>
+                            <button class="answer-btn" data-value="thinning" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-chart-line"></i> Thinning
+                            </button>
+                            <button class="answer-btn" data-value="frizz" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-cloud"></i> Frizz
+                            </button>
+                            <button class="answer-btn" data-value="color-treated" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-palette"></i> Color-Treated
+                            </button>
+                            <button class="answer-btn" data-value="none" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-check"></i> None
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Question 6: Style Preference (Previously Q3) -->
+                    <div class="question-card" data-question="6" role="group" aria-labelledby="question-6-title">
+                        <h3 id="question-6-title">How would you describe your style?</h3>
+                        <div class="answer-options" role="radiogroup" aria-labelledby="question-6-title">
+                            <button class="answer-btn" data-value="classic" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-gem"></i> Classic & Timeless
+                            </button>
+                            <button class="answer-btn" data-value="trendy" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-fire"></i> Trendy & Fashion-Forward
+                            </button>
+                            <button class="answer-btn" data-value="casual" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-tshirt"></i> Casual & Comfortable
+                            </button>
+                            <button class="answer-btn" data-value="edgy" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-bolt"></i> Edgy & Bold
+                            </button>
+                            <button class="answer-btn" data-value="romantic" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-heart"></i> Romantic & Feminine
+                            </button>
+                            <button class="answer-btn" data-value="minimalist" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-minus-circle"></i> Minimalist & Clean
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Question 7: Skincare Budget (Previously Q4) -->
+                    <div class="question-card" data-question="7" role="group" aria-labelledby="question-7-title">
+                        <h3 id="question-7-title">What's your budget range for skincare?</h3>
+                        <div class="answer-options" role="radiogroup" aria-labelledby="question-7-title">
+                            <button class="answer-btn" data-value="budget" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-dollar-sign"></i> Under $50
+                            </button>
+                            <button class="answer-btn" data-value="mid" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-coins"></i> $50 - $150
+                            </button>
+                            <button class="answer-btn" data-value="premium" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-money-bill-wave"></i> $150 - $300
+                            </button>
+                            <button class="answer-btn" data-value="luxury" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-crown"></i> $300+
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Question 8: Fashion Budget (Previously Q5) -->
+                    <div class="question-card" data-question="8" role="group" aria-labelledby="question-8-title">
+                        <h3 id="question-8-title">What's your budget range for fashion?</h3>
+                        <div class="answer-options" role="radiogroup" aria-labelledby="question-8-title">
+                            <button class="answer-btn" data-value="budget" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-tags"></i> Under $100
+                            </button>
+                            <button class="answer-btn" data-value="mid" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-shopping-bag"></i> $100 - $500
+                            </button>
+                            <button class="answer-btn" data-value="premium" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-shopping-cart"></i> $500 - $1000
+                            </button>
+                            <button class="answer-btn" data-value="luxury" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-gem"></i> $1000+
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Question 9: Shopping Frequency (Previously Q6) -->
+                    <div class="question-card" data-question="9" role="group" aria-labelledby="question-9-title">
+                        <h3 id="question-9-title">How often do you shop for new clothes?</h3>
+                        <div class="answer-options" role="radiogroup" aria-labelledby="question-9-title">
+                            <button class="answer-btn" data-value="weekly" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-calendar-week"></i> Weekly
+                            </button>
+                            <button class="answer-btn" data-value="monthly" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-calendar-alt"></i> Monthly
+                            </button>
+                            <button class="answer-btn" data-value="seasonal" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-leaf"></i> Seasonally
+                            </button>
+                            <button class="answer-btn" data-value="rarely" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-clock"></i> Rarely
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Question 10: Occasions (Previously Q7) -->
+                    <div class="question-card" data-question="10" role="group" aria-labelledby="question-10-title">
+                        <h3 id="question-10-title">What occasions do you dress for most?</h3>
+                        <div class="answer-options" role="radiogroup" aria-labelledby="question-10-title">
+                            <button class="answer-btn" data-value="work" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-briefcase"></i> Work/Professional
+                            </button>
+                            <button class="answer-btn" data-value="casual" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-home"></i> Casual/Everyday
+                            </button>
+                            <button class="answer-btn" data-value="social" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-users"></i> Social Events
+                            </button>
+                            <button class="answer-btn" data-value="special" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-star"></i> Special Occasions
+                            </button>
+                            <button class="answer-btn" data-value="mixed" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-random"></i> Mix of Everything
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Question 11: Age Range (Previously Q8) -->
+                    <div class="question-card" data-question="11" role="group" aria-labelledby="question-11-title">
+                        <h3 id="question-11-title">What's your age range?</h3>
+                        <div class="answer-options" role="radiogroup" aria-labelledby="question-11-title">
+                            <button class="answer-btn" data-value="teens" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-child"></i> 13-19
+                            </button>
+                            <button class="answer-btn" data-value="twenties" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-user-graduate"></i> 20-29
+                            </button>
+                            <button class="answer-btn" data-value="thirties" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-user-tie"></i> 30-39
+                            </button>
+                            <button class="answer-btn" data-value="forties" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-user"></i> 40-49
+                            </button>
+                            <button class="answer-btn" data-value="fifties" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-user-check"></i> 50-59
+                            </button>
+                            <button class="answer-btn" data-value="sixty-plus" role="radio" aria-checked="false" tabindex="-1">
+                                <i class="fas fa-user-shield"></i> 60+
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quiz-navigation" role="navigation" aria-label="Quiz navigation">
+                    <button id="prev-btn" class="nav-btn" disabled aria-label="Go to previous question">
+                        <i class="fas fa-arrow-left"></i> Previous
+                    </button>
+                    <button id="next-btn" class="nav-btn" disabled aria-label="Go to next question">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button id="finish-btn" class="nav-btn primary" style="display: none;" aria-label="Complete profile setup">
+                        <i class="fas fa-check"></i> Start Chatting
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Auth Status Banner -->
+        <div class="auth-status-container" style="margin: 2rem auto; max-width: 900px; padding: 0 1.5rem;">
+            <!-- Only visible when logged in -->
+            <div data-auth-required="true" class="auth-welcome-banner" style="display: none;">
+                <div class="welcome-content">
+                    <div class="welcome-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <div class="welcome-text">
+                        <h3>Welcome back, <span data-user-name>User</span>! 👋</h3>
+                        <p>Your preferences are synced and ready. Start chatting with Prism AI!</p>
+                    </div>
+                    <button onclick="logout()" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+
+            <!-- Only visible for guests -->
+            <div data-guest-only="true" class="auth-guest-banner">
+                <div class="guest-content">
+                    <div class="guest-icon">
+                        <i class="fas fa-user-lock"></i>
+                    </div>
+                    <div class="guest-text">
+                        <h3>You're using Prism AI as a guest</h3>
+                        <p>Your preferences are saved locally. Sign in to sync across devices and unlock premium features!</p>
+                    </div>
+                    <a href="login.html?redirect=prism-ai-appwrite.html" class="signin-btn">
+                        <i class="fas fa-sign-in-alt"></i> Sign In to Save
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Interface -->
+        <section id="chat-section" class="chat-section" style="display: none;" role="main" aria-label="Chat interface">
+            <div class="container">
+                <div class="chat-container glassmorphism">
+                    <div class="chat-header">
+                        <div class="chat-title">
+                            <h2>Prism AI Assistant</h2>
+                            <span class="status-indicator online">
+                                <i class="fas fa-circle"></i> Online
+                            </span>
+                        </div>
+                        <div class="chat-controls">
+                            <button id="edit-profile-btn" class="control-btn" aria-label="Edit your profile settings" title="Edit Preferences">
+                                <i class="fas fa-user-edit" aria-hidden="true"></i>
+                            </button>
+                            <button id="clear-chat-btn" class="control-btn" aria-label="Clear all chat messages" title="Clear Chat">
+                                <i class="fas fa-trash" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-messages" id="chat-messages" aria-live="polite" role="log">
+                        <div class="message ai-message">
+                            <div class="message-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="message-content">
+                                <p>Hello! I'm your personal Prism AI assistant. I'm here to help you with personalized skincare, haircare, and fashion recommendations based on your unique profile. Feel free to ask me anything or upload an image for analysis!</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-input-container">
+                        <div class="input-wrapper">
+                            <input type="file" id="image-upload" accept="image/*" style="display: none;" aria-label="Select image file">
+                            <button id="upload-btn" class="upload-btn" aria-label="Upload an image for analysis" title="Upload Image">
+                                <i class="fas fa-camera" aria-hidden="true"></i>
+                            </button>
+                            <input type="text" id="chat-input" class="chat-input" placeholder="Ask me about skincare, haircare, fashion, or upload an image..." aria-label="Type your message" role="textbox">
+                            <button id="send-btn" class="send-btn" aria-label="Send message" title="Send">
+                                <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div id="image-preview" class="image-preview" style="display: none;" role="img" aria-label="Image preview"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>AI VOGUE</h3>
+                    <p>Revolutionizing fashion with artificial intelligence</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="categories.html">Categories</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>AI Services</h4>
+                    <ul>
+                        <li><a href="prism-ai-appwrite.html">Prism AI</a></li>
+                        <li><a href="creative-threads.html">Creative Threads</a></li>
+                        <li><a href="mirrorx.html">MirrorX</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 AI VOGUE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Auth Status Banner (Hidden by default) -->
+    <div id="authStatusBanner" style="display: none; position: fixed; top: 80px; left: 50%; transform: translateX(-50%); z-index: 1000; background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 1rem 2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); animation: slideDown 0.3s ease;">
+        <p id="authStatusText" style="margin: 0; font-weight: 600;"></p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/main.js?v=3" defer></script>
+    <script src="../js/global-auth.js?v=1" type="module"></script>
+    <script src="../js/pages/prismAI-appwrite.js?v=5" type="module"></script>
+    
+    <script>
+        // Auth button click handler
+        function handleAuthClick() {
+            const currentPath = window.location.pathname.split('/').pop();
+            window.location.href = `login.html?redirect=${currentPath}`;
+        }
+        
+        // Show auth status banner
+        function showAuthBanner(message, duration = 5000) {
+            const banner = document.getElementById('authStatusBanner');
+            const text = document.getElementById('authStatusText');
+            text.textContent = message;
+            banner.style.display = 'block';
+            setTimeout(() => {
+                banner.style.display = 'none';
+            }, duration);
+        }
+    </script>
+    
+    <style>
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+        
+        /* Auth Status Banners */
+        .auth-welcome-banner,
+        .auth-guest-banner {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.6s ease;
+        }
+        
+        .auth-welcome-banner {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(5, 150, 105, 0.1));
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+        
+        .auth-guest-banner {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(79, 70, 229, 0.1));
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+        
+        .welcome-content,
+        .guest-content {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .welcome-icon,
+        .guest-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .welcome-icon {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+        
+        .guest-icon {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: white;
+        }
+        
+        .welcome-text,
+        .guest-text {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .welcome-text h3,
+        .guest-text h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        
+        .welcome-text p,
+        .guest-text p {
+            margin: 0;
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .logout-btn,
+        .signin-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        
+        .logout-btn {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+        }
+        
+        .logout-btn:hover {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);
+        }
+        
+        .signin-btn {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: white;
+        }
+        
+        .signin-btn:hover {
+            background: linear-gradient(135deg, #4f46e5, #4338ca);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .welcome-content,
+            .guest-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logout-btn,
+            .signin-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</body>
+</html>
+
+

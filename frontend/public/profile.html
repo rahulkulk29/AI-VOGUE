@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - AI VOGUE</title>
+    <meta name="description" content="Manage your AI VOGUE account, orders, wishlist, and preferences.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" as="style">
+</head>
+<body class="gucci-header-page">
+    <!-- Gucci-Style Header -->
+    <header class="gucci-header">
+        <div class="gucci-header-left">
+            <a href="contact.html" class="gucci-contact-link">Contact Us</a>
+        </div>
+        
+        <div class="gucci-header-center">
+            <a href="index.html" class="gucci-logo">AI VOGUE</a>
+        </div>
+        
+        <div class="gucci-header-right">
+            <button class="gucci-icon" aria-label="Account" onclick="window.location.href='profile.html'">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </button>
+            <button class="gucci-icon gucci-search-icon" aria-label="Search">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+            </button>
+            <button class="gucci-menu-btn" aria-label="Menu">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="4" y1="6" x2="20" y2="6"></line>
+                    <line x1="4" y1="12" x2="20" y2="12"></line>
+                    <line x1="4" y1="18" x2="20" y2="18"></line>
+                </svg>
+                <span>MENU</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Gucci Overlay Background -->
+    <div class="gucci-overlay-bg"></div>
+    
+    <!-- Gucci Overlay -->
+    <div class="gucci-overlay">
+        <button class="gucci-close-btn" aria-label="Close">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        
+        <div class="gucci-overlay-search">
+            <input type="text" class="gucci-search-input" placeholder="Search AI VOGUE..." aria-label="Search products">
+        </div>
+        
+        <nav class="gucci-overlay-nav">
+            <a href="categories.html" class="gucci-nav-link">Vogue Vision</a>
+            <a href="revibe.html" class="gucci-nav-link">Revibe</a>
+            <a href="creative-threads.html" class="gucci-nav-link">Creative Threads</a>
+            <a href="mirrorx.html" class="gucci-nav-link">MirrorX</a>
+            <a href="prism-ai-appwrite.html" class="gucci-nav-link">Prism AI</a>
+            <a href="style-lease.html" class="gucci-nav-link">Style Lease</a>
+            <a href="twinfit.html" class="gucci-nav-link">TwinFit</a>
+            <a href="about.html" class="gucci-nav-link">About</a>
+            <a href="contact.html" class="gucci-nav-link">Contact</a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Profile Hero Section -->
+        <section class="profile-hero">
+            <div class="container">
+                <div class="profile-hero-content">
+                    <div class="profile-avatar-section">
+                        <div class="profile-avatar" id="profile-avatar">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+                        <button class="avatar-upload-btn" onclick="ProfileManager.uploadAvatar()">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    <div class="profile-hero-info">
+                        <h1 class="profile-name" id="profile-name">Loading...</h1>
+                        <p class="profile-email" id="profile-email">Loading...</p>
+                        <div class="profile-tier">
+                            <span class="tier-badge" id="tier-badge">Silver Member</span>
+                            <span class="reward-points" id="reward-points">0 Points</span>
+                        </div>
+                    </div>
+                    <button class="profile-logout-btn" onclick="ProfileManager.logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Sign Out</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Menu Grid -->
+        <section class="profile-menu-section">
+            <div class="container">
+                <div class="profile-menu-grid">
+                    <!-- Profile Info -->
+                    <button class="profile-menu-card" data-modal="profile-info">
+                        <div class="menu-card-icon">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <h3 class="menu-card-title">Profile Information</h3>
+                        <p class="menu-card-description">View and manage your personal details</p>
+                        <i class="fas fa-chevron-right menu-card-arrow"></i>
+                    </button>
+
+                    <!-- Orders -->
+                    <button class="profile-menu-card" data-modal="orders">
+                        <div class="menu-card-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <h3 class="menu-card-title">My Orders</h3>
+                        <p class="menu-card-description">Track and review your order history</p>
+                        <i class="fas fa-chevron-right menu-card-arrow"></i>
+                    </button>
+
+                    <!-- Wishlist -->
+                    <button class="profile-menu-card" data-modal="wishlist">
+                        <div class="menu-card-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3 class="menu-card-title">Wishlist</h3>
+                        <p class="menu-card-description">Items you've saved for later</p>
+                        <i class="fas fa-chevron-right menu-card-arrow"></i>
+                    </button>
+
+                    <!-- Edit Profile -->
+                    <button class="profile-menu-card" data-modal="edit-profile">
+                        <div class="menu-card-icon">
+                            <i class="fas fa-edit"></i>
+                        </div>
+                        <h3 class="menu-card-title">Edit Profile</h3>
+                        <p class="menu-card-description">Update your account information</p>
+                        <i class="fas fa-chevron-right menu-card-arrow"></i>
+                    </button>
+
+                    <!-- Saved Addresses -->
+                    <button class="profile-menu-card" data-modal="addresses">
+                        <div class="menu-card-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3 class="menu-card-title">Saved Addresses</h3>
+                        <p class="menu-card-description">Manage your delivery addresses</p>
+                        <i class="fas fa-chevron-right menu-card-arrow"></i>
+                    </button>
+
+                    <!-- Privacy Center -->
+                    <button class="profile-menu-card" data-modal="privacy">
+                        <div class="menu-card-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="menu-card-title">Privacy Center</h3>
+                        <p class="menu-card-description">Control your privacy and data preferences</p>
+                        <i class="fas fa-chevron-right menu-card-arrow"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Profile Modals will be loaded here dynamically -->
+    <div id="profile-modals-container"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About AI VOGUE</h3>
+                <ul>
+                    <li><a href="about.html">Our Story</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="categories.html">Vogue Vision</a></li>
+                    <li><a href="mirrorx.html">MirrorX AR</a></li>
+                    <li><a href="twinfit.html">TwinFit</a></li>
+                    <li><a href="style-lease.html">Style Lease</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Policies</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Return Policy</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Stay Connected</h3>
+                <p>Subscribe to our newsletter for the latest in luxury fashion technology.</p>
+                <div class="newsletter">
+                    <input type="email" placeholder="Enter your email" aria-label="Email for newsletter">
+                    <button type="button">Subscribe</button>
+                </div>
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram">📷</a>
+                    <a href="mailto:hello@aivogue.com" aria-label="Email">✉️</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 AI VOGUE. All rights reserved. Luxury fashion technology redefined.</p>
+        </div>
+    </footer>
+
+    <!-- Modal Container -->
+    <div id="profile-modals-container"></div>
+
+    <!-- Scripts -->
+    <script src="../js/auth-check.js"></script>
+    <script type="module" src="../js/appwrite-config.js"></script>
+    <script type="module" src="../js/profile.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>
+
