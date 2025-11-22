@@ -1,6 +1,6 @@
 // AI VOGUE - Profile Page Manager
 
-import { authService, profileService } from '../appwrite-config.js';
+import { authService, profileService } from '../appwrite-config.js?v=7';
 
 let currentUser = null;
 let userProfile = null;
@@ -13,6 +13,11 @@ class ProfileManagerClass {
     }
 
     async init() {
+        // Wait for global auth if available to ensure centralized login state is ready
+        if (window.waitForAuth) {
+            try { await window.waitForAuth(); } catch (e) { /* no-op */ }
+        }
+
         // Check authentication
         const isAuth = await authService.isAuthenticated();
         if (!isAuth) {
@@ -51,29 +56,55 @@ class ProfileManagerClass {
             this.updateProfileUI();
         } catch (error) {
             console.error('Load profile error:', error);
-            this.showMessage('Failed to load profile. Please refresh the page.', 'error');
+            this.showMessage('Failed to load profile from database. Showing basic account info.', 'error');
+
+            // Fallback: render from auth user so page is usable
+            try {
+                currentUser = currentUser || await authService.getCurrentUser();
+            } catch (_) {}
+
+            if (currentUser) {
+                const parts = (currentUser.name || '').split(' ');
+                const firstName = parts[0] || '';
+                const lastName = parts.slice(1).join(' ') || '';
+
+                userProfile = {
+                    firstName,
+                    lastName,
+                    email: currentUser.email,
+                    membershipTier: 'Silver',
+                    rewardPoints: 0,
+                    avatar: ''
+                };
+                this.updateProfileUI();
+            }
         }
     }
 
     updateProfileUI() {
         const nameEl = document.getElementById('profile-name');
         if (nameEl) {
-            nameEl.textContent = `${userProfile.firstName} ${userProfile.lastName}`;
+            const fallbackName = (userProfile.firstName || userProfile.lastName)
+                ? `${userProfile.firstName || ''} ${userProfile.lastName || ''}`.trim()
+                : (currentUser?.name || currentUser?.email?.split('@')[0] || 'User');
+            nameEl.textContent = fallbackName;
         }
 
         const emailEl = document.getElementById('profile-email');
         if (emailEl) {
-            emailEl.textContent = userProfile.email;
+            emailEl.textContent = userProfile.email || currentUser?.email || '';
         }
 
         const tierEl = document.getElementById('tier-badge');
         if (tierEl) {
-            tierEl.textContent = `${userProfile.membershipTier} Member`;
+            const tier = userProfile.membershipTier || 'Silver';
+            tierEl.textContent = `${tier} Member`;
         }
 
         const pointsEl = document.getElementById('reward-points');
         if (pointsEl) {
-            pointsEl.textContent = `${userProfile.rewardPoints} Points`;
+            const points = typeof userProfile.rewardPoints === 'number' ? userProfile.rewardPoints : 0;
+            pointsEl.textContent = `${points} Points`;
         }
 
         if (userProfile.avatar) {
@@ -213,7 +244,7 @@ class ProfileManagerClass {
                     <div class="profile-form-group">
                         <label class="profile-form-label">Member Since</label>
                         <div class="profile-form-input" style="background: white; cursor: default;">
-                            ${new Date(userProfile.createdAt).toLocaleDateString('en-US', { 
+                            ${new Date(userProfile.$createdAt || userProfile.createdAt || Date.now()).toLocaleDateString('en-US', { 
                                 year: 'numeric', 
                                 month: 'long', 
                                 day: 'numeric' 

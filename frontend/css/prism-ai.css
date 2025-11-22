@@ -1,20 +1,21 @@
 /* Prism AI - Glassmorphism & Premium UI Styles */
 
-/* Additional Color Variables for Prism AI - Extends existing root variables */
+/* Root Variables */
 :root {
     --color-primary: #6366f1;
     --color-secondary: #8b5cf6;
     --color-success: #10b981;
     --color-warning: #f59e0b;
     --color-error: #ef4444;
+    --color-dark-green: #065f46;
     --color-light: #f8fafc;
-    --color-accent-dark: #1e293b;
+    --color-dark: #1e293b;
     --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
     --glass-bg: rgba(255, 255, 255, 0.1);
     --glass-border: rgba(255, 255, 255, 0.2);
-    --shadow-light-prism: 0 8px 32px rgba(31, 38, 135, 0.37);
-    --shadow-heavy-prism: 0 20px 40px rgba(0, 0, 0, 0.1);
+    --shadow-light: 0 8px 32px rgba(31, 38, 135, 0.37);
+    --shadow-heavy: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
 /* Base Styles */
@@ -24,11 +25,11 @@
     box-sizing: border-box;
 }
 
-body.prism-ai-page {
+body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--color-white);
+    background: var(--gradient-primary);
     min-height: 100vh;
-    color: var(--color-black);
+    color: var(--color-dark);
     line-height: 1.6;
 }
 
@@ -943,7 +944,7 @@ section.active {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(25, 80, 66, 0.95), rgba(0, 0, 0, 0.9));
+    background: linear-gradient(135deg, rgba(6, 95, 70, 0.95), rgba(0, 0, 0, 0.9));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -982,7 +983,7 @@ section.active {
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #91855a, #1d3937, #2a5a52, #91855a);
+    background: linear-gradient(90deg, #FFD700, #065f46, #10b981, #FFD700);
     border-radius: 24px 24px 0 0;
 }
 
@@ -997,12 +998,12 @@ section.active {
 }
 
 .modal-content::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #1d3937, #2a5a52);
+    background: linear-gradient(180deg, #065f46, #10b981);
     border-radius: 10px;
 }
 
 .modal-content::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #195042, #1f4f45);
+    background: linear-gradient(180deg, #064e3b, #059669);
 }
 
 .modal-overlay.active .modal-content {
@@ -1018,12 +1019,12 @@ section.active {
 }
 
 .quiz-header h2 {
-    color: #1d3937;
+    color: #065f46;
     margin-bottom: 0.75rem;
     font-size: 2.25rem;
     font-weight: 700;
     letter-spacing: -0.02em;
-    background: linear-gradient(135deg, #1d3937, #2a5a52);
+    background: linear-gradient(135deg, #065f46, #10b981);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1048,16 +1049,16 @@ section.active {
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #1d3937, #2a5a52, #91855a);
+    background: linear-gradient(90deg, #065f46, #10b981, #FFD700);
     width: 12.5%;
     transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: 3px;
-    box-shadow: 0 0 10px rgba(29, 57, 55, 0.4);
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
 }
 
 .progress-text {
     font-size: 0.95rem;
-    color: #1d3937;
+    color: #065f46;
     font-weight: 600;
 }
 
@@ -1072,7 +1073,7 @@ section.active {
 }
 
 .question-card h3 {
-    color: #1d3937;
+    color: #065f46;
     margin-bottom: 2rem;
     font-size: 1.65rem;
     font-weight: 700;
@@ -1104,27 +1105,27 @@ section.active {
 }
 
 .answer-btn:focus {
-    outline: 3px solid #91855a;
+    outline: 3px solid #FFD700;
     outline-offset: 2px;
-    box-shadow: 0 0 0 2px rgba(145, 133, 90, 0.3);
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.3);
 }
 
 .answer-btn:hover,
 .answer-btn:focus-visible {
     transform: translateY(-3px);
-    border-color: #91855a;
+    border-color: #FFD700;
     background: #f9fafb;
-    box-shadow: 0 8px 20px rgba(145, 133, 90, 0.25),
-                0 0 0 1px #91855a;
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.25),
+                0 0 0 1px #FFD700;
 }
 
 .answer-btn.selected {
-    background: linear-gradient(135deg, #1d3937, #2a5a52);
+    background: linear-gradient(135deg, #065f46, #10b981);
     color: white;
-    border-color: #1d3937;
+    border-color: #065f46;
     transform: scale(1.02);
-    box-shadow: 0 8px 24px rgba(29, 57, 55, 0.35),
-                0 0 0 2px #91855a;
+    box-shadow: 0 8px 24px rgba(6, 95, 70, 0.35),
+                0 0 0 2px #FFD700;
 }
 
 .answer-btn i {
@@ -1145,9 +1146,9 @@ section.active {
 
 .nav-btn {
     padding: 1rem 2.5rem;
-    border: 2px solid #1d3937;
+    border: 2px solid #065f46;
     background: #ffffff;
-    color: #1d3937;
+    color: #065f46;
     border-radius: 12px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1158,16 +1159,16 @@ section.active {
 }
 
 .nav-btn:focus {
-    outline: 3px solid #91855a;
+    outline: 3px solid #FFD700;
     outline-offset: 2px;
-    box-shadow: 0 0 0 2px rgba(145, 133, 90, 0.3);
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.3);
 }
 
 .nav-btn:hover:not(:disabled) {
-    background: #1d3937;
+    background: #065f46;
     color: white;
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(29, 57, 55, 0.3);
+    box-shadow: 0 6px 16px rgba(6, 95, 70, 0.3);
 }
 
 .nav-btn:disabled {
@@ -2123,4 +2124,27 @@ section.active {
         transition: none !important;
         animation: none !important;
     }
-}
+}/ *   C l o s e   B u t t o n   * /  
+ . c l o s e - b t n   {  
+         p o s i t i o n :   a b s o l u t e ;  
+         t o p :   1 r e m ;  
+         r i g h t :   1 r e m ;  
+         b a c k g r o u n d :   r g b a ( 2 5 5 ,   2 5 5 ,   2 5 5 ,   0 . 1 ) ;  
+         b o r d e r :   n o n e ;  
+         c o l o r :   w h i t e ;  
+         w i d t h :   3 2 p x ;  
+         h e i g h t :   3 2 p x ;  
+         b o r d e r - r a d i u s :   5 0 % ;  
+         c u r s o r :   p o i n t e r ;  
+         d i s p l a y :   f l e x ;  
+         a l i g n - i t e m s :   c e n t e r ;  
+         j u s t i f y - c o n t e n t :   c e n t e r ;  
+         t r a n s i t i o n :   a l l   0 . 3 s   e a s e ;  
+         z - i n d e x :   1 0 ;  
+ }  
+  
+ . c l o s e - b t n : h o v e r   {  
+         b a c k g r o u n d :   r g b a ( 2 5 5 ,   2 5 5 ,   2 5 5 ,   0 . 2 ) ;  
+         t r a n s f o r m :   r o t a t e ( 9 0 d e g ) ;  
+ }  
+ 

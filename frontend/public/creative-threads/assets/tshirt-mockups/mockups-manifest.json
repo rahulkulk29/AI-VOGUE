@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Background",
+    "filename": "background",
+    "png": "background.png",
+    "webp": "background.webp",
+    "width": 1200,
+    "height": 736,
+    "original_bbox": [
+      0,
+      0,
+      11442,
+      7027
+    ]
+  },
+  {
+    "name": "white",
+    "filename": "white",
+    "png": "white.png",
+    "webp": "white.webp",
+    "width": 1200,
+    "height": 903,
+    "original_bbox": [
+      -2078,
+      0,
+      7922,
+      7532
+    ]
+  },
+  {
+    "name": "Black",
+    "filename": "black",
+    "png": "black.png",
+    "webp": "black.webp",
+    "width": 1200,
+    "height": 903,
+    "original_bbox": [
+      3362,
+      0,
+      13362,
+      7532
+    ]
+  }
+]

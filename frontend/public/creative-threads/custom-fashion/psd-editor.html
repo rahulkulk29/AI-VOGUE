@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSD Editor - AI VOGUE Custom Fashion</title>
+    <meta name="description" content="Edit PSD files directly in your browser with full Photoshop-like capabilities.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../../../assets/favicon.ico">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../../../css/styles.css">
+    <link rel="stylesheet" href="assets/custom-fash.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .psd-editor-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1a1a1a;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .psd-editor-header {
+            background: var(--color-dark-green);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .psd-editor-title {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .psd-editor-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .psd-editor-btn {
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .psd-editor-btn-save {
+            background: var(--color-gold);
+            color: var(--color-dark-green);
+        }
+
+        .psd-editor-btn-save:hover {
+            background: #a89660;
+            transform: translateY(-2px);
+        }
+
+        .psd-editor-btn-close {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .psd-editor-btn-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .psd-editor-iframe {
+            flex: 1;
+            border: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .psd-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+        }
+
+        .psd-loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top-color: var(--color-gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .psd-info {
+            background: rgba(145, 133, 90, 0.1);
+            border-left: 4px solid var(--color-gold);
+            padding: 1rem;
+            margin: 1rem 2rem;
+            color: white;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="psd-editor-container" id="psdEditorContainer">
+        <div class="psd-editor-header">
+            <h1 class="psd-editor-title">
+                <i class="fas fa-layer-group"></i> PSD Editor
+            </h1>
+            <div class="psd-editor-actions">
+                <button class="psd-editor-btn psd-editor-btn-save" onclick="saveEditedFile()">
+                    <i class="fas fa-save"></i> Save & Upload
+                </button>
+                <button class="psd-editor-btn psd-editor-btn-close" onclick="closeEditor()">
+                    <i class="fas fa-times"></i> Close
+                </button>
+            </div>
+        </div>
+
+        <div class="psd-info">
+            <strong>💡 Tip:</strong> This is a full-featured PSD editor. You can edit layers, add text, apply filters,
+            and more.
+            Click "Save & Upload" when done to save your changes back to the order.
+        </div>
+
+        <div class="psd-loading" id="psdLoading">
+            <div class="psd-loading-spinner"></div>
+            <p>Loading PSD Editor...</p>
+        </div>
+
+        <iframe id="psdEditorIframe" class="psd-editor-iframe" style="display: none;"
+            allow="clipboard-read; clipboard-write"></iframe>
+    </div>
+
+    <!-- Appwrite SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.1"></script>
+    <script src="assets/custom-fash.js"></script>
+
+    <script>
+        /**
+         * Photopea PSD Editor Integration
+         * 
+         * This script integrates Photopea (online Photoshop alternative) 
+         * to enable full PSD editing in the browser.
+         */
+
+        let photopeaWindow = null;
+        let currentFileId = null;
+        let currentOrderId = null;
+        let originalFileName = null;
+
+        // Get parameters from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const fileId = urlParams.get('fileId');
+        const orderId = urlParams.get('orderId');
+        const fileName = urlParams.get('fileName') || 'design.psd';
+
+        currentFileId = fileId;
+        currentOrderId = orderId;
+        originalFileName = fileName;
+
+        /**
+         * Initialize Photopea with PSD file
+         */
+        async function initPhotopea() {
+            try {
+                const iframe = document.getElementById('psdEditorIframe');
+                const loading = document.getElementById('psdLoading');
+
+                // If fileId provided, load the file from Appwrite
+                let fileUrl = null;
+                if (fileId) {
+                    // Get file URL from Appwrite Storage
+                    const fileView = await customFashionAPI.storage.getFileView(
+                        'deliverables', // bucket ID
+                        fileId
+                    );
+                    fileUrl = fileView.href;
+                }
+
+                // Photopea configuration
+                const photopeaConfig = {
+                    files: fileUrl ? [fileUrl] : [],
+                    environment: {
+                        // Customize Photopea UI
+                        theme: 'dark',
+                        lang: 'en',
+                        // Enable features
+                        enableClipboard: true,
+                        enableFileSystem: true
+                    },
+                    script: `
+                        // Optional: Run custom Photoshop script on load
+                        // app.activeDocument.activeLayer.name = "AI VOGUE Design";
+                    `
+                };
+
+                // Build Photopea URL with config
+                const photopeaUrl = 'https://www.photopea.com' +
+                    (fileUrl ? `#${encodeURIComponent(JSON.stringify(photopeaConfig))}` : '');
+
+                // Load Photopea in iframe
+                iframe.src = photopeaUrl;
+
+                // Hide loading when iframe loads
+                iframe.onload = () => {
+                    loading.style.display = 'none';
+                    iframe.style.display = 'block';
+                    photopeaWindow = iframe.contentWindow;
+                };
+
+                // Listen for messages from Photopea
+                window.addEventListener('message', handlePhotopeaMessage);
+
+            } catch (error) {
+                console.error('Error initializing Photopea:', error);
+                alert('Error loading PSD editor: ' + error.message);
+            }
+        }
+
+        /**
+         * Handle messages from Photopea iframe
+         */
+        function handlePhotopeaMessage(event) {
+            // Only accept messages from Photopea
+            if (event.origin !== 'https://www.photopea.com') return;
+
+            const message = event.data;
+            console.log('Photopea message:', message);
+
+            // Handle different message types
+            if (typeof message === 'string') {
+                try {
+                    const data = JSON.parse(message);
+
+                    // File saved event
+                    if (data.event === 'saved') {
+                        console.log('File saved in Photopea');
+                    }
+                } catch (e) {
+                    // Not JSON, ignore
+                }
+            }
+        }
+
+        /**
+         * Save edited file and upload to Appwrite
+         */
+        async function saveEditedFile() {
+            try {
+                const saveBtn = document.querySelector('.psd-editor-btn-save');
+                saveBtn.disabled = true;
+                saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+                // Request Photopea to save file as PSD
+                const script = `
+                    // Save as PSD
+                    var doc = app.activeDocument;
+                    var psd = doc.saveToOE("psd");
+                    psd; // Return the PSD data
+                `;
+
+                // Send script to Photopea
+                photopeaWindow.postMessage(script, '*');
+
+                // Wait for response with file data
+                const fileData = await new Promise((resolve, reject) => {
+                    const timeout = setTimeout(() => reject(new Error('Timeout')), 30000);
+
+                    const handler = (event) => {
+                        if (event.origin !== 'https://www.photopea.com') return;
+
+                        // Check if this is the PSD data response
+                        if (event.data instanceof ArrayBuffer) {
+                            clearTimeout(timeout);
+                            window.removeEventListener('message', handler);
+                            resolve(event.data);
+                        }
+                    };
+
+                    window.addEventListener('message', handler);
+                });
+
+                // Convert ArrayBuffer to File
+                const blob = new Blob([fileData], { type: 'application/octet-stream' });
+                const file = new File([blob], originalFileName, { type: 'application/octet-stream' });
+
+                // Upload to Appwrite
+                const uploadedFile = await customFashionAPI.uploadDeliverable(
+                    currentOrderId,
+                    file,
+                    (progress) => {
+                        saveBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Uploading ${progress}%...`;
+                    }
+                );
+
+                alert('✅ PSD file saved and uploaded successfully!');
+
+                // Redirect back to order page
+                window.location.href = `order.html?id=${currentOrderId}`;
+
+            } catch (error) {
+                console.error('Error saving file:', error);
+                alert('Error saving file: ' + error.message);
+
+                const saveBtn = document.querySelector('.psd-editor-btn-save');
+                saveBtn.disabled = false;
+                saveBtn.innerHTML = '<i class="fas fa-save"></i> Save & Upload';
+            }
+        }
+
+        /**
+         * Close editor
+         */
+        function closeEditor() {
+            if (confirm('Are you sure you want to close? Unsaved changes will be lost.')) {
+                if (currentOrderId) {
+                    window.location.href = `order.html?id=${currentOrderId}`;
+                } else {
+                    window.history.back();
+                }
+            }
+        }
+
+        // Initialize on page load
+        initPhotopea();
+
+        // Warn before closing
+        window.addEventListener('beforeunload', (e) => {
+            e.preventDefault();
+            e.returnValue = '';
+        });
+    </script>
+</body>
+
+</html>

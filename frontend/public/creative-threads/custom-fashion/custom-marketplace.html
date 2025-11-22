@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Fashion Designer Marketplace - AI VOGUE</title>
+    <meta name="description"
+        content="Connect with talented fashion designers for custom creations. Post your request, receive quotes, and bring your fashion vision to life.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../../../assets/favicon.ico">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../../../css/styles.css">
+    <link rel="stylesheet" href="assets/custom-fash.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Appwrite SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.1"></script>
+</head>
+
+<body class="gucci-header-page">
+    <!-- Gucci-Style Header -->
+    <header class="gucci-header">
+        <div class="gucci-header-left">
+            <a href="../../../contact.html" class="gucci-contact-link">Contact Us</a>
+        </div>
+
+        <div class="gucci-header-center">
+            <a href="../../../index.html" class="gucci-logo">AI VOGUE</a>
+        </div>
+
+        <div class="gucci-header-right">
+            <button class="gucci-icon account-link" aria-label="Account"
+                onclick="window.location.href='../../../profile.html'">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </button>
+            <button class="gucci-icon gucci-search-icon" aria-label="Search">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+            </button>
+            <button class="gucci-menu-btn" aria-label="Menu">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="4" y1="6" x2="20" y2="6"></line>
+                    <line x1="4" y1="12" x2="20" y2="12"></line>
+                    <line x1="4" y1="18" x2="20" y2="18"></line>
+                </svg>
+                <span>MENU</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Gucci Overlay Background -->
+    <div class="gucci-overlay-bg"></div>
+
+    <!-- Gucci Overlay -->
+    <div class="gucci-overlay">
+        <button class="gucci-close-btn" aria-label="Close">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+
+        <div class="gucci-overlay-search">
+            <input type="text" class="gucci-search-input" placeholder="Search AI VOGUE..." aria-label="Search products">
+        </div>
+
+        <nav class="gucci-overlay-nav">
+            <a href="../../../categories.html" class="gucci-nav-link">Vogue Vision</a>
+            <a href="../../../revibe.html" class="gucci-nav-link">Revibe</a>
+            <a href="../../../creative-threads.html" class="gucci-nav-link">Creative Threads</a>
+            <a href="custom-marketplace.html" class="gucci-nav-link">Custom Fashion</a>
+            <a href="../../../mirrorx.html" class="gucci-nav-link">MirrorX</a>
+            <a href="../../../prism-ai-appwrite.html" class="gucci-nav-link">Prism AI</a>
+            <a href="../../../style-lease.html" class="gucci-nav-link">Style Lease</a>
+            <a href="../../../twinfit.html" class="gucci-nav-link">TwinFit</a>
+            <a href="../../../about.html" class="gucci-nav-link">About</a>
+            <a href="../../../contact.html" class="gucci-nav-link">Contact</a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <main class="cf-page">
+        <!-- Hero Section -->
+        <section class="cf-hero">
+            <div class="cf-container">
+                <h1 class="cf-hero-title fade-in">Custom Fashion Designer Marketplace</h1>
+                <p class="cf-hero-subtitle fade-in">Connect with talented designers to bring your unique fashion vision
+                    to life. Post your custom request, receive professional quotes, and collaborate on your dream
+                    outfit.</p>
+
+                <div class="cf-hero-cta fade-in">
+                    <a href="post-request.html" class="cf-btn cf-btn-primary cf-btn-lg">
+                        <i class="fas fa-plus-circle"></i> Post Custom Request
+                    </a>
+                    <a href="designer-dashboard.html" class="cf-btn cf-btn-secondary cf-btn-lg">
+                        <i class="fas fa-palette"></i> Browse as Designer
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works -->
+        <section style="padding: 4rem 0; background-color: var(--color-white);">
+            <div class="cf-container">
+                <h2 class="section-title">How It Works</h2>
+
+                <div class="cf-grid cf-grid-4">
+                    <div class="cf-card" style="text-align: center;">
+                        <div class="feature-icon" style="margin: 0 auto 1.5rem;">
+                            <i class="fas fa-pencil-alt" style="font-size: 2rem;"></i>
+                        </div>
+                        <h3 style="color: var(--color-dark-green); margin-bottom: 1rem;">1. Post Your Request</h3>
+                        <p class="cf-text-muted">Describe your custom fashion idea, upload reference images, and set
+                            your budget.</p>
+                    </div>
+
+                    <div class="cf-card" style="text-align: center;">
+                        <div class="feature-icon" style="margin: 0 auto 1.5rem;">
+                            <i class="fas fa-users" style="font-size: 2rem;"></i>
+                        </div>
+                        <h3 style="color: var(--color-dark-green); margin-bottom: 1rem;">2. Receive Quotes</h3>
+                        <p class="cf-text-muted">Verified designers review your request and send detailed quotes with
+                            pricing and timelines.</p>
+                    </div>
+
+                    <div class="cf-card" style="text-align: center;">
+                        <div class="feature-icon" style="margin: 0 auto 1.5rem;">
+                            <i class="fas fa-handshake" style="font-size: 2rem;"></i>
+                        </div>
+                        <h3 style="color: var(--color-dark-green); margin-bottom: 1rem;">3. Choose & Pay</h3>
+                        <p class="cf-text-muted">Select your favorite designer, make secure payment, and funds are held
+                            in escrow.</p>
+                    </div>
+
+                    <div class="cf-card" style="text-align: center;">
+                        <div class="feature-icon" style="margin: 0 auto 1.5rem;">
+                            <i class="fas fa-check-circle" style="font-size: 2rem;"></i>
+                        </div>
+                        <h3 style="color: var(--color-dark-green); margin-bottom: 1rem;">4. Get Your Design</h3>
+                        <p class="cf-text-muted">Designer delivers your custom creation. Accept it and funds are
+                            released automatically.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Browse Open Requests -->
+        <section style="padding: 4rem 0; background-color: var(--color-gray-light);">
+            <div class="cf-container">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <h2 class="section-title" style="margin-bottom: 0;">Open Requests</h2>
+                    <div style="display: flex; gap: 1rem;">
+                        <select id="filterOccasion" class="cf-select" style="width: auto;">
+                            <option value="">All Occasions</option>
+                            <option value="wedding">Wedding</option>
+                            <option value="party">Party</option>
+                            <option value="casual">Casual</option>
+                            <option value="formal">Formal</option>
+                            <option value="traditional">Traditional</option>
+                        </select>
+                        <select id="filterBudget" class="cf-select" style="width: auto;">
+                            <option value="">All Budgets</option>
+                            <option value="0-5000">Under ₹5,000</option>
+                            <option value="5000-10000">₹5,000 - ₹10,000</option>
+                            <option value="10000-25000">₹10,000 - ₹25,000</option>
+                            <option value="25000-999999">Above ₹25,000</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="requestsGrid" class="cf-grid cf-grid-3">
+                    <!-- Requests will be loaded here dynamically -->
+                    <div class="cf-loading">
+                        <div class="cf-spinner"></div>
+                    </div>
+                </div>
+
+                <div id="emptyState" class="cf-empty cf-hidden">
+                    <div class="cf-empty-icon">📋</div>
+                    <h3 class="cf-empty-title">No Requests Found</h3>
+                    <p class="cf-empty-text">Be the first to post a custom fashion request!</p>
+                    <a href="post-request.html" class="cf-btn cf-btn-primary">Post Request</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us -->
+        <section style="padding: 4rem 0; background-color: var(--color-white);">
+            <div class="cf-container">
+                <h2 class="section-title">Why Choose Our Marketplace</h2>
+
+                <div class="cf-grid cf-grid-3">
+                    <div class="cf-card">
+                        <i class="fas fa-shield-alt"
+                            style="font-size: 2.5rem; color: var(--color-gold); margin-bottom: 1rem;"></i>
+                        <h3 style="color: var(--color-dark-green); margin-bottom: 1rem;">Secure Escrow</h3>
+                        <p class="cf-text-muted">Your payment is held securely until you're completely satisfied with
+                            the deliverables. Full buyer protection.</p>
+                    </div>
+
+                    <div class="cf-card">
+                        <i class="fas fa-user-check"
+                            style="font-size: 2.5rem; color: var(--color-gold); margin-bottom: 1rem;"></i>
+                        <h3 style="color: var(--color-dark-green); margin-bottom: 1rem;">Verified Designers</h3>
+                        <p class="cf-text-muted">All designers are vetted and approved by our team. View portfolios,
+                            ratings, and past work before choosing.</p>
+                    </div>
+
+                    <div class="cf-card">
+                        <i class="fas fa-redo-alt"
+                            style="font-size: 2.5rem; color: var(--color-gold); margin-bottom: 1rem;"></i>
+                        <h3 style="color: var(--color-dark-green); margin-bottom: 1rem;">Free Revisions</h3>
+                        <p class="cf-text-muted">Every order includes 2 free revisions. Work with your designer until
+                            it's perfect.</p>
+                    </div>
+
+                    <div class="cf-card">
+                        <i class="fas fa-comments"
+                            style="font-size: 2.5rem; color: var(--color-gold); margin-bottom: 1rem;"></i>
+                        <h3 style="color: var(--color-dark-green); margin-bottom: 1rem;">Direct Communication</h3>
+                        <p class="cf-text-muted">Message designers directly or contact via WhatsApp for real-time
+                            collaboration.</p>
+                    </div>
+
+                    <div class="cf-card">
+                        <i class="fas fa-rupee-sign"
+                            style="font-size: 2.5rem; color: var(--color-gold); margin-bottom: 1rem;"></i>
+                        <h3 style="color: var(--color-dark-green); margin-bottom: 1rem;">Transparent Pricing</h3>
+                        <p class="cf-text-muted">No hidden fees. Platform fee of only 5.5% on designer earnings. You pay
+                            what you see.</p>
+                    </div>
+
+                    <div class="cf-card">
+                        <i class="fas fa-file-download"
+                            style="font-size: 2.5rem; color: var(--color-gold); margin-bottom: 1rem;"></i>
+                        <h3 style="color: var(--color-dark-green); margin-bottom: 1rem;">High-Quality Files</h3>
+                        <p class="cf-text-muted">Receive design files up to 100MB in formats like PSD, AI, PDF, and
+                            high-res images.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section
+            style="padding: 6rem 2rem; background: linear-gradient(135deg, var(--color-dark-green) 0%, var(--color-deep-green) 100%); text-align: center; color: var(--color-white);">
+            <div class="cf-container-narrow">
+                <h2
+                    style="font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1.5rem; color: var(--color-white);">
+                    Ready to Create Something Unique?</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 2.5rem; opacity: 0.9;">Join thousands of satisfied customers
+                    who brought their fashion dreams to life.</p>
+
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="post-request.html" class="cf-btn cf-btn-lg"
+                        style="background-color: var(--color-white); color: var(--color-dark-green); border-color: var(--color-white);">
+                        <i class="fas fa-rocket"></i> Get Started Now
+                    </a>
+                    <a href="designer-dashboard.html" class="cf-btn cf-btn-lg"
+                        style="background-color: transparent; color: var(--color-white); border-color: var(--color-white);">
+                        <i class="fas fa-user-tie"></i> Join as Designer
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About AI VOGUE</h3>
+                <ul>
+                    <li><a href="../../../about.html">Our Story</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="../../../categories.html">Vogue Vision</a></li>
+                    <li><a href="../../../mirrorx.html">MirrorX AR</a></li>
+                    <li><a href="../../../twinfit.html">TwinFit</a></li>
+                    <li><a href="../../../style-lease.html">Style Lease</a></li>
+                    <li><a href="custom-marketplace.html">Custom Fashion</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Policies</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Return Policy</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Stay Connected</h3>
+                <p>Subscribe to our newsletter for the latest in luxury fashion technology.</p>
+                <div class="newsletter">
+                    <input type="email" placeholder="Enter your email" aria-label="Email for newsletter">
+                    <button type="button">Subscribe</button>
+                </div>
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram">📷</a>
+                    <a href="mailto:hello@aivogue.com" aria-label="Email">✉️</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 AI VOGUE. All rights reserved. Luxury fashion technology redefined.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../../../js/main.js"></script>
+    <script src="assets/custom-fash.js"></script>
+    <script>
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadOpenRequests();
+
+            // Filter listeners
+            document.getElementById('filterOccasion').addEventListener('change', filterRequests);
+            document.getElementById('filterBudget').addEventListener('change', filterRequests);
+        });
+
+        let allRequests = [];
+
+        async function loadOpenRequests() {
+            try {
+                const response = await customFashionAPI.getOpenRequests(50);
+                allRequests = response.documents;
+
+                if (allRequests.length === 0) {
+                    document.getElementById('requestsGrid').classList.add('cf-hidden');
+                    document.getElementById('emptyState').classList.remove('cf-hidden');
+                    return;
+                }
+
+                renderRequests(allRequests);
+            } catch (error) {
+                console.error('Error loading requests:', error);
+                document.getElementById('requestsGrid').innerHTML = `
+                    <div class="cf-empty">
+                        <div class="cf-empty-icon">⚠️</div>
+                        <h3 class="cf-empty-title">Error Loading Requests</h3>
+                        <p class="cf-empty-text">${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function renderRequests(requests) {
+            const grid = document.getElementById('requestsGrid');
+
+            if (requests.length === 0) {
+                grid.innerHTML = `
+                    <div class="cf-empty">
+                        <div class="cf-empty-icon">🔍</div>
+                        <h3 class="cf-empty-title">No Matching Requests</h3>
+                        <p class="cf-empty-text">Try adjusting your filters.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = requests.map(request => `
+                <div class="cf-card">
+                    <div class="cf-card-header">
+                        <div>
+                            <h3 class="cf-card-title">${escapeHtml(request.title)}</h3>
+                            <div class="cf-card-meta">
+                                ${request.occasion ? `<span><i class="fas fa-tag"></i> ${escapeHtml(request.occasion)}</span>` : ''}
+                                <span><i class="fas fa-clock"></i> ${getTimeAgo(request.created_at)}</span>
+                            </div>
+                        </div>
+                        <span class="cf-badge cf-badge-open">${request.status}</span>
+                    </div>
+                    
+                    <div class="cf-card-body">
+                        <p class="cf-text-muted" style="margin-bottom: 1rem;">${truncateText(request.description, 120)}</p>
+                        
+                        ${request.ref_images && request.ref_images.length > 0 ? `
+                            <div class="cf-gallery" style="margin-bottom: 1rem;">
+                                ${request.ref_images.slice(0, 3).map(imgId => `
+                                    <div class="cf-gallery-item">
+                                        <img src="${customFashionAPI.getFilePreview(appwriteConfig.buckets.requestImages, imgId, 200, 200)}" alt="Reference">
+                                    </div>
+                                `).join('')}
+                            </div>
+                        ` : ''}
+                        
+                        <div class="cf-budget">
+                            <i class="fas fa-rupee-sign"></i>
+                            <span class="cf-budget-range">
+                                ${customFashionAPI.formatCurrency(request.budget_min)} - ${customFashionAPI.formatCurrency(request.budget_max)}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="cf-card-footer">
+                        ${request.deadline_date ? `<small class="cf-text-muted"><i class="fas fa-calendar"></i> Deadline: ${new Date(request.deadline_date).toLocaleDateString('en-IN')}</small>` : '<span></span>'}
+                        <a href="request-detail.html?id=${request.$id}" class="cf-btn cf-btn-primary cf-btn-sm">
+                            View Details <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterRequests() {
+            const occasion = document.getElementById('filterOccasion').value;
+            const budget = document.getElementById('filterBudget').value;
+
+            let filtered = allRequests;
+
+            if (occasion) {
+                filtered = filtered.filter(r => r.occasion === occasion);
+            }
+
+            if (budget) {
+                const [min, max] = budget.split('-').map(Number);
+                filtered = filtered.filter(r => {
+                    return r.budget_min >= min && (max ? r.budget_max <= max : true);
+                });
+            }
+
+            renderRequests(filtered);
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function truncateText(text, maxLength) {
+            if (text.length <= maxLength) return escapeHtml(text);
+            return escapeHtml(text.substring(0, maxLength)) + '...';
+        }
+
+        function getTimeAgo(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const seconds = Math.floor((now - date) / 1000);
+
+            const intervals = {
+                year: 31536000,
+                month: 2592000,
+                week: 604800,
+                day: 86400,
+                hour: 3600,
+                minute: 60
+            };
+
+            for (const [unit, secondsInUnit] of Object.entries(intervals)) {
+                const interval = Math.floor(seconds / secondsInUnit);
+                if (interval >= 1) {
+                    return `${interval} ${unit}${interval > 1 ? 's' : ''} ago`;
+                }
+            }
+
+            return 'Just now';
+        }
+    </script>
+</body>
+
+</html>

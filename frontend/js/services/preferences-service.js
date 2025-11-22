@@ -1,17 +1,17 @@
 // Prism AI - Preferences Service with Appwrite Integration
 // Handles CRUD operations for user preferences with offline fallback
 
-import { databases, account, APPWRITE_CONFIG, authService } from '../appwrite-config.js';
-import { ID, Query } from 'https://cdn.jsdelivr.net/npm/appwrite@14.0.1/+esm';
+// Imports removed - using global variables from appwrite-config.js
+// const { databases, account, APPWRITE_CONFIG, authService, ID, Query } = window;
 
 class PrismPreferencesService {
     constructor() {
-        this.collectionId = APPWRITE_CONFIG.collections.user_preferences;
+        this.collectionId = window.APPWRITE_CONFIG.collections.user_preferences;
         this.cache = new Map();
         this.cacheExpiry = 5 * 60 * 1000; // 5 minutes
         this.syncQueue = [];
         this.isOnline = navigator.onLine;
-        
+
         this.setupOnlineListener();
     }
 
@@ -36,7 +36,7 @@ class PrismPreferencesService {
      */
     async getCurrentUser() {
         try {
-            return await account.get();
+            return await window.account.get();
         } catch (error) {
             console.error('User not authenticated:', error);
             return null;
@@ -50,7 +50,7 @@ class PrismPreferencesService {
      */
     async savePreferences(preferences) {
         // Quick check: if not authenticated, save to guest localStorage immediately
-        const isAuth = await authService.isAuthenticated();
+        const isAuth = await window.authService.isAuthenticated();
         if (!isAuth) {
             console.log('💾 Guest mode: Saving preferences to localStorage');
             this.saveToLocalStorage('guest', {
@@ -90,9 +90,10 @@ class PrismPreferencesService {
                     shoppingFrequency: preferences.shoppingFrequency || '',
                     occasions: preferences.occasions || '',
                     ageRange: preferences.ageRange || '',
+                    gender: preferences.gender || '',
                     // Convert arrays to comma-separated strings for Appwrite STRING fields
-                    allergens: Array.isArray(preferences.allergens) 
-                        ? preferences.allergens.join(',') 
+                    allergens: Array.isArray(preferences.allergens)
+                        ? preferences.allergens.join(',')
                         : (preferences.allergens || ''),
                     preferredIngredients: Array.isArray(preferences.preferredIngredients)
                         ? preferences.preferredIngredients.join(',')
@@ -107,24 +108,52 @@ class PrismPreferencesService {
                 const existing = await this.getPreferences(user.$id, true);
 
                 let result;
-                if (existing && existing.$id) {
-                    // Update existing document
-                    result = await databases.updateDocument(
-                        APPWRITE_CONFIG.databaseId,
-                        this.collectionId,
-                        existing.$id,
-                        preferenceData
-                    );
-                    console.log('✅ Preferences updated successfully');
-                } else {
-                    // Create new document
-                    result = await databases.createDocument(
-                        APPWRITE_CONFIG.databaseId,
-                        this.collectionId,
-                        ID.unique(),
-                        preferenceData
-                    );
-                    console.log('✅ Preferences created successfully');
+                try {
+                    if (existing && existing.$id) {
+                        // Update existing document
+                        result = await window.databases.updateDocument(
+                            window.APPWRITE_CONFIG.databaseId,
+                            this.collectionId,
+                            existing.$id,
+                            preferenceData
+                        );
+                        console.log('✅ Preferences updated successfully');
+                    } else {
+                        // Create new document
+                        result = await window.databases.createDocument(
+                            window.APPWRITE_CONFIG.databaseId,
+                            this.collectionId,
+                            window.ID.unique(),
+                            preferenceData
+                        );
+                        console.log('✅ Preferences created successfully');
+                    }
+                } catch (err) {
+                    const msg = (err && err.message) ? String(err.message) : '';
+                    // If schema rejects unknown attribute like gender, retry without it
+                    if (msg.toLowerCase().includes('invalid document structure') || msg.toLowerCase().includes('unknown attribute')) {
+                        console.warn('Schema rejected some fields, retrying without unsupported attributes');
+                        const { gender, ...withoutExtra } = preferenceData;
+                        if (existing && existing.$id) {
+                            result = await window.databases.updateDocument(
+                                window.APPWRITE_CONFIG.databaseId,
+                                this.collectionId,
+                                existing.$id,
+                                withoutExtra
+                            );
+                            console.log('✅ Preferences updated successfully (without unsupported fields)');
+                        } else {
+                            result = await window.databases.createDocument(
+                                window.APPWRITE_CONFIG.databaseId,
+                                this.collectionId,
+                                window.ID.unique(),
+                                withoutExtra
+                            );
+                            console.log('✅ Preferences created successfully (without unsupported fields)');
+                        }
+                    } else {
+                        throw err;
+                    }
                 }
 
                 // Normalize result (convert strings back to arrays)
@@ -152,7 +181,7 @@ class PrismPreferencesService {
                             userId: user.$id,
                             updatedAt: new Date().toISOString()
                         });
-                        
+
                         // Queue for later sync
                         this.queueForSync(user.$id, preferences);
                     }
@@ -174,7 +203,7 @@ class PrismPreferencesService {
     async getPreferences(userId = null, skipCache = false) {
         try {
             // Quick check: if not authenticated, return guest localStorage immediately
-            const isAuth = await authService.isAuthenticated();
+            const isAuth = await window.authService.isAuthenticated();
             if (!isAuth) {
                 const guestPrefs = this.getFromLocalStorage('guest');
                 if (guestPrefs) {
@@ -196,16 +225,21 @@ class PrismPreferencesService {
             }
 
             // Fetch from database
-            const response = await databases.listDocuments(
-                APPWRITE_CONFIG.databaseId,
+            const response = await window.databases.listDocuments(
+                window.APPWRITE_CONFIG.databaseId,
                 this.collectionId,
-                [Query.equal('userId', user.$id)]
+                [window.Query.equal('userId', user.$id)]
             );
 
             if (response.documents.length > 0) {
                 const preferences = response.documents[0];
                 // Convert comma-separated strings back to arrays
                 const normalizedPrefs = this.normalizePreferences(preferences);
+                // Merge gender from localStorage if not present in DB
+                const local = this.getFromLocalStorage(user.$id);
+                if (local && !normalizedPrefs.gender && local.gender) {
+                    normalizedPrefs.gender = local.gender;
+                }
                 this.updateCache(user.$id, normalizedPrefs);
                 this.saveToLocalStorage(user.$id, normalizedPrefs);
                 console.log('✅ Preferences loaded from database');
@@ -217,19 +251,19 @@ class PrismPreferencesService {
 
         } catch (error) {
             console.error('Error fetching preferences:', error);
-            
+
             // Fallback to localStorage
-            const isAuth = await authService.isAuthenticated();
+            const isAuth = await window.authService.isAuthenticated();
             if (!isAuth) {
                 return this.getFromLocalStorage('guest');
             }
-            
+
             const user = userId ? { $id: userId } : await this.getCurrentUser();
             if (user) {
                 console.warn('⚠️ Falling back to localStorage');
                 return this.getFromLocalStorage(user.$id);
             }
-            
+
             return this.getFromLocalStorage('guest');
         }
     }
@@ -257,8 +291,8 @@ class PrismPreferencesService {
                 updatedAt: new Date().toISOString()
             };
 
-            const result = await databases.updateDocument(
-                APPWRITE_CONFIG.databaseId,
+            const result = await window.databases.updateDocument(
+                window.APPWRITE_CONFIG.databaseId,
                 this.collectionId,
                 existing.$id,
                 updateData
@@ -289,8 +323,8 @@ class PrismPreferencesService {
 
             const existing = await this.getPreferences(user.$id, true);
             if (existing && existing.$id) {
-                await databases.deleteDocument(
-                    APPWRITE_CONFIG.databaseId,
+                await window.databases.deleteDocument(
+                    window.APPWRITE_CONFIG.databaseId,
                     this.collectionId,
                     existing.$id
                 );
@@ -359,7 +393,7 @@ class PrismPreferencesService {
             data: data,
             timestamp: Date.now()
         });
-        
+
         // Save queue to localStorage
         try {
             localStorage.setItem('prism_sync_queue', JSON.stringify(this.syncQueue));
@@ -407,13 +441,13 @@ class PrismPreferencesService {
      */
     normalizePreferences(preferences) {
         if (!preferences) return null;
-        
+
         return {
             ...preferences,
             // Convert string fields back to arrays
-            allergens: preferences.allergens 
-                ? (typeof preferences.allergens === 'string' 
-                    ? preferences.allergens.split(',').filter(Boolean) 
+            allergens: preferences.allergens
+                ? (typeof preferences.allergens === 'string'
+                    ? preferences.allergens.split(',').filter(Boolean)
                     : preferences.allergens)
                 : [],
             preferredIngredients: preferences.preferredIngredients
@@ -478,5 +512,6 @@ class PrismPreferencesService {
     }
 }
 
-// Export singleton instance
-export const preferencesService = new PrismPreferencesService();
+// Attach to window
+window.preferencesService = new PrismPreferencesService();
+console.log('✅ Preferences Service Loaded (Global Mode)');
