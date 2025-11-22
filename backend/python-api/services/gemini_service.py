@@ -13,16 +13,10 @@ logger = logging.getLogger(__name__)
 
 class GeminiService:
     def __init__(self):
-        # 🔑 DIRECT API KEY FOR TESTING - Replace with your actual key
-        self.api_key = "AIzaSyDGZdru4jUqEfaZFG9L0bmvbhpg0pVl64Q"  # ⬅️ PUT YOUR API KEY HERE
-        
-        # Try environment variable first, fallback to direct key
-        env_key = os.getenv('GEMINI_API_KEY')
-        if env_key and env_key.strip():
-            self.api_key = env_key.strip()
-            logger.info("Using Gemini API key from environment variable")
-        else:
-            logger.warning("Using direct API key from code (for testing only)")
+        # Load Gemini API key from environment variables only. No hard-coded defaults in code.
+        self.api_key = os.getenv('GEMINI_API_KEY', '').strip()
+        if not self.api_key:
+            logger.error("GEMINI_API_KEY is not set in environment variables. please set GEMINI_API_KEY in your shell or deployment environment")
         
         self.model = os.getenv('GEMINI_MODEL', 'gemini-1.5-flash')
         self.max_tokens = int(os.getenv('MAX_TOKENS', '2048'))
@@ -36,8 +30,8 @@ class GeminiService:
             'gemini-2.5-pro'         # Most capable, if the others fail
         ]
         
-        if not self.api_key or self.api_key == "YOUR_GEMINI_API_KEY_HERE":
-            raise ValueError("Please replace 'YOUR_GEMINI_API_KEY_HERE' with your actual Gemini API key in gemini_service.py")
+        if not self.api_key:
+            raise ValueError("GEMINI_API_KEY is required. Set GEMINI_API_KEY environment variable in your shell or deployment platform.")
     
     def get_recommendations(self, user_query: str, user_profile: Dict[str, Any], image_data: Optional[str] = None) -> Dict[str, Any]:
         """

@@ -1,0 +1,31 @@
+{
+  "name": "website_v5",
+  "version": "1.0.0",
+  "description": "> Imagine the look, see it in 2D, wear it in reality. Luxury tech for modern fashion journeys.",
+  "main": "newscarper.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rahulkulk29/AI-VOGUE.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rahulkulk29/AI-VOGUE/issues"
+  },
+  "homepage": "https://github.com/rahulkulk29/AI-VOGUE#readme",
+  "dependencies": {
+    "appwrite": "^21.4.0",
+    "fs-extra": "^11.3.2",
+    "node-appwrite": "^20.3.0",
+    "node-fetch": "^3.3.2",
+    "p-limit": "^7.2.0",
+    "puppeteer": "^24.30.0"
+  }
+}

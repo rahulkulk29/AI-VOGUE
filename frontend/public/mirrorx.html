@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MirrorX — Try On</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    body { margin:0; font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial; background:#111; color:#fff }
+    .topbar { display:flex; align-items:center; gap:1rem; padding:1rem; background:linear-gradient(90deg,#111,#222); }
+    .topbar .back { color:#fff; background:transparent; border:1px solid rgba(255,255,255,.12); padding:.5rem .8rem; border-radius:6px; cursor:pointer }
+    .viewer { width:100%; height:calc(100vh - 64px); display:block }
+    .ui { position:absolute; right:1rem; top:72px; background:rgba(0,0,0,.45); padding:1rem; border-radius:8px }
+    .product-meta { max-width:320px }
+    .product-meta h3 { margin:.1rem 0 .5rem }
+    .product-meta p { margin:.2rem 0; color:#ddd }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <button class="back" onclick="history.back()">← Back</button>
+    <div style="flex:1">MirrorX — 3D Try-On (Prototype)</div>
+  </div>
+  <div id="viewer" class="viewer"></div>
+  <div class="ui" id="productUI">
+    <div class="product-meta">
+      <h3 id="pname">Product</h3>
+      <p id="pprice">Price</p>
+      <p id="pbrand">Brand</p>
+      <p id="pplatform">Platform</p>
+      <p><a id="buyLink" href="#" target="_blank">Open product page</a></p>
+    </div>
+    <div style="margin-top:1rem;">
+      <p id="statusMessage" style="margin:0 0 .5rem; font-size:.9rem; color:#ccc;">
+        Loading your try-on photo...
+      </p>
+      <img id="faceImage" alt="Your try-on photo" style="max-width:260px; border-radius:12px; border:1px solid rgba(255,255,255,.2);" />
+    </div>
+  </div>
+
+  <!-- Appwrite config and simple face image viewer -->
+  <script type="module" src="../js/appwrite-config.js"></script>
+  <script>
+    (function(){
+      const saved = localStorage.getItem('vogue_selected_product');
+      let product = null;
+      try { product = saved ? JSON.parse(saved) : null; } catch(e) { console.warn('Invalid product JSON', e); }
+
+      // Fill product UI
+      document.getElementById('pname').textContent = product?.name || 'No product selected';
+      document.getElementById('pprice').textContent = product?.price ? `₹${Number(product.price).toLocaleString()}` : '';
+      document.getElementById('pbrand').textContent = product?.brand || '';
+      document.getElementById('pplatform').textContent = product?.platform || '';
+      const buyLink = document.getElementById('buyLink');
+      if (product?.product_link) { buyLink.href = product.product_link; buyLink.style.display='inline'; } else buyLink.style.display='none';
+
+      const faceImg = document.getElementById('faceImage');
+      const status = document.getElementById('statusMessage');
+      const fileId = localStorage.getItem('vogue_face_image_file_id');
+
+      if (!fileId) {
+        if (status) status.textContent = 'No face image found. Please go back and click Try Now to upload your photo.';
+        return;
+      }
+
+      if (!window.storage || !window.APPWRITE_CONFIG) {
+        if (status) status.textContent = 'Unable to load image service. Please try again later.';
+        return;
+      }
+
+      try {
+        const url = window.storage.getFileView(window.APPWRITE_CONFIG.bucketId, fileId);
+        if (faceImg) {
+          faceImg.src = url;
+          faceImg.alt = 'Your uploaded try-on photo';
+        }
+        if (status) status.textContent = '';
+      } catch (e) {
+        console.error('Error building face image URL', e);
+        if (status) status.textContent = 'Error loading your photo. Please try again.';
+      }
+    })();
+  </script>
+</body>
+</html>

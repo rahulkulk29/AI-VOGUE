@@ -115,28 +115,24 @@ backend/python-api/
 ├── app.py                 # Main Flask application
 ├── requirements.txt       # Python dependencies
 ├── services/
-│   └── gemini_service.py  # Gemini AI integration (PUT API KEY HERE)
+│   └── gemini_service.py  # Gemini AI integration (set API key via environment)
 ├── utils/
 │   ├── validators.py      # Input validation
 │   └── response_parser.py # Response formatting
-└── .env                   # Environment variables (optional)
+└── env_template.txt       # Example environment template (do not commit secrets)
 ```
 
 ---
 
 ## 🔧 Configuration
 
-### **Environment Variables (Optional):**
+### **Environment Variables (Set in shell or deployment)**
 
-Create `.env` file:
-```env
-GEMINI_API_KEY=your-key-here
-GEMINI_MODEL=gemini-1.5-flash
-MAX_TOKENS=2048
-TEMPERATURE=0.7
-REQUEST_TIMEOUT=30
-FLASK_DEBUG=True
-CORS_ORIGINS=http://localhost:8000,http://127.0.0.1:8000
+Set environment variables in your shell or deployment platform (PowerShell/Bash/Appwrite Functions). Do not commit `.env` files with secrets. Example (PowerShell):
+```powershell
+$Env:GEMINI_API_KEY = "your-key-here"
+$Env:GEMINI_MODEL = "gemini-1.5-flash"
+$Env:FLASK_DEBUG = "True"
 ```
 
 ### **Direct Code Configuration (Current):**
