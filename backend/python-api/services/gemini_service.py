@@ -14,6 +14,7 @@ logger.setLevel(logging.INFO)
 
 class GeminiService:
     def __init__(self):
+<<<<<<< HEAD
         # Always prefer environment variable keys for production:
         self.api_key = os.getenv('GEMINI_API_KEY') or os.getenv('GOOGLE_API_KEY')
         if not self.api_key or not self.api_key.strip():
@@ -21,6 +22,7 @@ class GeminiService:
         self.api_key = self.api_key.strip()
 
         # Use env to pick model (default to stable 1.5 flash which supports JSON mode)
+
         self.model = os.getenv('GEMINI_MODEL', 'gemini-1.5-flash')
         self.timeout = int(os.getenv('REQUEST_TIMEOUT', '60'))
         self.max_retries = int(os.getenv('GENAI_MAX_RETRIES', '3'))
@@ -30,9 +32,25 @@ class GeminiService:
 
         # Default generation params
         self.temperature = float(os.getenv('TEMPERATURE', '0.7'))
+<<<<<<< HEAD
         self.max_output_tokens = int(os.getenv('MAX_OUTPUT_TOKENS', '1024'))
 
     def _build_payload(self, prompt_text: str, response_schema: Optional[Dict]=None) -> Dict[str, Any]:
+=======
+        self.timeout = int(os.getenv('REQUEST_TIMEOUT', '60'))  # Increased for Google Search grounding
+        
+        # Updated model fallbacks with NEW Gemini 2.0+ models (verified working as of Nov 2024)
+        self.model_fallbacks = [
+            'gemini-2.5-flash',      # Fastest, recommended for production
+            'gemini-2.0-flash',      # Backup option
+            'gemini-2.5-pro'         # Most capable, if the others fail
+        ]
+        
+        if not self.api_key:
+            raise ValueError("GEMINI_API_KEY is required. Set GEMINI_API_KEY environment variable in your shell or deployment platform.")
+    
+    def get_recommendations(self, user_query: str, user_profile: Dict[str, Any], image_data: Optional[str] = None) -> Dict[str, Any]:
+>>>>>>> rahul
         """
         Builds the payload for Gemini generateContent API.
         Uses the correct Gemini REST API format with contents array.

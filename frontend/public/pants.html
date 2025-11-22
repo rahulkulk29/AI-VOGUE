@@ -12,6 +12,7 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/search-products.css">
     
     <style>
         /* Gucci-inspired luxury styling */
@@ -293,6 +294,16 @@
     <section class="products-section">
         <div class="container">
             <!-- Filters Bar -->
+            <!-- Search and Filters Bar -->
+            <div class="search-section">
+                <div class="search-container">
+                    <div class="search-bar-wrapper">
+                        <input type="text" class="search-input" id="searchInput" placeholder="Search pants, jeans, trousers...">
+                        <button class="search-button" id="searchButton" aria-label="Search">Search</button>
+                    </div>
+                </div>
+            </div>
+
             <div class="filters-bar">
                 <div class="filter-group">
                     <select class="filter-select" id="sortFilter">
@@ -392,111 +403,154 @@
 
     <!-- Scripts -->
     <script src="../js/main.js"></script>
-    <script>
-        // Shirts product data
-        const shirtsProducts = [
-            {
-                id: 1,
-                name: "Italian Silk Dress Shirt",
-                brand: "AI VOGUE",
-                price: 1250,
-                image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400&h=500&fit=crop",
-                colors: ["#FFFFFF", "#E6E6FA", "#F0F8FF"],
-                badge: "New",
-                category: "formal"
-            },
-            {
-                id: 2,
-                name: "Luxury Cotton Polo",
-                brand: "AI VOGUE",
-                price: 890,
-                image: "https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=400&h=500&fit=crop",
-                colors: ["#000080", "#FFFFFF", "#2F4F4F"],
-                badge: "Bestseller",
-                category: "casual"
-            },
-            {
-                id: 3,
-                name: "Designer Casual Shirt",
-                brand: "AI VOGUE",
-                price: 750,
-                image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&h=500&fit=crop",
-                colors: ["#F5DEB3", "#D2B48C", "#DDA0DD"],
-                badge: "",
-                category: "casual"
-            },
-            {
-                id: 4,
-                name: "Premium Tuxedo Shirt",
-                brand: "AI VOGUE",
-                price: 1850,
-                image: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=500&fit=crop",
-                colors: ["#FFFFFF", "#000000"],
-                badge: "Exclusive",
-                category: "formal"
-            },
-            {
-                id: 5,
-                name: "Cashmere Blend Sweater",
-                brand: "AI VOGUE",
-                price: 1450,
-                image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=400&h=500&fit=crop",
-                colors: ["#D2B48C", "#F5F5DC", "#8FBC8F"],
-                badge: "Limited",
-                category: "luxury"
-            },
-            {
-                id: 6,
-                name: "Athletic Performance Shirt",
-                brand: "AI VOGUE",
-                price: 450,
-                image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=500&fit=crop",
-                colors: ["#708090", "#000000", "#FFFFFF"],
-                badge: "",
-                category: "athletic"
-            }
-        ];
+    <script type="module">
+        import { Client, Databases, Query } from 'https://cdn.jsdelivr.net/npm/appwrite@14.0.1/+esm';
+        
+        // Initialize Appwrite client
+        const client = new Client()
+            .setEndpoint('https://nyc.cloud.appwrite.io/v1')
+            .setProject('68dd18860033ab7dffac');
+            
+        const databases = new Databases(client);
+        
+        const PANTS_PAGE_SIZE = 3; // first item, then three per Load More
+        let pantsAllProducts = [];
+        let pantsRenderedCount = 0;
 
-        // Render products
-        function renderProducts(products) {
+        function renderNextPantsBatch() {
             const grid = document.getElementById('productsGrid');
-            grid.innerHTML = products.map(product => `
-                <div class="product-card" onclick="window.location.href='shirts-product.html?id=${product.id}'">
-                    ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
-                    <img src="${product.image}" alt="${product.name}" class="product-image">
-                    <div class="product-info">
-                        <div class="product-brand">${product.brand}</div>
-                        <h3 class="product-name">${product.name}</h3>
-                        <div class="product-price">$${product.price.toLocaleString()}</div>
-                        <div class="product-colors">
-                            ${product.colors.map(color => `<div class="color-swatch" style="background-color: ${color}"></div>`).join('')}
+            if (!grid) return;
+
+            const slice = pantsAllProducts.slice(
+                pantsRenderedCount,
+                pantsRenderedCount + PANTS_PAGE_SIZE
+            );
+
+            slice.forEach(p => {
+                const imgUrl = p.image || p.image_url || 'https://via.placeholder.com/400x500?text=No+Image';
+                const title = p.title || p.name || p.brand || 'Product';
+                const brand = p.brand || '';
+                const priceValue = Number(p.price) || 0;
+                const priceText = priceValue ? `₹${priceValue.toLocaleString()}` : '';
+                const firstTag = Array.isArray(p.tags) ? p.tags[0] : (p.tags || '');
+                const badgeHtml = firstTag ? `<div class="product-badge">${firstTag}</div>` : '';
+
+                grid.insertAdjacentHTML('beforeend', `
+                    <div class="product-card" data-product-id="${p.$id}">
+                        ${badgeHtml}
+                        <img src="${imgUrl}" alt="${title}" class="product-image">
+                        <div class="product-info">
+                            <div class="product-brand">${brand}</div>
+                            <h3 class="product-name">${title}</h3>
+                            <div class="product-price">${priceText}</div>
                         </div>
                     </div>
-                </div>
-            `).join('');
+                `);
+            });
+
+            pantsRenderedCount += slice.length;
+
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            if (loadMoreBtn && pantsRenderedCount >= pantsAllProducts.length) {
+                loadMoreBtn.style.display = 'none';
+            }
         }
 
-        // Initialize page
-        document.addEventListener('DOMContentLoaded', function() {
-            renderProducts(shirtsProducts);
-            
-            // Filter functionality
-            document.getElementById('sortFilter').addEventListener('change', function() {
-                // Add sorting logic here
+        function attachPantsCardHandler() {
+            const grid = document.getElementById('productsGrid');
+            if (!grid) return;
+
+            grid.addEventListener('click', function (e) {
+                const card = e.target.closest('.product-card');
+                if (!card) return;
+
+                const id = card.dataset.productId;
+                const product = pantsAllProducts.find(p => p.$id === id);
+                if (!product) return;
+
+                try {
+                    localStorage.setItem(
+                        'vogue_selected_product_detail',
+                        JSON.stringify({ category: 'pants', product })
+                    );
+                } catch (err) {
+                    console.error('Error storing selected product:', err);
+                }
+
+                window.location.href = `pants-product.html?id=${encodeURIComponent(id)}&category=pants`;
             });
-            
-            document.getElementById('sizeFilter').addEventListener('change', function() {
-                // Add size filtering logic here
+        }
+
+        async function loadInitialProducts() {
+            try {
+                const res = await databases.listDocuments(
+                    '691f253500375353b25f', // databaseId (new)
+                    'pant', // collectionId for pants (new)
+                    [
+                        Query.limit(40),
+                        Query.offset(0)
+                    ]
+                );
+                pantsAllProducts = res.documents || [];
+                pantsRenderedCount = 0;
+                document.getElementById('productsGrid').innerHTML = '';
+                renderNextPantsBatch();
+            } catch (e) {
+                console.error('Error loading initial pants from Appwrite:', e);
+            }
+        }
+
+        function applyPantsSearch(query) {
+            const q = query.trim().toLowerCase();
+            if (!q) {
+                pantsRenderedCount = 0;
+                document.getElementById('productsGrid').innerHTML = '';
+                renderNextPantsBatch();
+                return;
+            }
+
+            const filtered = pantsAllProducts.filter(p => {
+                const title = (p.title || p.name || '').toLowerCase();
+                const brand = (p.brand || '').toLowerCase();
+                return title.includes(q) || brand.includes(q);
             });
+
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+            pantsRenderedCount = 0;
+            pantsAllProducts = filtered;
+            renderNextPantsBatch();
+        }
+
+        // Make functions available globally for HTML event handlers
+        window.renderNextPantsBatch = renderNextPantsBatch;
+        window.applyPantsSearch = function() {
+            const query = document.getElementById('searchInput').value;
+            applyPantsSearch(query);
+        };
+
+        document.addEventListener('DOMContentLoaded', function () {
+            attachPantsCardHandler();
+            loadInitialProducts().catch(console.error);
+
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            if (loadMoreBtn) {
+                loadMoreBtn.addEventListener('click', renderNextPantsBatch);
+            }
+
+            const searchButton = document.getElementById('searchButton');
+            if (searchButton) {
+                searchButton.addEventListener('click', window.applyPantsSearch);
+            }
             
-            document.getElementById('priceFilter').addEventListener('change', function() {
-                // Add price filtering logic here
-            });
-            
-            // Load more functionality
-            document.getElementById('loadMoreBtn').addEventListener('click', function() {
-                // Add load more logic here
-            });
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        window.applyPantsSearch();
+                    }
+                });
+            }
         });
     </script>
 </body>

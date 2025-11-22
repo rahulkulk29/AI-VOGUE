@@ -1,0 +1,21 @@
+{
+    "name": "virtual-tryon-backend",
+    "version": "1.0.0",
+    "description": "Backend proxy for Hugging Face Virtual Try-On API",
+    "main": "backend-proxy.js",
+    "scripts": {
+        "start": "node backend-proxy.js"
+    },
+    "dependencies": {
+        "@google-cloud/aiplatform": "^5.13.0",
+        "@gradio/client": "^2.0.0-dev.2",
+        "cors": "^2.8.5",
+        "express": "^4.18.2",
+        "form-data": "^4.0.0",
+        "google-auth-library": "^10.5.0",
+        "node-fetch": "^2.7.0",
+        "replicate": "^1.4.0",
+        "sharp": "^0.34.5",
+        "uuid": "^13.0.0"
+    }
+}

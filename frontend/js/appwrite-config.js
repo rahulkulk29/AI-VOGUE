@@ -42,6 +42,7 @@ class ID {
 // Config
 ////////////////////////////////////////////////////////////////////////////////
 const APPWRITE_CONFIG = {
+<<<<<<< HEAD
   // Appwrite server endpoint & project
   endpoint: 'https://nyc.cloud.appwrite.io/v1',
   projectId: '68dd18860033ab7dffac',
@@ -71,13 +72,46 @@ const APPWRITE_CONFIG = {
       recommend: '/api/recommend',
       health: '/health',
       test: '/api/test'
+=======
+    endpoint: 'https://nyc.cloud.appwrite.io/v1',
+    projectId: '68dd18860033ab7dffac',
+    // Updated to new database ID
+    databaseId: '691f253500375353b25f',
+    collections: {
+        users: 'users',
+        orders: 'orders',
+        wishlist: 'wishlist',
+        addresses: 'addresses',
+        user_preferences: 'user_preferences', // User preferences collection
+        voguevision: 'voguevision', // Vogue Vision scraped products (scraper)
+        shirt: 'shirt', // Shirts listing collection
+        pant: 'pant',   // Pants listing collection
+        shoe: 'shoe'    // Shoes listing collection
+    },
+    bucketId: 'avatars',
+    functions: {
+        geminiProxy: 'gemini-proxy' // Gemini AI proxy function (backup)
+    },
+    // Python Backend Configuration
+    pythonBackend: {
+        baseUrl: 'http://localhost:5000',
+        endpoints: {
+            recommend: '/api/recommend',
+            health: '/health',
+            test: '/api/test'
+        }
+>>>>>>> rahul
     }
   }
 };
 
+<<<<<<< HEAD
 ////////////////////////////////////////////////////////////////////////////////
 // Appwrite initialization
 ////////////////////////////////////////////////////////////////////////////////
+=======
+// Initialize Appwrite client with API key
+>>>>>>> rahul
 const client = new Client()
   .setEndpoint(APPWRITE_CONFIG.endpoint)
   .setProject(APPWRITE_CONFIG.projectId);
@@ -449,12 +483,154 @@ class ProfileService {
   }
 }
 
+<<<<<<< HEAD
 ////////////////////////////////////////////////////////////////////////////////
 // Instantiate services and exports
 ////////////////////////////////////////////////////////////////////////////////
+=======
+// VogueVision Service - Manage scraped products
+class VogueVisionService {
+    // Save scraped products to database
+    async saveProducts(products, category, searchQuery) {
+        try {
+            const savedProducts = [];
+            for (const product of products) {
+                const doc = await databases.createDocument(
+                    APPWRITE_CONFIG.databaseId,
+                    APPWRITE_CONFIG.collections.voguevision,
+                    'unique()',
+                    {
+                        name: product.name,
+                        price: product.price,
+                        image_url: product.image_url,
+                        product_link: product.product_link,
+                        discount: product.discount || '',
+                        brand: product.brand || '',
+                        platform: product.platform || 'flipkart',
+                        category: category,
+                        searchQuery: searchQuery,
+                        addedAt: new Date().toISOString()
+                    }
+                );
+                savedProducts.push(doc);
+            }
+            return savedProducts;
+        } catch (error) {
+            console.error('Save products error:', error);
+            throw error;
+        }
+    }
+
+    // Get products by category
+    async getProductsByCategory(category, limit = 12) {
+        try {
+            const products = await databases.listDocuments(
+                APPWRITE_CONFIG.databaseId,
+                APPWRITE_CONFIG.collections.voguevision,
+                [Query.equal('category', category), Query.orderDesc('$createdAt'), Query.limit(limit)]
+            );
+            return products.documents;
+        } catch (error) {
+            console.error('Get products by category error:', error);
+            return [];
+        }
+    }
+
+    // Search products
+    async searchProducts(searchQuery, category, limit = 12) {
+        try {
+            const products = await databases.listDocuments(
+                APPWRITE_CONFIG.databaseId,
+                APPWRITE_CONFIG.collections.voguevision,
+                [
+                    Query.equal('category', category),
+                    Query.search('name', searchQuery),
+                    Query.orderDesc('$createdAt'),
+                    Query.limit(limit)
+                ]
+            );
+            return products.documents;
+        } catch (error) {
+            console.error('Search products error:', error);
+            return [];
+        }
+    }
+
+    // Get all products
+    async getAllProducts(limit = 100) {
+        try {
+            const products = await databases.listDocuments(
+                APPWRITE_CONFIG.databaseId,
+                APPWRITE_CONFIG.collections.voguevision,
+                [Query.orderDesc('$createdAt'), Query.limit(limit)]
+            );
+            return products.documents;
+        } catch (error) {
+            console.error('Get all products error:', error);
+            return [];
+        }
+    }
+
+    // Get products by platform
+    async getProductsByPlatform(platform, category, limit = 12) {
+        try {
+            const products = await databases.listDocuments(
+                APPWRITE_CONFIG.databaseId,
+                APPWRITE_CONFIG.collections.voguevision,
+                [
+                    Query.equal('platform', platform),
+                    Query.equal('category', category),
+                    Query.orderDesc('$createdAt'),
+                    Query.limit(limit)
+                ]
+            );
+            return products.documents;
+        } catch (error) {
+            console.error('Get products by platform error:', error);
+            return [];
+        }
+    }
+
+    // Delete old products (cleanup)
+    async deleteOldProducts(hoursOld = 24) {
+        try {
+            const cutoffTime = new Date(Date.now() - hoursOld * 60 * 60 * 1000).toISOString();
+            const oldProducts = await databases.listDocuments(
+                APPWRITE_CONFIG.databaseId,
+                APPWRITE_CONFIG.collections.voguevision,
+                [Query.lessThan('$createdAt', cutoffTime)]
+            );
+            
+            let deletedCount = 0;
+            for (const product of oldProducts.documents) {
+                try {
+                    await databases.deleteDocument(
+                        APPWRITE_CONFIG.databaseId,
+                        APPWRITE_CONFIG.collections.voguevision,
+                        product.$id
+                    );
+                    deletedCount++;
+                } catch (err) {
+                    console.error('Error deleting product:', err);
+                }
+            }
+            
+            console.log(`Deleted ${deletedCount} old products`);
+            return deletedCount;
+        } catch (error) {
+            console.error('Delete old products error:', error);
+            return 0;
+        }
+    }
+}
+
+// Initialize services
+>>>>>>> rahul
 const authService = new AuthService();
 const profileService = new ProfileService();
+const vogueVisionService = new VogueVisionService();
 
+<<<<<<< HEAD
 // Attach to window for global access
 window.authService = authService;
 window.profileService = profileService;
@@ -468,3 +644,21 @@ window.ID = ID;
 window.Query = Query;
 
 console.log('✅ Appwrite Config Loaded (Global Mode)');
+=======
+// Export the databases object for direct use in HTML files
+// Export services and config
+export { client, databases, APPWRITE_CONFIG, Query, authService, profileService, vogueVisionService, account, storage, functions };
+
+// Attach to window for backward compatibility with non-module scripts
+if (typeof window !== 'undefined') {
+    window.APPWRITE_CONFIG = APPWRITE_CONFIG;
+    window.authService = authService;
+    window.profileService = profileService;
+    window.vogueVisionService = vogueVisionService;
+    window.account = account;
+    window.databases = databases;
+    window.storage = storage;
+    window.functions = functions;
+    window.Query = Query;
+}
+>>>>>>> rahul

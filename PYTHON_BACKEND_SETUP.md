@@ -4,19 +4,27 @@
 
 ## 📋 **What You Need to Do**
 
-### **Step 1: Create .env File**
+### **Step 1: Set environment variables (no local .env file needed)**
 
-```bash
-# Navigate to Python backend folder
-cd E:\Projects\website_v5\website_v5\backend\python-api
+Set environment variables in your shell, Appwrite function settings, Docker compose, or hosting platform — do not store them as a committed `.env` file. Examples:
 
-# Create .env file from template
-copy env_template.txt .env
+Windows PowerShell (temporary for current session):
+```powershell
+$Env:GEMINI_API_KEY = "your_gemini_api_key_here"
+$Env:APPWRITE_API_KEY = "your_appwrite_api_key_here"
+$Env:APPWRITE_ENDPOINT = "https://cloud.appwrite.io/v1"
 ```
 
-**Edit the `.env` file and add your Gemini API key:**
-```env
-GEMINI_API_KEY=AIzaSyDGZdru4jUqEfaZFG9L0bmvbhpg0pVl64Q
+Linux / macOS (Bash):
+```bash
+export GEMINI_API_KEY="your_gemini_api_key_here"
+export APPWRITE_API_KEY="your_appwrite_api_key_here"
+export APPWRITE_ENDPOINT="https://cloud.appwrite.io/v1"
+```
+
+**Recommended environment variables:**
+```text
+GEMINI_API_KEY=your_gemini_api_key_here
 GEMINI_MODEL=gemini-2.5-flash
 FLASK_ENV=development
 FLASK_DEBUG=True
@@ -24,6 +32,11 @@ CORS_ORIGINS=http://localhost:8000,http://127.0.0.1:8000
 MAX_TOKENS=512
 TEMPERATURE=0.7
 REQUEST_TIMEOUT=30
+APPWRITE_PROJECT_ID=68dd18860033ab7dffac
+APPWRITE_DATABASE_ID=68dd21f50029362dfb7a
+APPWRITE_COLLECTION_ID=voguevision
+APPWRITE_ENDPOINT=https://cloud.appwrite.io/v1
+APPWRITE_API_KEY=your_appwrite_api_key_here
 ```
 
 ### **Step 2: Install Python Dependencies**
@@ -143,18 +156,17 @@ const response = await fetch('http://localhost:5000/api/recommend', {
 
 ### **"GEMINI_API_KEY not found"**
 ```bash
-# Check if .env file exists
-ls -la .env
-
-# If not, create it:
-copy env_template.txt .env
-# Then edit .env with your API key
+# Set environment variable in your shell or add it to your deployment settings
+# PowerShell (session):
+$Env:GEMINI_API_KEY = "your_gemini_api_key_here"
+# Bash (session):
+export GEMINI_API_KEY="your_gemini_api_key_here"
 ```
 
 ### **"Module not found" errors**
 ```bash
 # Install dependencies
-pip install flask flask-cors python-dotenv requests
+pip install flask flask-cors requests
 ```
 
 ### **"Connection refused" from frontend**
@@ -166,15 +178,15 @@ python app.py
 
 ### **CORS errors in browser**
 ```bash
-# Check CORS_ORIGINS in .env file
-CORS_ORIGINS=http://localhost:8000,http://127.0.0.1:8000
+# Ensure CORS_ORIGINS is set in your environment variables
+export CORS_ORIGINS=http://localhost:8000,http://127.0.0.1:8000
 ```
 
 ### **Gemini API errors**
 ```bash
 # Check your API key at: https://makersuite.google.com/app/apikey
-# Try different model in .env:
-GEMINI_MODEL=gemini-2.5-pro
+# Set GEMINI_MODEL in your environment variables if needed:
+export GEMINI_MODEL=gemini-2.5-pro
 ```
 
 ## 📱 **Testing Commands**

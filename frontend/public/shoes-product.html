@@ -1,30 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shoes - AI VOGUE</title>
     <meta name="description" content="Discover luxury shoes with AI VOGUE's innovative technology.">
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
-    
+
     <!-- Stylesheets -->
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/product.css">
 </head>
+
 <body class="gucci-header-page">
     <!-- Gucci-Style Header -->
     <header class="gucci-header">
         <div class="gucci-header-left">
             <a href="contact.html" class="gucci-contact-link">Contact Us</a>
         </div>
-        
+
         <div class="gucci-header-center">
             <a href="index.html" class="gucci-logo">AI VOGUE</a>
         </div>
-        
+
         <div class="gucci-header-right">
             <button class="gucci-icon" aria-label="Account">
                 <i class="fas fa-user"></i>
@@ -41,17 +43,17 @@
 
     <!-- Gucci Overlay Background -->
     <div class="gucci-overlay-bg"></div>
-    
+
     <!-- Gucci Overlay -->
     <div class="gucci-overlay">
         <button class="gucci-close-btn" aria-label="Close">
             <i class="fas fa-times"></i>
         </button>
-        
+
         <div class="gucci-overlay-search">
             <input type="text" class="gucci-search-input" placeholder="Search AI VOGUE..." aria-label="Search products">
         </div>
-        
+
         <nav class="gucci-overlay-nav">
             <a href="categories.html" class="gucci-nav-link">Vogue Vision</a>
             <a href="revibe.html" class="gucci-nav-link">Revibe</a>
@@ -71,15 +73,14 @@
             <!-- Product Gallery -->
             <div class="product-gallery">
                 <div class="main-image-container">
-                    <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&h=1000&fit=crop" 
-                         alt="Luxury Shoes" 
-                         class="main-image">
-                    
+                    <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&h=1000&fit=crop"
+                        alt="Luxury Shoes" class="main-image">
+
                     <!-- Gallery Navigation -->
                     <button class="gallery-nav prev" aria-label="Previous image">‹</button>
                     <button class="gallery-nav next" aria-label="Next image">›</button>
                 </div>
-                
+
                 <div class="thumbnails">
                     <!-- Thumbnails will be populated by JavaScript -->
                 </div>
@@ -87,106 +88,22 @@
 
             <!-- Product Details -->
             <div class="product-details">
-                <div class="breadcrumb">
-                    <a href="index.html">Home</a> / <a href="shoes.html">Shoes</a> / <span class="product-title">Luxury Shoes</span>
-                </div>
-                
                 <h1 class="product-title">Premium Leather Oxford Shoes</h1>
                 <p class="product-price">$650</p>
-                
-                <div class="product-description">
-                    <p>Handcrafted from the finest Italian leather, these Oxford shoes represent the pinnacle of luxury footwear. Perfect for formal occasions and professional settings.</p>
-                </div>
-                
-                <div class="product-features">
-                    <h3>Features</h3>
-                    <ul>
-                        <li>Premium Italian leather</li>
-                        <li>Handcrafted construction</li>
-                        <li>Leather sole with rubber heel</li>
-                        <li>Goodyear welt construction</li>
-                        <li>Classic Oxford styling</li>
-                    </ul>
-                </div>
-                
-                <!-- Size Selection -->
-                <div class="product-options">
-                    <div class="option-group">
-                        <h3>Size (US)</h3>
-                        <div class="size-options">
-                            <button class="size-option" data-size="7">7</button>
-                            <button class="size-option" data-size="7.5">7.5</button>
-                            <button class="size-option" data-size="8">8</button>
-                            <button class="size-option" data-size="8.5">8.5</button>
-                            <button class="size-option" data-size="9">9</button>
-                            <button class="size-option" data-size="9.5">9.5</button>
-                            <button class="size-option" data-size="10">10</button>
-                            <button class="size-option" data-size="10.5">10.5</button>
-                            <button class="size-option" data-size="11">11</button>
-                            <button class="size-option" data-size="12">12</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Color Selection -->
-                    <div class="option-group">
-                        <h3>Color</h3>
-                        <div class="color-options">
-                            <button class="color-option" data-color="black" style="background-color: #000000;"></button>
-                            <button class="color-option" data-color="brown" style="background-color: #8b4513;"></button>
-                            <button class="color-option" data-color="cognac" style="background-color: #a0522d;"></button>
-                            <button class="color-option" data-color="burgundy" style="background-color: #800020;"></button>
-                        </div>
-                    </div>
-                </div>
-                
+
                 <!-- Action Buttons -->
                 <div class="product-actions">
-                    <button class="btn btn-primary btn-buy" onclick="alert('Purchase functionality coming soon!')">Buy Now</button>
-                    <button class="btn btn-secondary btn-try" onclick="alert('Try-on functionality coming soon!')">Try Now</button>
+                    <button class="btn btn-primary btn-buy" onclick="alert('Purchase functionality coming soon!')">Buy
+                        Now</button>
+                    <button class="btn btn-secondary btn-try" onclick="alert('Try-on functionality coming soon!')">Try
+                        Now</button>
                 </div>
-                
-                <!-- Product Info Tabs -->
-                <div class="product-tabs">
-                    <div class="tab-buttons">
-                        <button class="tab-button active" data-tab="details">Details</button>
-                        <button class="tab-button" data-tab="care">Care</button>
-                        <button class="tab-button" data-tab="shipping">Shipping</button>
-                    </div>
-                    
-                    <div class="tab-contents">
-                        <div id="details" class="tab-content active">
-                            <h4>Product Details</h4>
-                            <p>These premium Oxford shoes showcase exceptional Italian craftsmanship and attention to detail. Built to last with traditional construction methods.</p>
-                            <ul>
-                                <li>Material: Premium Italian Leather</li>
-                                <li>Sole: Leather with rubber heel</li>
-                                <li>Construction: Goodyear welt</li>
-                                <li>Origin: Handcrafted in Italy</li>
-                            </ul>
-                        </div>
-                        
-                        <div id="care" class="tab-content">
-                            <h4>Care Instructions</h4>
-                            <ul>
-                                <li>Clean with leather cleaner and soft cloth</li>
-                                <li>Condition regularly with leather conditioner</li>
-                                <li>Use cedar shoe trees when not wearing</li>
-                                <li>Store in dust bags to prevent scratches</li>
-                                <li>Professional cobbler maintenance recommended</li>
-                            </ul>
-                        </div>
-                        
-                        <div id="shipping" class="tab-content">
-                            <h4>Shipping Information</h4>
-                            <p>Free shipping on all orders over $500.</p>
-                            <ul>
-                                <li>Standard delivery: 5-7 business days</li>
-                                <li>Express delivery: 2-3 business days</li>
-                                <li>White glove delivery available</li>
-                                <li>60-day return policy for unworn shoes</li>
-                            </ul>
-                        </div>
-                    </div>
+                <div id="tryOnPreview" style="margin-top: 1.5rem; display: none;">
+                    <p id="tryOnStatus" style="margin: 0 0 .5rem; font-size: .9rem; color: #666;">
+                        Loading your try-on photo...
+                    </p>
+                    <img id="tryOnImage" alt="Your try-on photo"
+                        style="max-width: 260px; border-radius: 12px; border: 1px solid #e0e0e0;" />
                 </div>
             </div>
         </div>
@@ -197,16 +114,11 @@
         <div class="modal-overlay"></div>
         <div class="modal-content">
             <button class="close-modal" aria-label="Close modal">&times;</button>
-            
+
             <div class="modal-header">
                 <h2>Try On Experience</h2>
             </div>
-            
-            <div class="modal-tabs">
-                <button class="tab-button active" data-tab="avatar">2D Avatar Try-On</button>
-                <button class="tab-button" data-tab="ar">MirrorX AR Preview</button>
-            </div>
-            
+
             <div class="modal-body">
                 <div id="avatar" class="tab-content active">
                     <div class="avatar-container">
@@ -214,18 +126,13 @@
                             <div class="avatar-icon">👤</div>
                             <h3>2D Avatar Try-On</h3>
                             <p>See how these shoes look on your personalized avatar</p>
-                            <button class="btn btn-primary">Create Avatar</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div id="ar" class="tab-content">
-                    <div class="ar-container">
-                        <div class="ar-placeholder">
-                            <div class="ar-icon">📱</div>
-                            <h3>MirrorX AR Preview</h3>
-                            <p>Use your camera to see how these shoes look on you</p>
-                            <button class="btn btn-primary">Start AR Experience</button>
+                            <div class="tryon-face-preview">
+                                <img id="tryOnModalImage" alt="Your try-on photo"
+                                    style="max-width: 260px; border-radius: 12px; border: 1px solid #e0e0e0; margin-top: 1rem; display: none;" />
+                            </div>
+                            <button class="btn btn-secondary" id="reuploadFaceBtn" style="margin-top: 1rem;">
+                                Reupload Photo
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -256,7 +163,7 @@
                     <li><a href="#">Press</a></li>
                 </ul>
             </div>
-            
+
             <div class="footer-section">
                 <h3>Services</h3>
                 <ul>
@@ -266,7 +173,7 @@
                     <li><a href="style-lease.html">Style Lease</a></li>
                 </ul>
             </div>
-            
+
             <div class="footer-section">
                 <h3>Policies</h3>
                 <ul>
@@ -276,7 +183,7 @@
                     <li><a href="#">Shipping Info</a></li>
                 </ul>
             </div>
-            
+
             <div class="footer-section">
                 <h3>Stay Connected</h3>
                 <p>Subscribe to our newsletter for the latest in luxury fashion technology.</p>
@@ -290,7 +197,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="footer-bottom">
             <p>&copy; 2024 AI VOGUE. All rights reserved. Luxury fashion technology redefined.</p>
         </div>
@@ -298,6 +205,9 @@
 
     <!-- Scripts -->
     <script src="../js/main.js"></script>
+    <script type="module" src="../js/appwrite-config.js"></script>
+    <script src="../js/gemini-tryon.js"></script>
     <script src="../js/product.js"></script>
 </body>
+
 </html>
