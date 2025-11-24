@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About - AI VOGUE</title>
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/feature.css">
+    <link rel="stylesheet" href="../css/about-page.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
     <!-- Header with animated logo -->
     <header id="main-header">
@@ -23,11 +28,13 @@
 
     <!-- Navigation Drawer -->
     <nav class="nav-drawer">
-        <input type="text" class="search-bar" placeholder="Search AI VOGUE..." aria-label="Search products">
-        
+        <button class="nav-close" id="nav-close" aria-label="Close navigation">
+            <span></span>
+            <span></span>
+        </button>
+
         <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="vogue-vision.html">Vogue Vision</a></li>
+            <li><a href="categories.html">Vogue Vision</a></li>
             <li><a href="revibe.html">Revibe</a></li>
             <li><a href="creative-threads.html">Creative Threads</a></li>
             <li><a href="mirrorx.html">MirrorX</a></li>
@@ -37,10 +44,23 @@
             <li><a href="about.html">About</a></li>
             <li><a href="contact.html">Contact</a></li>
         </ul>
-        
+
         <div class="nav-icons">
-            <a href="#" aria-label="Account">👤</a>
-            <a href="#" aria-label="Shopping cart">🛒</a>
+            <a href="profile.html" aria-label="Account" class="account-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </a>
+            <a href="#" aria-label="Shopping cart">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="m16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+            </a>
         </div>
     </nav>
 
@@ -55,7 +75,9 @@
                 <div class="hero-content">
                     <h1 class="hero-title">About AI VOGUE</h1>
                     <p class="hero-subtitle">Pioneering the Future of Fashion</p>
-                    <p class="hero-description">We're revolutionizing the fashion industry through cutting-edge artificial intelligence, creating personalized experiences that bridge the gap between technology and style.</p>
+                    <p class="hero-description">We're revolutionizing the fashion industry through cutting-edge
+                        artificial intelligence, creating personalized experiences that bridge the gap between
+                        technology and style.</p>
                 </div>
             </div>
         </section>
@@ -66,12 +88,16 @@
                 <div class="mission-content">
                     <div class="mission-text">
                         <h2>Our Mission</h2>
-                        <p>At AI VOGUE, we believe fashion should be accessible, sustainable, and deeply personal. Our mission is to democratize high fashion through artificial intelligence, making luxury style available to everyone while promoting sustainable practices and creative expression.</p>
-                        <p>We're not just creating clothes; we're crafting experiences that understand your unique style, lifestyle, and values.</p>
+                        <p>At AI VOGUE, we believe fashion should be accessible, sustainable, and deeply personal. Our
+                            mission is to democratize high fashion through artificial intelligence, making luxury style
+                            available to everyone while promoting sustainable practices and creative expression.</p>
+                        <p>We're not just creating clothes; we're crafting experiences that understand your unique
+                            style, lifestyle, and values.</p>
                     </div>
                     <div class="mission-visual">
                         <div class="mission-icon">
-                            <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                            <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1">
                                 <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"></path>
                                 <path d="M9 12l2 2 4-4"></path>
                             </svg>
@@ -81,113 +107,116 @@
             </div>
         </section>
 
-        <!-- Values Section -->
-        <section class="values-section">
+        <!-- Values & Team Combined Section -->
+        <section class="values-team-section">
             <div class="container">
-                <h2 class="section-title">Our Values</h2>
-                <div class="values-grid">
-                    <div class="value-item">
-                        <div class="value-icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"></path>
-                            </svg>
+                <div class="values-team-grid">
+                    <!-- Our Values -->
+                    <div class="values-column">
+                        <h2 class="section-title">Our Values</h2>
+                        <div class="values-list">
+                            <div class="value-item">
+                                <div class="value-icon">
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="1.5">
+                                        <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <h3>Innovation</h3>
+                                <p>We push the boundaries of what's possible in fashion technology, constantly exploring
+                                    new
+                                    ways to enhance your style experience.</p>
+                            </div>
+                            <div class="value-item">
+                                <div class="value-icon">
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="1.5">
+                                        <path
+                                            d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <h3>Sustainability</h3>
+                                <p>Environmental responsibility is at our core. We promote circular fashion and help
+                                    reduce
+                                    waste through smart technology.</p>
+                            </div>
+                            <div class="value-item">
+                                <div class="value-icon">
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="1.5">
+                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="9" cy="7" r="4"></circle>
+                                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                    </svg>
+                                </div>
+                                <h3>Inclusivity</h3>
+                                <p>Fashion is for everyone. We create inclusive experiences that celebrate diversity in
+                                    all its
+                                    forms.</p>
+                            </div>
                         </div>
-                        <h3>Innovation</h3>
-                        <p>We push the boundaries of what's possible in fashion technology, constantly exploring new ways to enhance your style experience.</p>
                     </div>
-                    <div class="value-item">
-                        <div class="value-icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                            </svg>
+
+                    <!-- Project Team -->
+                    <div class="team-column">
+                        <h2 class="section-title">Project Team</h2>
+                        <div class="team-list">
+                            <div class="team-member">
+                                <div class="member-photo">
+                                    <div class="photo-placeholder">TH</div>
+                                </div>
+                                <div class="member-info">
+                                    <h3>Hemanth</h3>
+                                    <p class="member-role">Team Head</p>
+                                    <p class="member-bio">Leading the AI VOGUE project with expertise in fashion
+                                        technology and
+                                        team coordination.</p>
+                                </div>
+                            </div>
+                            <div class="team-member">
+                                <div class="member-photo">
+                                    <div class="photo-placeholder">BD</div>
+                                </div>
+                                <div class="member-info">
+                                    <h3>Rahul</h3>
+                                    <p class="member-role">Backend Developer</p>
+                                    <p class="member-bio">Specializing in backend architecture and API development for
+                                        AI-powered fashion solutions.</p>
+                                </div>
+                            </div>
+                            <div class="team-member">
+                                <div class="member-photo">
+                                    <div class="photo-placeholder">FD</div>
+                                </div>
+                                <div class="member-info">
+                                    <h3>Sakshi</h3>
+                                    <p class="member-role">Frontend Developer</p>
+                                    <p class="member-bio">Creating seamless user experiences with modern frontend
+                                        technologies.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="team-member">
+                                <div class="member-photo">
+                                    <div class="photo-placeholder">WD</div>
+                                </div>
+                                <div class="member-info">
+                                    <h3>Soumya</h3>
+                                    <p class="member-role">Web Designer</p>
+                                    <p class="member-bio">Designing beautiful and intuitive interfaces for the AI VOGUE
+                                        platform.</p>
+                                </div>
+                            </div>
                         </div>
-                        <h3>Sustainability</h3>
-                        <p>Environmental responsibility is at our core. We promote circular fashion and help reduce waste through smart technology.</p>
-                    </div>
-                    <div class="value-item">
-                        <div class="value-icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="9" cy="7" r="4"></circle>
-                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                            </svg>
-                        </div>
-                        <h3>Inclusivity</h3>
-                        <p>Fashion is for everyone. We create inclusive experiences that celebrate diversity in all its forms.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Team Section -->
-        <section class="team-section">
-            <div class="container">
-                <h2 class="section-title">Leadership Team</h2>
-                <div class="team-grid">
-                    <div class="team-member">
-                        <div class="member-photo">
-                            <div class="photo-placeholder">CEO</div>
-                        </div>
-                        <div class="member-info">
-                            <h3>Sarah Chen</h3>
-                            <p class="member-role">Chief Executive Officer</p>
-                            <p class="member-bio">Former VP of Innovation at luxury fashion house, leading AI transformation in retail for over 10 years.</p>
-                        </div>
-                    </div>
-                    <div class="team-member">
-                        <div class="member-photo">
-                            <div class="photo-placeholder">CTO</div>
-                        </div>
-                        <div class="member-info">
-                            <h3>Marcus Rodriguez</h3>
-                            <p class="member-role">Chief Technology Officer</p>
-                            <p class="member-bio">AI researcher and former Google engineer, specializing in computer vision and machine learning applications.</p>
-                        </div>
-                    </div>
-                    <div class="team-member">
-                        <div class="member-photo">
-                            <div class="photo-placeholder">CDO</div>
-                        </div>
-                        <div class="member-info">
-                            <h3>Elena Vasquez</h3>
-                            <p class="member-role">Chief Design Officer</p>
-                            <p class="member-bio">Award-winning fashion designer with 15 years experience at top fashion houses, now pioneering AI-assisted design.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Timeline Section -->
-        <section class="timeline-section">
-            <div class="container">
-                <h2 class="section-title">Our Journey</h2>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-year">2022</div>
-                        <div class="timeline-content">
-                            <h3>Foundation</h3>
-                            <p>AI VOGUE was founded with a vision to revolutionize fashion through artificial intelligence.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-year">2023</div>
-                        <div class="timeline-content">
-                            <h3>First AI Models</h3>
-                            <p>Launched our first AI styling assistant and virtual try-on technology.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-year">2024</div>
-                        <div class="timeline-content">
-                            <h3>Platform Launch</h3>
-                            <p>Officially launched the AI VOGUE platform with full suite of AI-powered fashion tools.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <!-- CTA Section -->
         <section class="cta-section">
@@ -196,8 +225,8 @@
                     <h2>Join the Fashion Revolution</h2>
                     <p>Be part of the future where technology meets style. Experience fashion like never before.</p>
                     <div class="cta-buttons">
-                        <button class="btn-primary">Get Started</button>
-                        <button class="btn-secondary">Contact Us</button>
+                        <button class="btn-primary" onclick="window.location.href='index.html'">Get Started</button>
+                        <button class="btn-secondary" onclick="window.location.href='contact.html'">Contact Us</button>
                     </div>
                 </div>
             </div>
@@ -220,7 +249,9 @@
                     </a>
                     <a href="#" aria-label="Twitter">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                            <path
+                                d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+                            </path>
                         </svg>
                     </a>
                     <a href="#" aria-label="Facebook">
@@ -274,4 +305,5 @@
     <script src="../js/main.js"></script>
     <script src="../js/parallax.js"></script>
 </body>
+
 </html>
