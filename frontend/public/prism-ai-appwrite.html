@@ -1,47 +1,784 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prism AI - Personalized Beauty & Fashion Assistant - AI VOGUE</title>
-    <meta name="description" content="Experience AI VOGUE's revolutionary Prism AI - your personalized beauty and fashion consultant powered by advanced AI technology.">
-    
+    <meta name="description"
+        content="Experience AI VOGUE's revolutionary Prism AI - your personalized beauty and fashion consultant powered by advanced AI technology.">
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
-    
+
     <!-- Stylesheets -->
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/prism-ai.css">
+    <link rel="stylesheet" href="../css/prism-ai-custom.css">
     <link rel="stylesheet" href="../css/prism-products.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Preload critical resources -->
+    <link rel="preload"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        as="style">
+
+    <style>
+        /* Prism AI Luxury Styles - Matching AI VOGUE Brand */
+        :root {
+            --prism-gradient-primary: linear-gradient(135deg, #1d3937 0%, #195042 100%);
+            --prism-gradient-accent: linear-gradient(135deg, #91855a 0%, #d6cabc 100%);
+            --prism-gradient-overlay: linear-gradient(135deg, rgba(29, 57, 55, 0.95) 0%, rgba(25, 80, 66, 0.85) 100%);
+        }
+
+        /* Backend Status Indicator */
+        .backend-status {
+            position: fixed;
+            top: 90px;
+            right: 2rem;
+            z-index: 9999;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            font-family: var(--font-sans);
+            transition: all 0.3s ease;
+            border: 1px solid var(--color-beige);
+        }
+
+        .backend-status.online {
+            border-color: #10b981;
+        }
+
+        .backend-status.offline {
+            border-color: #ef4444;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .status-dot.online {
+            background: #10b981;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+
+        .status-dot.offline {
+            background: #ef4444;
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.6;
+                transform: scale(1.15);
+            }
+        }
+
+        /* Hero Section */
+        .prism-hero {
+            padding: 10rem 2rem 5rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--color-beige) 0%, var(--color-white) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prism-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="0.5" fill="%23195042" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') repeat;
+            opacity: 0.3;
+        }
+
+        .prism-title {
+            font-size: clamp(3rem, 6vw, 5rem);
+            color: var(--color-dark-green);
+            margin-bottom: 1rem;
+            font-family: var(--font-serif);
+            position: relative;
+            z-index: 2;
+        }
+
+        .prism-subtitle {
+            font-size: 1.2rem;
+            color: var(--color-gray-medium);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .prism-features {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .feature-item svg {
+            width: 48px;
+            height: 48px;
+            stroke: var(--color-dark-green);
+            stroke-width: 1.5;
+        }
+
+        .feature-item span {
+            font-size: 0.9rem;
+            color: var(--color-gray-medium);
+            font-weight: 500;
+        }
+
+        /* Quiz Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+        }
+
+        .quiz-modal {
+            background: white;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .quiz-modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            background: var(--prism-gradient-primary);
+            color: white;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 600;
+            font-family: var(--font-serif);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            margin: 1.5rem 2rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--color-gold);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 20px rgba(145, 133, 90, 0.5);
+        }
+
+        .progress-text {
+            display: block;
+            text-align: center;
+            color: var(--color-gray-medium);
+            font-size: 0.85rem;
+            margin: 1.5rem 0;
+            font-weight: 500;
+        }
+
+        .quiz-content-wrapper {
+            padding: 2rem;
+            max-height: 50vh;
+            overflow-y: auto;
+        }
+
+        .question-card {
+            display: none;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .question-card.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question-card h3 {
+            font-size: 1.5rem;
+            color: var(--color-dark-green);
+            margin-bottom: 2rem;
+            font-weight: 600;
+            text-align: center;
+            font-family: var(--font-serif);
+        }
+
+        .answer-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+        }
+
+        .answer-btn {
+            background: white;
+            border: 2px solid var(--color-beige);
+            padding: 1.5rem 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--color-dark-green);
+            font-family: var(--font-sans);
+        }
+
+        .answer-btn svg {
+            width: 32px;
+            height: 32px;
+            stroke: var(--color-gray-medium);
+            stroke-width: 1.5;
+            transition: all 0.3s ease;
+        }
+
+        .answer-btn:hover {
+            border-color: var(--color-dark-green);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(29, 57, 55, 0.15);
+        }
+
+        .answer-btn:hover svg {
+            stroke: var(--color-dark-green);
+            transform: scale(1.1);
+        }
+
+        .answer-btn.selected {
+            background: var(--prism-gradient-primary);
+            border-color: var(--color-dark-green);
+            color: white;
+            box-shadow: 0 8px 30px rgba(29, 57, 55, 0.3);
+        }
+
+        .answer-btn.selected svg {
+            stroke: white;
+        }
+
+        .quiz-navigation {
+            display: flex;
+            justify-content: space-between;
+            padding: 1.5rem 2rem;
+            gap: 1rem;
+            border-top: 1px solid var(--color-beige);
+        }
+
+        .nav-btn {
+            padding: 0.9rem 2rem;
+            border-radius: 8px;
+            border: 2px solid var(--color-dark-green);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            font-family: var(--font-sans);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: white;
+            color: var(--color-dark-green);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .nav-btn.primary {
+            background: var(--prism-gradient-primary);
+            color: white;
+            border-color: transparent;
+        }
+
+        .nav-btn.primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(29, 57, 55, 0.3);
+        }
+
+        .nav-btn:hover:not(:disabled):not(.primary) {
+            background: var(--color-beige);
+        }
+
+        /* Chat Section */
+        .chat-section {
+            min-height: 600px;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--color-gray-light) 0%, var(--color-white) 100%);
+        }
+
+        .chat-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: var(--prism-gradient-primary);
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-title h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+            font-family: var(--font-serif);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .chat-title svg {
+            width: 28px;
+            height: 28px;
+            stroke: white;
+            stroke-width: 1.5;
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+        }
+
+        .status-indicator::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .chat-messages {
+            height: 500px;
+            overflow-y: auto;
+            padding: 2rem;
+            background: #fafafa;
+        }
+
+        .message {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background: var(--prism-gradient-primary);
+        }
+
+        .message-avatar svg {
+            width: 20px;
+            height: 20px;
+            stroke: white;
+            stroke-width: 2;
+        }
+
+        .user-message .message-avatar {
+            background: var(--prism-gradient-accent);
+        }
+
+        .message-content {
+            background: white;
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            max-width: 70%;
+            border: 1px solid var(--color-beige);
+        }
+
+        .message-content p {
+            margin: 0;
+            line-height: 1.6;
+            color: var(--color-dark-green);
+        }
+
+        /* Product Card in Chat */
+        .product-recommendation {
+            background: white;
+            border: 2px solid var(--color-beige);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 1rem;
+            max-width: 500px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .product-rec-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-rec-content {
+            padding: 1.2rem;
+        }
+
+        .product-rec-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.8rem;
+        }
+
+        .product-rec-title {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            color: var(--color-dark-green);
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .match-badge {
+            background: var(--prism-gradient-accent);
+            color: var(--color-dark-green);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .product-rec-price {
+            font-size: 1.2rem;
+            color: var(--color-gold);
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .product-rec-effects {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .effect-item {
+            padding: 0.6rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+        }
+
+        .effect-good {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .effect-bad {
+            background: rgba(239, 68, 68, 0.1);
+            color: #dc2626;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .buy-now-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background: var(--prism-gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .buy-now-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(29, 57, 55, 0.3);
+        }
+
+        .typing-indicator .typing-dots {
+            display: flex;
+            gap: 0.4rem;
+            padding: 1rem 1.2rem;
+        }
+
+        .typing-dots span {
+            width: 8px;
+            height: 8px;
+            background: var(--color-gray-medium);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+
+            0%,
+            60%,
+            100% {
+                transform: translateY(0);
+                opacity: 0.5;
+            }
+
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+
+        .chat-input-container {
+            padding: 1.5rem 2rem;
+            background: white;
+            border-top: 1px solid var(--color-beige);
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+        }
+
+        #user-input {
+            flex: 1;
+            padding: 0.9rem 1.2rem;
+            border: 2px solid var(--color-beige);
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-family: var(--font-sans);
+            transition: all 0.3s ease;
+        }
+
+        #user-input:focus {
+            outline: none;
+            border-color: var(--color-dark-green);
+            box-shadow: 0 0 0 3px rgba(29, 57, 55, 0.1);
+        }
+
+        .btn-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            border: none;
+            background: var(--color-beige);
+            color: var(--color-dark-green);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .btn-icon:hover {
+            background: var(--color-dark-green);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .btn-send {
+            background: var(--prism-gradient-primary);
+            color: white;
+        }
+
+        .btn-send:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(29, 57, 55, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .prism-features {
+                gap: 2rem;
+            }
+
+            .answer-options {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+
+            .quiz-navigation {
+                flex-direction: column;
+            }
+
+            .message-content {
+                max-width: 85%;
+            }
+
+            .backend-status {
+                top: 70px;
+                right: 1rem;
+                font-size: 0.7rem;
+                padding: 0.5rem 0.9rem;
+            }
+        }
+    </style>
 </head>
+
 <body class="gucci-header-page">
-    <!-- Skip Links for Accessibility -->
-    <div class="skip-links">
-        <a href="#main-content" class="skip-link">Skip to main content</a>
-        <a href="#chat-section" class="skip-link">Skip to chat</a>
-        <a href="#onboarding-modal" class="skip-link">Skip to quiz</a>
+    <!-- Backend Status Indicator -->
+    <div class="backend-status offline" id="backend-status">
+        <div class="status-dot offline"></div>
+        <span id="status-text">Checking AI...</span>
     </div>
-    
-    <!-- Header - Exact replica from shirts.html -->
+
+    <!-- Gucci-Style Header (Exact from categories.html) -->
     <header class="gucci-header">
         <div class="gucci-header-left">
             <a href="contact.html" class="gucci-contact-link">Contact Us</a>
         </div>
-        
+
         <div class="gucci-header-center">
             <a href="index.html" class="gucci-logo">AI VOGUE</a>
         </div>
-        
+
         <div class="gucci-header-right">
-            <button class="gucci-icon" id="authButton" aria-label="Account" onclick="handleAuthClick()">
-                <i class="fas fa-user"></i>
+            <button class="gucci-icon account-link" aria-label="Account" onclick="window.location.href='profile.html'">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
             </button>
             <button class="gucci-icon gucci-search-icon" aria-label="Search">
-                <i class="fas fa-magnifying-glass"></i>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
             </button>
             <button class="gucci-menu-btn" aria-label="Menu">
-                <i class="fas fa-bars"></i>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="4" y1="6" x2="20" y2="6"></line>
+                    <line x1="4" y1="12" x2="20" y2="12"></line>
+                    <line x1="4" y1="18" x2="20" y2="18"></line>
+                </svg>
                 <span>MENU</span>
             </button>
         </div>
@@ -49,17 +786,21 @@
 
     <!-- Gucci Overlay Background -->
     <div class="gucci-overlay-bg"></div>
-    
+
     <!-- Gucci Overlay -->
     <div class="gucci-overlay">
         <button class="gucci-close-btn" aria-label="Close">
-            <i class="fas fa-times"></i>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
         </button>
-        
+
         <div class="gucci-overlay-search">
             <input type="text" class="gucci-search-input" placeholder="Search AI VOGUE..." aria-label="Search products">
         </div>
-        
+
         <nav class="gucci-overlay-nav">
             <a href="categories.html" class="gucci-nav-link">Vogue Vision</a>
             <a href="revibe.html" class="gucci-nav-link">Revibe</a>
@@ -73,612 +814,179 @@
         </nav>
     </div>
 
-    <!-- Parallax Background -->
-    <div class="prism-background">
-        <div class="parallax-layer layer-1"></div>
-        <div class="parallax-layer layer-2"></div>
-        <div class="parallax-layer layer-3"></div>
-    </div>
-
     <!-- Main Content -->
-    <main id="main-content" class="prism-main" role="main">
+    <main>
         <!-- Hero Section -->
         <section class="prism-hero">
-            <div class="container">
-                <div class="hero-content">
-                    <h1 class="prism-title">Prism AI</h1>
-                    <p class="prism-subtitle">Your Personal Beauty & Fashion Consultant</p>
-                    <div class="prism-features">
-                        <div class="feature-item">
-                            <i class="fas fa-magic"></i>
-                            <span>AI-Powered Recommendations</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-camera"></i>
-                            <span>Image Analysis</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-user-circle"></i>
-                            <span>Personalized Profile</span>
-                        </div>
-                    </div>
+            <h1 class="prism-title">Prism AI</h1>
+            <p class="prism-subtitle">Your Personal Beauty & Fashion Consultant Powered by Advanced AI</p>
+            <div class="prism-features">
+                <div class="feature-item">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                        <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                    <span>AI-Powered Recommendations</span>
+                </div>
+                <div class="feature-item">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span>Personalized Profile</span>
+                </div>
+                <div class="feature-item">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                        <polyline points="21 15 16 10 5 21"></polyline>
+                    </svg>
+                    <span>Visual Search</span>
                 </div>
             </div>
         </section>
 
-        <!-- Enhanced Onboarding Quiz Modal with 11 Questions -->
-        <div id="onboarding-modal" class="modal-overlay active" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-description">
-            <div class="modal-content">
-                <div class="quiz-header">
-                    <h2 id="modal-title">Let's Get to Know You</h2>
-                    <p id="modal-description">Answer a few questions to personalize your experience</p>
-                    <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="11" aria-label="Quiz progress">
-                        <div class="progress-fill"></div>
-                    </div>
-                    <span class="progress-text">Question <span id="current-question">1</span> of <span id="total-questions">11</span></span>
+        <!-- Onboarding Quiz Modal -->
+        <div id="onboarding-modal" class="modal-overlay" style="display: none;">
+            <div class="modal-content quiz-modal">
+                <div class="modal-header">
+                    <h2>Personalize Your Experience</h2>
+                    <button id="close-quiz-btn" class="close-btn" aria-label="Close quiz">&times;</button>
                 </div>
-                
-                <div class="quiz-content">
-                    <!-- Question 1: Skin Type -->      
-                    <div class="question-card active" data-question="1" role="group" aria-labelledby="question-1-title">
-                        <h3 id="question-1-title">What's your skin type?</h3>
-                        <div class="answer-options" role="radiogroup" aria-labelledby="question-1-title">
-                            <button class="answer-btn" data-value="oily" role="radio" aria-checked="false" tabindex="0">
-                                <i class="fas fa-droplet"></i> Oily
-                            </button>
-                            <button class="answer-btn" data-value="dry" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-sun"></i> Dry
-                            </button>
-                            <button class="answer-btn" data-value="combination" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-balance-scale"></i> Combination
-                            </button>
-                            <button class="answer-btn" data-value="normal" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-check-circle"></i> Normal
-                            </button>
-                            <button class="answer-btn" data-value="sensitive" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-heart"></i> Sensitive
-                            </button>
-                            <button class="answer-btn" data-value="unsure" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-question-circle"></i> Not Sure
-                            </button>
-                        </div>
-                    </div>
 
-                    <!-- Question 2: Primary Skin Concern -->
-                    <div class="question-card" data-question="2" role="group" aria-labelledby="question-2-title">
-                        <h3 id="question-2-title">What's your primary skin concern?</h3>
-                        <div class="answer-options" role="radiogroup" aria-labelledby="question-2-title">
-                            <button class="answer-btn" data-value="acne" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-ban"></i> Acne & Breakouts
-                            </button>
-                            <button class="answer-btn" data-value="aging" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-hourglass-half"></i> Anti-Aging
-                            </button>
-                            <button class="answer-btn" data-value="dryness" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-tint-slash"></i> Dryness
-                            </button>
-                            <button class="answer-btn" data-value="sensitivity" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-exclamation-triangle"></i> Sensitivity
-                            </button>
-                            <button class="answer-btn" data-value="pigmentation" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-moon"></i> Dark Spots
-                            </button>
-                            <button class="answer-btn" data-value="pores" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-circle"></i> Large Pores
-                            </button>
-                        </div>
-                    </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <span class="progress-text">Question <span id="current-question">1</span> of <span
+                        id="total-questions">12</span></span>
 
-                    <!-- Question 3: Hair Type (NEW) -->
-                    <div class="question-card" data-question="3" role="group" aria-labelledby="question-3-title">
-                        <h3 id="question-3-title">What's your hair type?</h3>
-                        <div class="answer-options" role="radiogroup" aria-labelledby="question-3-title">
-                            <button class="answer-btn" data-value="straight" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-grip-lines"></i> Straight
-                            </button>
-                            <button class="answer-btn" data-value="wavy" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-water"></i> Wavy
-                            </button>
-                            <button class="answer-btn" data-value="curly" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-wind"></i> Curly
-                            </button>
-                            <button class="answer-btn" data-value="coily" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-tornado"></i> Coily
-                            </button>
-                            <button class="answer-btn" data-value="bald" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-circle-notch"></i> Bald/No Hair
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Question 4: Hair Texture (NEW) -->
-                    <div class="question-card" data-question="4" role="group" aria-labelledby="question-4-title">
-                        <h3 id="question-4-title">What's your hair texture?</h3>
-                        <div class="answer-options" role="radiogroup" aria-labelledby="question-4-title">
-                            <button class="answer-btn" data-value="fine" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-feather"></i> Fine
-                            </button>
-                            <button class="answer-btn" data-value="medium" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-equals"></i> Medium
-                            </button>
-                            <button class="answer-btn" data-value="thick" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-bars"></i> Thick
-                            </button>
-                            <button class="answer-btn" data-value="na" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-minus"></i> Not Applicable
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Question 5: Hair Concern (NEW) -->
-                    <div class="question-card" data-question="5" role="group" aria-labelledby="question-5-title">
-                        <h3 id="question-5-title">What's your primary hair concern?</h3>
-                        <div class="answer-options" role="radiogroup" aria-labelledby="question-5-title">
-                            <button class="answer-btn" data-value="dryness" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-sun"></i> Dryness
-                            </button>
-                            <button class="answer-btn" data-value="oiliness" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-droplet"></i> Oiliness
-                            </button>
-                            <button class="answer-btn" data-value="damage" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-bolt"></i> Damage
-                            </button>
-                            <button class="answer-btn" data-value="thinning" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-chart-line"></i> Thinning
-                            </button>
-                            <button class="answer-btn" data-value="frizz" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-cloud"></i> Frizz
-                            </button>
-                            <button class="answer-btn" data-value="color-treated" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-palette"></i> Color-Treated
-                            </button>
-                            <button class="answer-btn" data-value="none" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-check"></i> None
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Question 6: Style Preference (Previously Q3) -->
-                    <div class="question-card" data-question="6" role="group" aria-labelledby="question-6-title">
-                        <h3 id="question-6-title">How would you describe your style?</h3>
-                        <div class="answer-options" role="radiogroup" aria-labelledby="question-6-title">
-                            <button class="answer-btn" data-value="classic" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-gem"></i> Classic & Timeless
-                            </button>
-                            <button class="answer-btn" data-value="trendy" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-fire"></i> Trendy & Fashion-Forward
-                            </button>
-                            <button class="answer-btn" data-value="casual" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-tshirt"></i> Casual & Comfortable
-                            </button>
-                            <button class="answer-btn" data-value="edgy" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-bolt"></i> Edgy & Bold
-                            </button>
-                            <button class="answer-btn" data-value="romantic" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-heart"></i> Romantic & Feminine
-                            </button>
-                            <button class="answer-btn" data-value="minimalist" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-minus-circle"></i> Minimalist & Clean
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Question 7: Skincare Budget (Previously Q4) -->
-                    <div class="question-card" data-question="7" role="group" aria-labelledby="question-7-title">
-                        <h3 id="question-7-title">What's your budget range for skincare?</h3>
-                        <div class="answer-options" role="radiogroup" aria-labelledby="question-7-title">
-                            <button class="answer-btn" data-value="budget" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-dollar-sign"></i> Under $50
-                            </button>
-                            <button class="answer-btn" data-value="mid" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-coins"></i> $50 - $150
-                            </button>
-                            <button class="answer-btn" data-value="premium" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-money-bill-wave"></i> $150 - $300
-                            </button>
-                            <button class="answer-btn" data-value="luxury" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-crown"></i> $300+
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Question 8: Fashion Budget (Previously Q5) -->
-                    <div class="question-card" data-question="8" role="group" aria-labelledby="question-8-title">
-                        <h3 id="question-8-title">What's your budget range for fashion?</h3>
-                        <div class="answer-options" role="radiogroup" aria-labelledby="question-8-title">
-                            <button class="answer-btn" data-value="budget" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-tags"></i> Under $100
-                            </button>
-                            <button class="answer-btn" data-value="mid" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-shopping-bag"></i> $100 - $500
-                            </button>
-                            <button class="answer-btn" data-value="premium" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-shopping-cart"></i> $500 - $1000
-                            </button>
-                            <button class="answer-btn" data-value="luxury" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-gem"></i> $1000+
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Question 9: Shopping Frequency (Previously Q6) -->
-                    <div class="question-card" data-question="9" role="group" aria-labelledby="question-9-title">
-                        <h3 id="question-9-title">How often do you shop for new clothes?</h3>
-                        <div class="answer-options" role="radiogroup" aria-labelledby="question-9-title">
-                            <button class="answer-btn" data-value="weekly" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-calendar-week"></i> Weekly
-                            </button>
-                            <button class="answer-btn" data-value="monthly" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-calendar-alt"></i> Monthly
-                            </button>
-                            <button class="answer-btn" data-value="seasonal" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-leaf"></i> Seasonally
-                            </button>
-                            <button class="answer-btn" data-value="rarely" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-clock"></i> Rarely
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Question 10: Occasions (Previously Q7) -->
-                    <div class="question-card" data-question="10" role="group" aria-labelledby="question-10-title">
-                        <h3 id="question-10-title">What occasions do you dress for most?</h3>
-                        <div class="answer-options" role="radiogroup" aria-labelledby="question-10-title">
-                            <button class="answer-btn" data-value="work" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-briefcase"></i> Work/Professional
-                            </button>
-                            <button class="answer-btn" data-value="casual" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-home"></i> Casual/Everyday
-                            </button>
-                            <button class="answer-btn" data-value="social" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-users"></i> Social Events
-                            </button>
-                            <button class="answer-btn" data-value="special" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-star"></i> Special Occasions
-                            </button>
-                            <button class="answer-btn" data-value="mixed" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-random"></i> Mix of Everything
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Question 11: Age Range (Previously Q8) -->
-                    <div class="question-card" data-question="11" role="group" aria-labelledby="question-11-title">
-                        <h3 id="question-11-title">What's your age range?</h3>
-                        <div class="answer-options" role="radiogroup" aria-labelledby="question-11-title">
-                            <button class="answer-btn" data-value="teens" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-child"></i> 13-19
-                            </button>
-                            <button class="answer-btn" data-value="twenties" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-user-graduate"></i> 20-29
-                            </button>
-                            <button class="answer-btn" data-value="thirties" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-user-tie"></i> 30-39
-                            </button>
-                            <button class="answer-btn" data-value="forties" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-user"></i> 40-49
-                            </button>
-                            <button class="answer-btn" data-value="fifties" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-user-check"></i> 50-59
-                            </button>
-                            <button class="answer-btn" data-value="sixty-plus" role="radio" aria-checked="false" tabindex="-1">
-                                <i class="fas fa-user-shield"></i> 60+
-                            </button>
-                        </div>
+                <div class="quiz-content-wrapper">
+                    <div class="quiz-content" id="quiz-content">
+                        <!-- Questions will be dynamically inserted here -->
                     </div>
                 </div>
-                
-                <div class="quiz-navigation" role="navigation" aria-label="Quiz navigation">
-                    <button id="prev-btn" class="nav-btn" disabled aria-label="Go to previous question">
-                        <i class="fas fa-arrow-left"></i> Previous
+
+                <div class="quiz-navigation">
+                    <button id="prev-btn" class="nav-btn" disabled>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2"
+                            style="display: inline-block; vertical-align: middle; margin-right: 0.5rem;">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                        Previous
                     </button>
-                    <button id="next-btn" class="nav-btn" disabled aria-label="Go to next question">
-                        Next <i class="fas fa-arrow-right"></i>
-                    </button>
-                    <button id="finish-btn" class="nav-btn primary" style="display: none;" aria-label="Complete profile setup">
-                        <i class="fas fa-check"></i> Start Chatting
+                    <button id="next-btn" class="nav-btn primary">
+                        Next
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2"
+                            style="display: inline-block; vertical-align: middle; margin-left: 0.5rem;">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- Auth Status Banner -->
-        <div class="auth-status-container" style="margin: 2rem auto; max-width: 900px; padding: 0 1.5rem;">
-            <!-- Only visible when logged in -->
-            <div data-auth-required="true" class="auth-welcome-banner" style="display: none;">
-                <div class="welcome-content">
-                    <div class="welcome-icon">
-                        <i class="fas fa-user-check"></i>
+        <!-- Chat Section -->
+        <section id="chat-section" class="chat-section" style="display: none;">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <div class="chat-title">
+                        <h2>
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                                <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                            </svg>
+                            Prism AI Assistant
+                        </h2>
+                        <div class="status-indicator">Online</div>
                     </div>
-                    <div class="welcome-text">
-                        <h3>Welcome back, <span data-user-name>User</span>! 👋</h3>
-                        <p>Your preferences are synced and ready. Start chatting with Prism AI!</p>
-                    </div>
-                    <button onclick="logout()" class="logout-btn">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </button>
                 </div>
-            </div>
 
-            <!-- Only visible for guests -->
-            <div data-guest-only="true" class="auth-guest-banner">
-                <div class="guest-content">
-                    <div class="guest-icon">
-                        <i class="fas fa-user-lock"></i>
-                    </div>
-                    <div class="guest-text">
-                        <h3>You're using Prism AI as a guest</h3>
-                        <p>Your preferences are saved locally. Sign in to sync across devices and unlock premium features!</p>
-                    </div>
-                    <a href="login.html?redirect=prism-ai-appwrite.html" class="signin-btn">
-                        <i class="fas fa-sign-in-alt"></i> Sign In to Save
-                    </a>
+                <div id="chat-messages" class="chat-messages">
+                    <!-- Messages will be dynamically added here -->
                 </div>
-            </div>
-        </div>
 
-        <!-- Chat Interface -->
-        <section id="chat-section" class="chat-section" style="display: none;" role="main" aria-label="Chat interface">
-            <div class="container">
-                <div class="chat-container glassmorphism">
-                    <div class="chat-header">
-                        <div class="chat-title">
-                            <h2>Prism AI Assistant</h2>
-                            <span class="status-indicator online">
-                                <i class="fas fa-circle"></i> Online
-                            </span>
-                        </div>
-                        <div class="chat-controls">
-                            <button id="edit-profile-btn" class="control-btn" aria-label="Edit your profile settings" title="Edit Preferences">
-                                <i class="fas fa-user-edit" aria-hidden="true"></i>
-                            </button>
-                            <button id="clear-chat-btn" class="control-btn" aria-label="Clear all chat messages" title="Clear Chat">
-                                <i class="fas fa-trash" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="chat-messages" id="chat-messages" aria-live="polite" role="log">
-                        <div class="message ai-message">
-                            <div class="message-avatar">
-                                <i class="fas fa-robot"></i>
-                            </div>
-                            <div class="message-content">
-                                <p>Hello! I'm your personal Prism AI assistant. I'm here to help you with personalized skincare, haircare, and fashion recommendations based on your unique profile. Feel free to ask me anything or upload an image for analysis!</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="chat-input-container">
-                        <div class="input-wrapper">
-                            <input type="file" id="image-upload" accept="image/*" style="display: none;" aria-label="Select image file">
-                            <button id="upload-btn" class="upload-btn" aria-label="Upload an image for analysis" title="Upload Image">
-                                <i class="fas fa-camera" aria-hidden="true"></i>
-                            </button>
-                            <input type="text" id="chat-input" class="chat-input" placeholder="Ask me about skincare, haircare, fashion, or upload an image..." aria-label="Type your message" role="textbox">
-                            <button id="send-btn" class="send-btn" aria-label="Send message" title="Send">
-                                <i class="fas fa-paper-plane" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                        <div id="image-preview" class="image-preview" style="display: none;" role="img" aria-label="Image preview"></div>
+                <div class="chat-input-container">
+                    <div id="image-preview" class="image-preview"></div>
+                    <div class="chat-input-wrapper">
+                        <button id="image-upload" class="btn-icon" aria-label="Upload image">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                <polyline points="21 15 16 10 5 21"></polyline>
+                            </svg>
+                        </button>
+                        <input type="file" id="image-input" accept="image/*" style="display: none;" />
+                        <input type="text" id="user-input" placeholder="Ask me anything about beauty & fashion..." />
+                        <button id="send-btn" class="btn-icon btn-send" aria-label="Send message">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                            </svg>
+                        </button>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
+    <!-- Footer (Exact from categories.html) -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>AI VOGUE</h3>
-                    <p>Revolutionizing fashion with artificial intelligence</p>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About AI VOGUE</h3>
+                <ul>
+                    <li><a href="about.html">Our Story</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="categories.html">Vogue Vision</a></li>
+                    <li><a href="mirrorx.html">MirrorX AR</a></li>
+                    <li><a href="twinfit.html">TwinFit</a></li>
+                    <li><a href="style-lease.html">Style Lease</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Policies</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Return Policy</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Stay Connected</h3>
+                <p>Subscribe to our newsletter for the latest in luxury fashion technology.</p>
+                <div class="newsletter">
+                    <input type="email" placeholder="Enter your email" aria-label="Email for newsletter">
+                    <button type="button"
+                        onclick="AIVogue.subscribeNewsletter(this.previousElementSibling.value)">Subscribe</button>
                 </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                        <li><a href="categories.html">Categories</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>AI Services</h4>
-                    <ul>
-                        <li><a href="prism-ai-appwrite.html">Prism AI</a></li>
-                        <li><a href="creative-threads.html">Creative Threads</a></li>
-                        <li><a href="mirrorx.html">MirrorX</a></li>
-                    </ul>
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram">📷</a>
+                    <a href="mailto:hello@aivogue.com" aria-label="Email">✉️</a>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 AI VOGUE. All rights reserved.</p>
-            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 AI VOGUE. All rights reserved. Luxury fashion technology redefined.</p>
         </div>
     </footer>
 
-    <!-- Auth Status Banner (Hidden by default) -->
-    <div id="authStatusBanner" style="display: none; position: fixed; top: 80px; left: 50%; transform: translateX(-50%); z-index: 1000; background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 1rem 2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); animation: slideDown 0.3s ease;">
-        <p id="authStatusText" style="margin: 0; font-weight: 600;"></p>
-    </div>
-
     <!-- Scripts -->
-    <script src="../js/main.js?v=3" defer></script>
-    <script src="../js/global-auth.js?v=1" type="module"></script>
-    <script src="../js/pages/prismAI-appwrite.js?v=5" type="module"></script>
-    
-    <script>
-        // Auth button click handler
-        function handleAuthClick() {
-            const currentPath = window.location.pathname.split('/').pop();
-            window.location.href = `login.html?redirect=${currentPath}`;
-        }
-        
-        // Show auth status banner
-        function showAuthBanner(message, duration = 5000) {
-            const banner = document.getElementById('authStatusBanner');
-            const text = document.getElementById('authStatusText');
-            text.textContent = message;
-            banner.style.display = 'block';
-            setTimeout(() => {
-                banner.style.display = 'none';
-            }, duration);
-        }
-    </script>
-    
-    <style>
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateX(-50%) translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
-        }
-        
-        /* Auth Status Banners */
-        .auth-welcome-banner,
-        .auth-guest-banner {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            animation: fadeInUp 0.6s ease;
-        }
-        
-        .auth-welcome-banner {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(5, 150, 105, 0.1));
-            border-color: rgba(16, 185, 129, 0.3);
-        }
-        
-        .auth-guest-banner {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(79, 70, 229, 0.1));
-            border-color: rgba(99, 102, 241, 0.3);
-        }
-        
-        .welcome-content,
-        .guest-content {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-        
-        .welcome-icon,
-        .guest-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-        
-        .welcome-icon {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-        }
-        
-        .guest-icon {
-            background: linear-gradient(135deg, #6366f1, #4f46e5);
-            color: white;
-        }
-        
-        .welcome-text,
-        .guest-text {
-            flex: 1;
-            min-width: 250px;
-        }
-        
-        .welcome-text h3,
-        .guest-text h3 {
-            margin: 0 0 0.5rem 0;
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #1a1a1a;
-        }
-        
-        .welcome-text p,
-        .guest-text p {
-            margin: 0;
-            color: #666;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-        
-        .logout-btn,
-        .signin-btn {
-            padding: 0.75rem 1.5rem;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-            border: none;
-            text-decoration: none;
-            white-space: nowrap;
-        }
-        
-        .logout-btn {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            color: white;
-        }
-        
-        .logout-btn:hover {
-            background: linear-gradient(135deg, #dc2626, #b91c1c);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);
-        }
-        
-        .signin-btn {
-            background: linear-gradient(135deg, #6366f1, #4f46e5);
-            color: white;
-        }
-        
-        .signin-btn:hover {
-            background: linear-gradient(135deg, #4f46e5, #4338ca);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .welcome-content,
-            .guest-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .logout-btn,
-            .signin-btn {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-    </style>
+    <script src="../js/main.js"></script>
+    <script src="prism-ai-gemini.js"></script>
 </body>
+
 </html>
-
-

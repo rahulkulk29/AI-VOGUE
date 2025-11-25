@@ -4,20 +4,17 @@ Simple, fast, and secure Python Flask backend for Prism AI recommendations.
 
 ## 🚀 **Quick Start**
 
-### **1. Setup Environment (no .env files)**
+### **1. Setup Environment**
 
-Set environment variables in your shell, Appwrite Function settings, Docker/Docker Compose, or hosting platform. Do not commit keys to a `.env` file.
-
-Windows PowerShell:
-```powershell
-$Env:GEMINI_API_KEY = "your_gemini_api_key_here"
-$Env:APPWRITE_API_KEY = "your_appwrite_api_key_here"
-```
-
-Linux/macOS (Bash):
 ```bash
-export GEMINI_API_KEY="your_gemini_api_key_here"
-export APPWRITE_API_KEY="your_appwrite_api_key_here"
+# Navigate to Python backend
+cd E:\Projects\website_v5\website_v5\backend\python-api
+
+# Create .env file
+copy env_template.txt .env
+
+# Edit .env with your Gemini API key
+# GEMINI_API_KEY=AIzaSyDGZdru4jUqEfaZFG9L0bmvbhpg0pVl64Q
 ```
 
 ### **2. Install Dependencies**
@@ -51,7 +48,7 @@ curl -X POST http://localhost:5000/api/test -H "Content-Type: application/json" 
 ```
 python-api/
 ├── app.py                 # Main Flask application
-├── env_template.txt       # Environment template (optional - do not commit secrets)
+├── .env                   # Environment variables (create from template)
 ├── env_template.txt       # Environment template
 ├── requirements.txt       # Python dependencies
 ├── services/
@@ -66,7 +63,7 @@ python-api/
 
 ## 🔧 **Configuration**
 
-### **Environment Variables (set in shell or deployment)**
+### **Environment Variables (.env)**
 
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
@@ -83,10 +80,7 @@ python-api/
 
 1. Go to [Google AI Studio](https://makersuite.google.com/app/apikey)
 2. Create a new API key
-3. Set the key as an environment variable in your shell or deployment (do not commit it to `.env`). Example (PowerShell):
-```powershell
-$Env:GEMINI_API_KEY = "your_gemini_api_key_here"
-```
+3. Copy the key to your `.env` file
 
 ## 📡 **API Endpoints**
 
@@ -216,8 +210,9 @@ POST /api/test
 
 **1. "GEMINI_API_KEY not found"**
 ```bash
-# Solution: Export the environment variable in your shell (PowerShell/Bash) or configure it in your deployment platform
-export GEMINI_API_KEY="your_gemini_api_key_here"
+# Solution: Create .env file
+copy env_template.txt .env
+# Edit .env and add your API key
 ```
 
 **2. "Module not found" errors**

@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Categories - AI VOGUE</title>
-    <meta name="description" content="Explore our luxury fashion categories - Pants, Shirts, and Shoes. Premium quality meets modern style.">
-    
+    <meta name="description"
+        content="Explore our luxury fashion categories - Pants, Shirts, and Shoes. Premium quality meets modern style.">
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
-    
+
     <!-- Stylesheets -->
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Preload critical resources -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" as="style">
-    
+    <link rel="preload"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        as="style">
+
     <style>
         /* Categories Page Specific Styles */
         .categories-hero {
@@ -23,21 +27,21 @@
             text-align: center;
             background: linear-gradient(135deg, var(--color-beige) 0%, var(--color-white) 100%);
         }
-        
+
         .categories-title {
             font-size: clamp(3rem, 6vw, 5rem);
             color: var(--color-dark-green);
             margin-bottom: 1rem;
             font-family: var(--font-serif);
         }
-        
+
         .categories-subtitle {
             font-size: 1.2rem;
             color: var(--color-gray-medium);
             max-width: 600px;
             margin: 0 auto 4rem;
         }
-        
+
         .categories-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -46,7 +50,7 @@
             margin: 0 auto;
             padding: 0 2rem;
         }
-        
+
         .category-card {
             position: relative;
             height: 500px;
@@ -56,23 +60,23 @@
             transition: var(--transition-smooth);
             box-shadow: var(--shadow-light);
         }
-        
+
         .category-card:hover {
             transform: translateY(-15px);
             box-shadow: var(--shadow-heavy);
         }
-        
+
         .category-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: var(--transition-slow);
         }
-        
+
         .category-card:hover .category-image {
             transform: scale(1.1);
         }
-        
+
         .category-overlay {
             position: absolute;
             top: 0;
@@ -85,17 +89,17 @@
             justify-content: center;
             transition: var(--transition-smooth);
         }
-        
+
         .category-card:hover .category-overlay {
             background: linear-gradient(135deg, rgba(29, 57, 55, 0.8) 0%, rgba(25, 80, 66, 0.6) 50%, transparent 100%);
         }
-        
+
         .category-content {
             text-align: center;
             color: var(--color-white);
             z-index: 2;
         }
-        
+
         .category-name {
             font-size: 2.5rem;
             font-family: var(--font-serif);
@@ -104,14 +108,14 @@
             text-transform: uppercase;
             letter-spacing: 2px;
         }
-        
+
         .category-description {
             font-size: 1.1rem;
             opacity: 0.9;
             margin-bottom: 2rem;
             max-width: 250px;
         }
-        
+
         .category-btn {
             background-color: transparent;
             border: 2px solid var(--color-white);
@@ -125,59 +129,63 @@
             transition: var(--transition-smooth);
             border-radius: 4px;
         }
-        
+
         .category-btn:hover {
             background-color: var(--color-white);
             color: var(--color-dark-green);
             transform: translateY(-2px);
         }
-        
+
         .categories-section {
             padding: 4rem 0 6rem;
         }
-        
+
         @media (max-width: 768px) {
             .categories-grid {
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
-            
+
             .category-card {
                 height: 400px;
             }
-            
+
             .category-name {
                 font-size: 2rem;
             }
         }
     </style>
 </head>
+
 <body class="gucci-header-page">
     <!-- Gucci-Style Header -->
     <header class="gucci-header">
         <div class="gucci-header-left">
             <a href="contact.html" class="gucci-contact-link">Contact Us</a>
         </div>
-        
+
         <div class="gucci-header-center">
             <a href="index.html" class="gucci-logo">AI VOGUE</a>
         </div>
-        
+
         <div class="gucci-header-right">
             <button class="gucci-icon account-link" aria-label="Account" onclick="window.location.href='profile.html'">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                     <circle cx="12" cy="7" r="4"></circle>
                 </svg>
             </button>
             <button class="gucci-icon gucci-search-icon" aria-label="Search">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="11" cy="11" r="8"></circle>
                     <path d="m21 21-4.35-4.35"></path>
                 </svg>
             </button>
             <button class="gucci-menu-btn" aria-label="Menu">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <line x1="4" y1="6" x2="20" y2="6"></line>
                     <line x1="4" y1="12" x2="20" y2="12"></line>
                     <line x1="4" y1="18" x2="20" y2="18"></line>
@@ -189,26 +197,27 @@
 
     <!-- Gucci Overlay Background -->
     <div class="gucci-overlay-bg"></div>
-    
+
     <!-- Gucci Overlay -->
     <div class="gucci-overlay">
         <button class="gucci-close-btn" aria-label="Close">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
         </button>
-        
+
         <div class="gucci-overlay-search">
             <input type="text" class="gucci-search-input" placeholder="Search AI VOGUE..." aria-label="Search products">
         </div>
-        
+
         <nav class="gucci-overlay-nav">
             <a href="categories.html" class="gucci-nav-link">Vogue Vision</a>
             <a href="revibe.html" class="gucci-nav-link">Revibe</a>
             <a href="creative-threads.html" class="gucci-nav-link">Creative Threads</a>
             <a href="mirrorx.html" class="gucci-nav-link">MirrorX</a>
-            <a href="prism-ai-appwrite.html" class="gucci-nav-link">Prism AI</a>
+            <a href="prism-ai-3.0.html" class="gucci-nav-link">Prism AI</a>
             <a href="style-lease.html" class="gucci-nav-link">Style Lease</a>
             <a href="twinfit.html" class="gucci-nav-link">TwinFit</a>
             <a href="about.html" class="gucci-nav-link">About</a>
@@ -221,7 +230,8 @@
         <!-- Categories Hero Section -->
         <section class="categories-hero">
             <h1 class="categories-title fade-in">Luxury Collections</h1>
-            <p class="categories-subtitle fade-in">Discover our curated selection of premium fashion essentials, crafted with the finest materials and attention to detail.</p>
+            <p class="categories-subtitle fade-in">Discover our curated selection of premium fashion essentials, crafted
+                with the finest materials and attention to detail.</p>
         </section>
 
         <!-- Categories Grid Section -->
@@ -229,13 +239,13 @@
             <div class="categories-grid">
                 <!-- Pants Category -->
                 <div class="category-card fade-in" onclick="window.location.href='pants.html'">
-                    <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=800&h=1000&fit=crop" 
-                         alt="Luxury Pants Collection" 
-                         class="category-image">
+                    <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=800&h=1000&fit=crop"
+                        alt="Luxury Pants Collection" class="category-image">
                     <div class="category-overlay">
                         <div class="category-content">
                             <h2 class="category-name">Pants</h2>
-                            <p class="category-description">Tailored perfection meets contemporary style in our premium pants collection.</p>
+                            <p class="category-description">Tailored perfection meets contemporary style in our premium
+                                pants collection.</p>
                             <button class="category-btn">Explore Collection</button>
                         </div>
                     </div>
@@ -243,13 +253,13 @@
 
                 <!-- Shirts Category -->
                 <div class="category-card fade-in" onclick="window.location.href='shirts.html'">
-                    <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&h=1000&fit=crop" 
-                         alt="Luxury Shirts Collection" 
-                         class="category-image">
+                    <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&h=1000&fit=crop"
+                        alt="Luxury Shirts Collection" class="category-image">
                     <div class="category-overlay">
                         <div class="category-content">
                             <h2 class="category-name">Shirts</h2>
-                            <p class="category-description">Sophisticated shirts that embody elegance and modern craftsmanship.</p>
+                            <p class="category-description">Sophisticated shirts that embody elegance and modern
+                                craftsmanship.</p>
                             <button class="category-btn">Explore Collection</button>
                         </div>
                     </div>
@@ -257,13 +267,13 @@
 
                 <!-- Shoes Category -->
                 <div class="category-card fade-in" onclick="window.location.href='shoes.html'">
-                    <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&h=1000&fit=crop" 
-                         alt="Luxury Shoes Collection" 
-                         class="category-image">
+                    <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&h=1000&fit=crop"
+                        alt="Luxury Shoes Collection" class="category-image">
                     <div class="category-overlay">
                         <div class="category-content">
                             <h2 class="category-name">Shoes</h2>
-                            <p class="category-description">Step into luxury with our handcrafted footwear collection.</p>
+                            <p class="category-description">Step into luxury with our handcrafted footwear collection.
+                            </p>
                             <button class="category-btn">Explore Collection</button>
                         </div>
                     </div>
@@ -284,7 +294,7 @@
                     <li><a href="#">Press</a></li>
                 </ul>
             </div>
-            
+
             <div class="footer-section">
                 <h3>Services</h3>
                 <ul>
@@ -294,7 +304,7 @@
                     <li><a href="style-lease.html">Style Lease</a></li>
                 </ul>
             </div>
-            
+
             <div class="footer-section">
                 <h3>Policies</h3>
                 <ul>
@@ -304,13 +314,14 @@
                     <li><a href="#">Shipping Info</a></li>
                 </ul>
             </div>
-            
+
             <div class="footer-section">
                 <h3>Stay Connected</h3>
                 <p>Subscribe to our newsletter for the latest in luxury fashion technology.</p>
                 <div class="newsletter">
                     <input type="email" placeholder="Enter your email" aria-label="Email for newsletter">
-                    <button type="button" onclick="AIVogue.subscribeNewsletter(this.previousElementSibling.value)">Subscribe</button>
+                    <button type="button"
+                        onclick="AIVogue.subscribeNewsletter(this.previousElementSibling.value)">Subscribe</button>
                 </div>
                 <div class="social-links">
                     <a href="#" aria-label="Instagram">📷</a>
@@ -318,7 +329,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="footer-bottom">
             <p>&copy; 2024 AI VOGUE. All rights reserved. Luxury fashion technology redefined.</p>
         </div>
@@ -327,4 +338,5 @@
     <!-- Scripts -->
     <script src="../js/main.js"></script>
 </body>
+
 </html>

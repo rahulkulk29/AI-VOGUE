@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500">
+  <rect width="500" height="500" fill="#f8f8f8"/>
+  <circle cx="250" cy="250" r="180" fill="#1d3937"/>
+  <circle cx="250" cy="250" r="160" fill="#d6cabc"/>
+  <circle cx="250" cy="250" r="140" fill="#1d3937"/>
+  <text x="250" y="230" font-family="Playfair Display, serif" font-size="48" fill="#d6cabc" text-anchor="middle" font-weight="700">VINTAGE</text>
+  <text x="250" y="280" font-family="Inter, sans-serif" font-size="32" fill="#91855a" text-anchor="middle" font-weight="600">EST. 2024</text>
+  <path d="M150,250 L350,250 M250,150 L250,350" stroke="#91855a" stroke-width="2" opacity="0.5"/>
+</svg>

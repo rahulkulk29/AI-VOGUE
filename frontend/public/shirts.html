@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luxury Shirts Collection - AI VOGUE</title>
-    <meta name="description" content="Discover AI VOGUE's exquisite collection of luxury shirts crafted with precision and style.">
-    
+    <meta name="description"
+        content="Discover AI VOGUE's exquisite collection of luxury shirts crafted with precision and style.">
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
-    
+
     <!-- Stylesheets -->
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/search-products.css">
-    
+
     <style>
         /* Gucci-inspired luxury styling */
         .category-hero {
@@ -23,7 +24,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .category-hero::before {
             content: '';
             position: absolute;
@@ -34,7 +35,7 @@
             background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="0.5" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') repeat;
             opacity: 0.3;
         }
-        
+
         .category-title {
             font-size: 4rem;
             font-weight: 300;
@@ -45,7 +46,7 @@
             position: relative;
             z-index: 2;
         }
-        
+
         .category-subtitle {
             font-size: 1.2rem;
             color: #cccccc;
@@ -54,18 +55,18 @@
             position: relative;
             z-index: 2;
         }
-        
+
         .products-section {
             padding: 80px 0;
             background: #fafafa;
         }
-        
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 2rem;
         }
-        
+
         .filters-bar {
             display: flex;
             justify-content: space-between;
@@ -74,15 +75,15 @@
             padding: 2rem;
             background: #ffffff;
             border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
-        
+
         .filter-group {
             display: flex;
             gap: 1rem;
             align-items: center;
         }
-        
+
         .filter-select {
             padding: 0.8rem 1.5rem;
             border: 2px solid #e0e0e0;
@@ -93,48 +94,48 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .filter-select:hover {
             border-color: #333;
         }
-        
+
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2.5rem;
             margin-bottom: 4rem;
         }
-        
+
         .product-card {
             background: #ffffff;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             transition: all 0.4s ease;
             cursor: pointer;
             position: relative;
         }
-        
+
         .product-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
         }
-        
+
         .product-image {
             width: 100%;
             height: 400px;
             object-fit: cover;
             transition: transform 0.4s ease;
         }
-        
+
         .product-card:hover .product-image {
             transform: scale(1.05);
         }
-        
+
         .product-info {
             padding: 2rem;
         }
-        
+
         .product-brand {
             font-size: 0.8rem;
             color: #888;
@@ -142,7 +143,7 @@
             letter-spacing: 0.1em;
             margin-bottom: 0.5rem;
         }
-        
+
         .product-name {
             font-size: 1.3rem;
             font-weight: 400;
@@ -150,20 +151,20 @@
             margin-bottom: 1rem;
             line-height: 1.4;
         }
-        
+
         .product-price {
             font-size: 1.1rem;
             font-weight: 600;
             color: #333;
             margin-bottom: 1rem;
         }
-        
+
         .product-colors {
             display: flex;
             gap: 0.5rem;
             margin-bottom: 1.5rem;
         }
-        
+
         .color-swatch {
             width: 20px;
             height: 20px;
@@ -173,11 +174,11 @@
             cursor: pointer;
             transition: transform 0.2s ease;
         }
-        
+
         .color-swatch:hover {
             transform: scale(1.2);
         }
-        
+
         .product-badge {
             position: absolute;
             top: 1rem;
@@ -190,12 +191,12 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
-        
+
         .load-more {
             text-align: center;
             margin-top: 3rem;
         }
-        
+
         .btn-load-more {
             background: #333;
             color: #fff;
@@ -208,22 +209,22 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
-        
+
         .btn-load-more:hover {
             background: #555;
             transform: translateY(-2px);
         }
-        
+
         @media (max-width: 768px) {
             .category-title {
                 font-size: 2.5rem;
             }
-            
+
             .filters-bar {
                 flex-direction: column;
                 gap: 1rem;
             }
-            
+
             .products-grid {
                 grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
                 gap: 1.5rem;
@@ -231,17 +232,18 @@
         }
     </style>
 </head>
+
 <body class="gucci-header-page">
     <!-- Gucci-Style Header -->
     <header class="gucci-header">
         <div class="gucci-header-left">
             <a href="contact.html" class="gucci-contact-link">Contact Us</a>
         </div>
-        
+
         <div class="gucci-header-center">
             <a href="index.html" class="gucci-logo">AI VOGUE</a>
         </div>
-        
+
         <div class="gucci-header-right">
             <button class="gucci-icon" aria-label="Account">
                 <i class="fas fa-user"></i>
@@ -258,23 +260,23 @@
 
     <!-- Gucci Overlay Background -->
     <div class="gucci-overlay-bg"></div>
-    
+
     <!-- Gucci Overlay -->
     <div class="gucci-overlay">
         <button class="gucci-close-btn" aria-label="Close">
             <i class="fas fa-times"></i>
         </button>
-        
+
         <div class="gucci-overlay-search">
             <input type="text" class="gucci-search-input" placeholder="Search AI VOGUE..." aria-label="Search products">
         </div>
-        
+
         <nav class="gucci-overlay-nav">
             <a href="categories.html" class="gucci-nav-link">Vogue Vision</a>
             <a href="revibe.html" class="gucci-nav-link">Revibe</a>
             <a href="creative-threads.html" class="gucci-nav-link">Creative Threads</a>
             <a href="mirrorx.html" class="gucci-nav-link">MirrorX</a>
-            <a href="prism-ai-appwrite.html" class="gucci-nav-link">Prism AI</a>
+            <a href="prism-ai-3.0.html" class="gucci-nav-link">Prism AI</a>
             <a href="style-lease.html" class="gucci-nav-link">Style Lease</a>
             <a href="twinfit.html" class="gucci-nav-link">TwinFit</a>
             <a href="about.html" class="gucci-nav-link">About</a>
@@ -294,16 +296,6 @@
     <section class="products-section">
         <div class="container">
             <!-- Filters Bar -->
-            <!-- Search and Filters Bar -->
-            <div class="search-section">
-                <div class="search-container">
-                    <div class="search-bar-wrapper">
-                        <input type="text" class="search-input" id="searchInput" placeholder="Search shirts, formal shirts, casual shirts...">
-                        <button class="search-button" id="searchButton" aria-label="Search">Search</button>
-                    </div>
-                </div>
-            </div>
-
             <div class="filters-bar">
                 <div class="filter-group">
                     <select class="filter-select" id="sortFilter">
@@ -312,7 +304,7 @@
                         <option value="price-high">Price: High to Low</option>
                         <option value="newest">Newest</option>
                     </select>
-                    
+
                     <select class="filter-select" id="sizeFilter">
                         <option value="all">All Sizes</option>
                         <option value="xs">XS</option>
@@ -322,7 +314,7 @@
                         <option value="xl">XL</option>
                         <option value="xxl">XXL</option>
                     </select>
-                    
+
                     <select class="filter-select" id="priceFilter">
                         <option value="all">All Prices</option>
                         <option value="0-500">Under $500</option>
@@ -331,7 +323,7 @@
                         <option value="2000+">$2000+</option>
                     </select>
                 </div>
-                
+
                 <div class="filter-group">
                     <span id="productCount">18 Products</span>
                 </div>
@@ -341,7 +333,7 @@
             <div class="products-grid" id="productsGrid">
                 <!-- Products will be populated by JavaScript -->
             </div>
-            
+
             <!-- Load More -->
             <div class="load-more">
                 <button class="btn-load-more" id="loadMoreBtn">Load More</button>
@@ -361,7 +353,7 @@
                     <li><a href="#">Press</a></li>
                 </ul>
             </div>
-            
+
             <div class="footer-section">
                 <h3>Services</h3>
                 <ul>
@@ -371,7 +363,7 @@
                     <li><a href="style-lease.html">Style Lease</a></li>
                 </ul>
             </div>
-            
+
             <div class="footer-section">
                 <h3>Policies</h3>
                 <ul>
@@ -381,13 +373,14 @@
                     <li><a href="#">Shipping Info</a></li>
                 </ul>
             </div>
-            
+
             <div class="footer-section">
                 <h3>Stay Connected</h3>
                 <p>Subscribe to our newsletter for the latest in luxury fashion technology.</p>
                 <div class="newsletter">
                     <input type="email" placeholder="Enter your email" aria-label="Email for newsletter">
-                    <button type="button" onclick="AIVogue.subscribeNewsletter(this.previousElementSibling.value)">Subscribe</button>
+                    <button type="button"
+                        onclick="AIVogue.subscribeNewsletter(this.previousElementSibling.value)">Subscribe</button>
                 </div>
                 <div class="social-links">
                     <a href="#" aria-label="Instagram">📷</a>
@@ -395,7 +388,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="footer-bottom">
             <p>&copy; 2024 AI VOGUE. All rights reserved. Luxury fashion technology redefined.</p>
         </div>
@@ -403,155 +396,113 @@
 
     <!-- Scripts -->
     <script src="../js/main.js"></script>
-    <script type="module">
-        import { Client, Databases, Query } from 'https://cdn.jsdelivr.net/npm/appwrite@14.0.1/+esm';
-        
-        // Initialize Appwrite client
-        const client = new Client()
-            .setEndpoint('https://nyc.cloud.appwrite.io/v1')
-            .setProject('68dd18860033ab7dffac');
-            
-        const databases = new Databases(client);
-        
-        const SHIRTS_PAGE_SIZE = 3; // first item, then more on Load More
-        let shirtsAllProducts = [];
-        let shirtsRenderedCount = 0;
+    <script>
+        // Shirts product data
+        const shirtsProducts = [
+            {
+                id: 1,
+                name: "Italian Silk Dress Shirt",
+                brand: "AI VOGUE",
+                price: 1250,
+                image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400&h=500&fit=crop",
+                colors: ["#FFFFFF", "#E6E6FA", "#F0F8FF"],
+                badge: "New",
+                category: "formal"
+            },
+            {
+                id: 2,
+                name: "Luxury Cotton Polo",
+                brand: "AI VOGUE",
+                price: 890,
+                image: "https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=400&h=500&fit=crop",
+                colors: ["#000080", "#FFFFFF", "#2F4F4F"],
+                badge: "Bestseller",
+                category: "casual"
+            },
+            {
+                id: 3,
+                name: "Designer Casual Shirt",
+                brand: "AI VOGUE",
+                price: 750,
+                image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&h=500&fit=crop",
+                colors: ["#F5DEB3", "#D2B48C", "#DDA0DD"],
+                badge: "",
+                category: "casual"
+            },
+            {
+                id: 4,
+                name: "Premium Tuxedo Shirt",
+                brand: "AI VOGUE",
+                price: 1850,
+                image: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=500&fit=crop",
+                colors: ["#FFFFFF", "#000000"],
+                badge: "Exclusive",
+                category: "formal"
+            },
+            {
+                id: 5,
+                name: "Cashmere Blend Sweater",
+                brand: "AI VOGUE",
+                price: 1450,
+                image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=400&h=500&fit=crop",
+                colors: ["#D2B48C", "#F5F5DC", "#8FBC8F"],
+                badge: "Limited",
+                category: "luxury"
+            },
+            {
+                id: 6,
+                name: "Athletic Performance Shirt",
+                brand: "AI VOGUE",
+                price: 450,
+                image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=500&fit=crop",
+                colors: ["#708090", "#000000", "#FFFFFF"],
+                badge: "",
+                category: "athletic"
+            }
+        ];
 
-        function renderNextShirtsBatch() {
+        // Render products
+        function renderProducts(products) {
             const grid = document.getElementById('productsGrid');
-            if (!grid) return;
-
-            const slice = shirtsAllProducts.slice(
-                shirtsRenderedCount,
-                shirtsRenderedCount + SHIRTS_PAGE_SIZE
-            );
-
-            slice.forEach(p => {
-                const imgUrl = p.image || p.image_url || 'https://via.placeholder.com/400x500?text=No+Image';
-                const title = p.title || p.name || p.brand || 'Product';
-                const brand = p.brand || '';
-                const priceValue = Number(p.price) || 0;
-                const priceText = priceValue ? `₹${priceValue.toLocaleString()}` : '';
-                const firstTag = Array.isArray(p.tags) ? p.tags[0] : (p.tags || '');
-                const badgeHtml = firstTag ? `<div class="product-badge">${firstTag}</div>` : '';
-
-                grid.insertAdjacentHTML('beforeend', `
-                    <div class="product-card" data-product-id="${p.$id}">
-                        ${badgeHtml}
-                        <img src="${imgUrl}" alt="${title}" class="product-image">
-                        <div class="product-info">
-                            <div class="product-brand">${brand}</div>
-                            <h3 class="product-name">${title}</h3>
-                            <div class="product-price">${priceText}</div>
+            grid.innerHTML = products.map(product => `
+                <div class="product-card" onclick="window.location.href='shirts-product.html?id=${product.id}'">
+                    ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-info">
+                        <div class="product-brand">${product.brand}</div>
+                        <h3 class="product-name">${product.name}</h3>
+                        <div class="product-price">$${product.price.toLocaleString()}</div>
+                        <div class="product-colors">
+                            ${product.colors.map(color => `<div class="color-swatch" style="background-color: ${color}"></div>`).join('')}
                         </div>
                     </div>
-                `);
-            });
-
-            shirtsRenderedCount += slice.length;
-
-            const loadMoreBtn = document.getElementById('loadMoreBtn');
-            if (loadMoreBtn && shirtsRenderedCount >= shirtsAllProducts.length) {
-                loadMoreBtn.style.display = 'none';
-            }
+                </div>
+            `).join('');
         }
 
-        function attachShirtsCardHandler() {
-            const grid = document.getElementById('productsGrid');
-            if (!grid) return;
-
-            grid.addEventListener('click', function (e) {
-                const card = e.target.closest('.product-card');
-                if (!card) return;
-
-                const id = card.dataset.productId;
-                const product = shirtsAllProducts.find(p => p.$id === id);
-                if (!product) return;
-
-                try {
-                    localStorage.setItem(
-                        'vogue_selected_product_detail',
-                        JSON.stringify({ category: 'shirts', product })
-                    );
-                } catch (err) {
-                    console.error('Error storing selected product:', err);
-                }
-
-                window.location.href = `shirts-product.html?id=${encodeURIComponent(id)}&category=shirts`;
-            });
-        }
-
-        async function loadInitialShirts() {
-            try {
-                const res = await databases.listDocuments(
-                    '691f253500375353b25f', // databaseId (new)
-                    'shirt', // collectionId for shirts (new)
-                    [
-                        Query.limit(40),
-                        Query.offset(0)
-                    ]
-                );
-                shirtsAllProducts = res.documents || [];
-                shirtsRenderedCount = 0;
-                document.getElementById('productsGrid').innerHTML = '';
-                renderNextShirtsBatch();
-            } catch (e) {
-                console.error('Error loading initial shirts from Appwrite:', e);
-            }
-        }
-
-        function applyShirtsSearch(query) {
-            const q = query.trim().toLowerCase();
-            if (!q) {
-                shirtsRenderedCount = 0;
-                document.getElementById('productsGrid').innerHTML = '';
-                renderNextShirtsBatch();
-                return;
-            }
-
-            const filtered = shirtsAllProducts.filter(p => {
-                const title = (p.title || p.name || '').toLowerCase();
-                const brand = (p.brand || '').toLowerCase();
-                return title.includes(q) || brand.includes(q);
-            });
-
-            const grid = document.getElementById('productsGrid');
-            grid.innerHTML = '';
-            shirtsRenderedCount = 0;
-            shirtsAllProducts = filtered;
-            renderNextShirtsBatch();
-        }
-
-        // Make functions available globally for HTML event handlers
-        window.renderNextShirtsBatch = renderNextShirtsBatch;
-        window.applyShirtsSearch = function() {
-            const query = document.getElementById('searchInput').value;
-            applyShirtsSearch(query);
-        };
-
+        // Initialize page
         document.addEventListener('DOMContentLoaded', function () {
-            attachShirtsCardHandler();
-            loadInitialShirts().catch(console.error);
+            renderProducts(shirtsProducts);
 
-            const loadMoreBtn = document.getElementById('loadMoreBtn');
-            if (loadMoreBtn) {
-                loadMoreBtn.addEventListener('click', renderNextShirtsBatch);
-            }
+            // Filter functionality
+            document.getElementById('sortFilter').addEventListener('change', function () {
+                // Add sorting logic here
+            });
 
-            const searchButton = document.getElementById('searchButton');
-            if (searchButton) {
-                searchButton.addEventListener('click', window.applyShirtsSearch);
-            }
-            
-            const searchInput = document.getElementById('searchInput');
-            if (searchInput) {
-                searchInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        window.applyShirtsSearch();
-                    }
-                });
-            }
+            document.getElementById('sizeFilter').addEventListener('change', function () {
+                // Add size filtering logic here
+            });
+
+            document.getElementById('priceFilter').addEventListener('change', function () {
+                // Add price filtering logic here
+            });
+
+            // Load more functionality
+            document.getElementById('loadMoreBtn').addEventListener('click', function () {
+                // Add load more logic here
+            });
         });
     </script>
 </body>
+
 </html>

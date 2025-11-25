@@ -1,21 +1,35 @@
 {
-    "name": "virtual-tryon-backend",
-    "version": "1.0.0",
-    "description": "Backend proxy for Hugging Face Virtual Try-On API",
-    "main": "backend-proxy.js",
+    "name": "prism-ai-backend",
+    "version": "3.0.0",
+    "description": "Backend API for Prism AI 3.0 with Groq AI and SERP API",
+    "main": "server.js",
+    "type": "module",
     "scripts": {
-        "start": "node backend-proxy.js"
+        "start": "node server.js",
+        "dev": "nodemon server.js"
     },
+    "keywords": [
+        "ai",
+        "chatbot",
+        "fashion",
+        "beauty",
+        "groq",
+        "serp"
+    ],
+    "author": "AI VOGUE",
+    "license": "MIT",
     "dependencies": {
-        "@google-cloud/aiplatform": "^5.13.0",
-        "@gradio/client": "^2.0.0-dev.2",
         "cors": "^2.8.5",
+        "dotenv": "^16.3.1",
         "express": "^4.18.2",
-        "form-data": "^4.0.0",
-        "google-auth-library": "^10.5.0",
-        "node-fetch": "^2.7.0",
-        "replicate": "^1.4.0",
-        "sharp": "^0.34.5",
-        "uuid": "^13.0.0"
+        "node-appwrite": "^12.0.0",
+        "node-fetch": "^3.3.2",
+        "serpapi": "^2.0.0"
+    },
+    "devDependencies": {
+        "nodemon": "^3.0.2"
+    },
+    "engines": {
+        "node": ">=18.0.0"
     }
 }

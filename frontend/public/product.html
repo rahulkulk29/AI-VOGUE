@@ -36,7 +36,7 @@
             <li><a href="revibe.html">Revibe</a></li>
             <li><a href="creative-threads.html">Creative Threads</a></li>
             <li><a href="mirrorx.html">MirrorX</a></li>
-            <li><a href="prism-ai-appwrite.html">Prism AI</a></li>
+            <li><a href="prism-ai-3.0.html">Prism AI</a></li>
             <li><a href="style-lease.html">Style Lease</a></li>
             <li><a href="twinfit.html">TwinFit</a></li>
             <li><a href="about.html">About</a></li>
@@ -116,13 +116,6 @@
                     <button class="btn btn-primary btn-buy" disabled>Select Options</button>
                     <button class="btn btn-secondary btn-try">Try Now</button>
                 </div>
-                <div id="tryOnPreview" style="margin-top: 1.5rem; display: none;">
-                    <p id="tryOnStatus" style="margin: 0 0 .5rem; font-size: .9rem; color: #666;">
-                        Loading your try-on photo...
-                    </p>
-                    <img id="tryOnImage" alt="Your try-on photo"
-                        style="max-width: 260px; border-radius: 12px; border: 1px solid #e0e0e0;" />
-                </div>
 
                 <!-- Product Info Tabs -->
                 <div class="product-tabs">
@@ -182,6 +175,11 @@
                 <h2>Try On Experience</h2>
             </div>
 
+            <div class="modal-tabs">
+                <button class="tab-button active" data-tab="avatar">2D Avatar Try-On</button>
+                <button class="tab-button" data-tab="ar">MirrorX AR Preview</button>
+            </div>
+
             <div class="modal-body">
                 <div id="avatar" class="tab-content active">
                     <div class="avatar-container">
@@ -189,13 +187,18 @@
                             <div class="avatar-icon">👤</div>
                             <h3>2D Avatar Try-On</h3>
                             <p>See how this item looks on your personalized avatar</p>
-                            <div class="tryon-face-preview">
-                                <img id="tryOnModalImage" alt="Your try-on photo"
-                                    style="max-width: 260px; border-radius: 12px; border: 1px solid #e0e0e0; margin-top: 1rem; display: none;" />
-                            </div>
-                            <button class="btn btn-secondary" id="reuploadFaceBtn" style="margin-top: 1rem;">
-                                Reupload Photo
-                            </button>
+                            <button class="btn btn-primary">Create Avatar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="ar" class="tab-content">
+                    <div class="ar-container">
+                        <div class="ar-placeholder">
+                            <div class="ar-icon">📱</div>
+                            <h3>MirrorX AR Preview</h3>
+                            <p>Use your camera to see how this item looks on you</p>
+                            <button class="btn btn-primary">Start AR Experience</button>
                         </div>
                     </div>
                 </div>
@@ -269,8 +272,6 @@
 
     <!-- Scripts -->
     <script src="../js/main.js"></script>
-    <script type="module" src="../js/appwrite-config.js"></script>
-    <script src="../js/gemini-tryon.js"></script>
     <script src="../js/product.js"></script>
 </body>
 

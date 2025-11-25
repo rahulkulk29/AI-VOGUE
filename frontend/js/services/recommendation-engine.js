@@ -63,7 +63,7 @@ class RecommendationEngine {
 
         const price = this.extractPrice(product.price);
         const category = product.category?.toLowerCase();
-        
+
         let budgetRange;
         if (category?.includes('skincare') || category?.includes('beauty')) {
             budgetRange = this.getBudgetRange(userProfile.skincareBudget);
@@ -112,7 +112,7 @@ class RecommendationEngine {
         const allergens = userProfile.allergens.map(a => a.toLowerCase());
         const ingredients = product.ingredients.map(i => i.toLowerCase());
 
-        return !ingredients.some(ing => 
+        return !ingredients.some(ing =>
             allergens.some(allergen => ing.includes(allergen))
         );
     }
@@ -132,7 +132,7 @@ class RecommendationEngine {
         const preferred = userProfile.preferredIngredients.map(p => p.toLowerCase());
         const ingredients = product.ingredients.map(i => i.toLowerCase());
 
-        return ingredients.some(ing => 
+        return ingredients.some(ing =>
             preferred.some(pref => ing.includes(pref))
         );
     }
@@ -152,7 +152,7 @@ class RecommendationEngine {
         const avoided = userProfile.avoidIngredients.map(a => a.toLowerCase());
         const ingredients = product.ingredients.map(i => i.toLowerCase());
 
-        return ingredients.some(ing => 
+        return ingredients.some(ing =>
             avoided.some(avoid => ing.includes(avoid))
         );
     }
@@ -164,7 +164,7 @@ class RecommendationEngine {
         if (!product.name && !product.brand) return false;
 
         const productText = `${product.name} ${product.brand}`.toLowerCase();
-        
+
         // Check skin type suitability
         if (userProfile?.skinType) {
             const skinType = userProfile.skinType.toLowerCase();
@@ -195,13 +195,19 @@ class RecommendationEngine {
         const ingredientsList = this.formatIngredients(product.ingredients, userProfile);
         const prosHTML = this.formatList(product.pros);
         const consHTML = this.formatList(product.cons);
+        const imageHTML = (product.image && typeof product.image === 'string')
+            ? `<img src="${this.sanitize(product.image)}" alt="${this.sanitize(product.name)}" class="product-image" />`
+            : `<div class="product-image-placeholder" style="background: ${this.getProductGradient(product.category)}">
+                    <i class="fas ${this.getCategoryIcon(product.category)}"></i>
+               </div>`;
+        const reasonText = (product.reason && String(product.reason).trim())
+            ? product.reason
+            : this.generateReason(product, userProfile, compatibilityLabel);
 
         return `
             <div class="product-card" style="animation-delay: ${index * 0.1}s">
                 <div class="product-header">
-                    <div class="product-image-placeholder" style="background: ${this.getProductGradient(product.category)}">
-                        <i class="fas ${this.getCategoryIcon(product.category)}"></i>
-                    </div>
+                    ${imageHTML}
                     <div class="product-title-section">
                         <h4 class="product-name">${this.sanitize(product.name)}</h4>
                         <p class="product-brand">${this.sanitize(product.brand)}</p>
@@ -213,7 +219,7 @@ class RecommendationEngine {
                         <i class="fas fa-tag"></i> ${this.sanitize(product.category)}
                     </span>
                     <span class="product-price">
-                        <i class="fas fa-dollar-sign"></i> ${this.sanitize(product.price)}
+                        <i class="fas fa-indian-rupee-sign"></i> ${this.sanitize(product.price)}
                     </span>
                 </div>
 
@@ -261,6 +267,13 @@ class RecommendationEngine {
                     </div>
                 ` : ''}
 
+                ${reasonText ? `
+                    <div class="recommendation-reason">
+                        <h5><i class="fas fa-comment-dots"></i> Why this</h5>
+                        <p>${this.sanitize(reasonText)}</p>
+                    </div>
+                ` : ''}
+
                 <div class="product-footer">
                     <a href="${this.sanitize(product.purchaseLink)}" 
                        class="buy-btn" 
@@ -272,6 +285,28 @@ class RecommendationEngine {
                 </div>
             </div>
         `;
+    }
+
+    generateReason(product, userProfile, label) {
+        const reasons = [];
+        if (userProfile?.skinType) {
+            reasons.push(`suits ${userProfile.skinType} skin`);
+        }
+        if (userProfile?.hairType && (product.category || '').toLowerCase().includes('hair')) {
+            reasons.push(`good for ${userProfile.hairType} hair`);
+        }
+        if (Array.isArray(userProfile?.preferredIngredients) && Array.isArray(product?.ingredients)) {
+            const preferred = userProfile.preferredIngredients.map(x => String(x).toLowerCase());
+            const found = product.ingredients.find(i => preferred.some(p => String(i).toLowerCase().includes(p)));
+            if (found) reasons.push(`contains preferred ingredient: ${found}`);
+        }
+        if (Array.isArray(userProfile?.avoidIngredients) && Array.isArray(product?.ingredients)) {
+            const avoided = userProfile.avoidIngredients.map(x => String(x).toLowerCase());
+            const hit = product.ingredients.find(i => avoided.some(a => String(i).toLowerCase().includes(a)));
+            if (!hit) reasons.push('free from your avoided ingredients');
+        }
+        if (label) reasons.push(label.toLowerCase());
+        return reasons.length ? `Recommended because it ${reasons.join(', ')}.` : '';
     }
 
     /**
@@ -309,7 +344,7 @@ class RecommendationEngine {
     formatList(items) {
         if (!items || items.length === 0) return null;
 
-        const listItems = items.map(item => 
+        const listItems = items.map(item =>
             `<li>${this.sanitize(item)}</li>`
         ).join('');
 
@@ -400,7 +435,7 @@ class RecommendationEngine {
             `;
         }
 
-        const productsHTML = response.products.map((product, index) => 
+        const productsHTML = response.products.map((product, index) =>
             this.generateProductCardHTML(product, userProfile, index)
         ).join('');
 
@@ -428,7 +463,7 @@ class RecommendationEngine {
 
         // Additional tips
         if (response.additionalTips && response.additionalTips.length > 0) {
-            const tipsHTML = response.additionalTips.map(tip => 
+            const tipsHTML = response.additionalTips.map(tip =>
                 `<li><i class="fas fa-check"></i> ${this.sanitize(tip)}</li>`
             ).join('');
 

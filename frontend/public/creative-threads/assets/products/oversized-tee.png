@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+  <rect width="800" height="1000" fill="#f8f8f8"/>
+  <path d="M120,120 L220,60 L320,60 L420,120 L680,120 L680,950 L120,950 Z" fill="#ffffff" stroke="#d6cabc" stroke-width="2"/>
+  <ellipse cx="400" cy="120" rx="60" ry="35" fill="#ffffff" stroke="#d6cabc" stroke-width="2"/>
+  <rect x="180" y="120" width="440" height="550" fill="none" stroke="#91855a" stroke-width="1" stroke-dasharray="10,5" opacity="0.3"/>
+  <text x="400" y="720" font-family="Playfair Display, serif" font-size="48" fill="#1d3937" text-anchor="middle">Oversized Tee</text>
+  <text x="400" y="770" font-family="Inter, sans-serif" font-size="24" fill="#666666" text-anchor="middle">Relaxed Streetwear Fit</text>
+  <text x="400" y="820" font-family="Inter, sans-serif" font-size="32" fill="#91855a" text-anchor="middle" font-weight="600">₹599</text>
+</svg>
