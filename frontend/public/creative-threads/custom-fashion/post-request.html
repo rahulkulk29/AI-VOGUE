@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Custom Request - AI VOGUE</title>
+    <meta name="description"
+        content="Post your custom fashion design request and receive quotes from verified designers.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../../../assets/favicon.ico">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../../../css/styles.css">
+    <link rel="stylesheet" href="assets/custom-fash.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Appwrite SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.1"></script>
+</head>
+
+<body class="gucci-header-page">
+    <!-- Gucci-Style Header (same as marketplace) -->
+    <header class="gucci-header">
+        <div class="gucci-header-left">
+            <a href="../../../contact.html" class="gucci-contact-link">Contact Us</a>
+        </div>
+
+        <div class="gucci-header-center">
+            <a href="../../../index.html" class="gucci-logo">AI VOGUE</a>
+        </div>
+
+        <div class="gucci-header-right">
+            <button class="gucci-icon account-link" aria-label="Account"
+                onclick="window.location.href='../../../profile.html'">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </button>
+            <button class="gucci-icon gucci-search-icon" aria-label="Search">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+            </button>
+            <button class="gucci-menu-btn" aria-label="Menu">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="4" y1="6" x2="20" y2="6"></line>
+                    <line x1="4" y1="12" x2="20" y2="12"></line>
+                    <line x1="4" y1="18" x2="20" y2="18"></line>
+                </svg>
+                <span>MENU</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Gucci Overlay Background -->
+    <div class="gucci-overlay-bg"></div>
+
+    <!-- Gucci Overlay (same as marketplace) -->
+    <div class="gucci-overlay">
+        <button class="gucci-close-btn" aria-label="Close">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+
+        <div class="gucci-overlay-search">
+            <input type="text" class="gucci-search-input" placeholder="Search AI VOGUE..." aria-label="Search products">
+        </div>
+
+        <nav class="gucci-overlay-nav">
+            <a href="../../../categories.html" class="gucci-nav-link">Vogue Vision</a>
+            <a href="../../../revibe.html" class="gucci-nav-link">Revibe</a>
+            <a href="../../../creative-threads.html" class="gucci-nav-link">Creative Threads</a>
+            <a href="custom-marketplace.html" class="gucci-nav-link">Custom Fashion</a>
+            <a href="../../../mirrorx.html" class="gucci-nav-link">MirrorX</a>
+            <a href="../../../prism-ai-3.0.html" class="gucci-nav-link">Prism AI</a>
+            <a href="../../../style-lease.html" class="gucci-nav-link">Style Lease</a>
+            <a href="../../../twinfit.html" class="gucci-nav-link">TwinFit</a>
+            <a href="../../../about.html" class="gucci-nav-link">About</a>
+            <a href="../../../contact.html" class="gucci-nav-link">Contact</a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <main class="cf-page">
+        <section
+            style="padding: 6rem 0 4rem; background: linear-gradient(135deg, var(--color-beige) 0%, var(--color-white) 100%);">
+            <div class="cf-container-narrow">
+                <h1 class="cf-hero-title" style="text-align: center; margin-bottom: 1rem;">Post Custom Request</h1>
+                <p class="cf-hero-subtitle" style="text-align: center; margin-bottom: 3rem;">Tell us about your custom
+                    fashion vision. Verified designers will send you detailed quotes.</p>
+
+                <!-- Progress Steps -->
+                <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 3rem;">
+                    <div class="cf-step active" data-step="1" style="display: flex; align-items: center; gap: 0.5rem;">
+                        <div
+                            style="width: 32px; height: 32px; border-radius: 50%; background: var(--color-dark-green); color: white; display: flex; align-items: center; justify-content: center; font-weight: 600;">
+                            1</div>
+                        <span style="font-weight: 500;">Details</span>
+                    </div>
+                    <div class="cf-step" data-step="2"
+                        style="display: flex; align-items: center; gap: 0.5rem; opacity: 0.5;">
+                        <div
+                            style="width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--color-beige); display: flex; align-items: center; justify-content: center; font-weight: 600;">
+                            2</div>
+                        <span style="font-weight: 500;">Budget</span>
+                    </div>
+                    <div class="cf-step" data-step="3"
+                        style="display: flex; align-items: center; gap: 0.5rem; opacity: 0.5;">
+                        <div
+                            style="width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--color-beige); display: flex; align-items: center; justify-content: center; font-weight: 600;">
+                            3</div>
+                        <span style="font-weight: 500;">Images</span>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <form id="requestForm" class="cf-card">
+                    <!-- Step 1: Details -->
+                    <div class="cf-form-step" data-step="1">
+                        <h2
+                            style="font-family: var(--font-serif); color: var(--color-dark-green); margin-bottom: 2rem;">
+                            Request Details</h2>
+
+                        <div class="cf-form-group">
+                            <label for="title" class="cf-label cf-label-required">Request Title</label>
+                            <input type="text" id="title" class="cf-input"
+                                placeholder="e.g., Custom Wedding Lehenga with Gold Embroidery" required
+                                maxlength="255">
+                            <span class="cf-input-hint">A clear, descriptive title helps designers understand your
+                                request quickly.</span>
+                        </div>
+
+                        <div class="cf-form-group">
+                            <label for="description" class="cf-label cf-label-required">Description</label>
+                            <textarea id="description" class="cf-textarea"
+                                placeholder="Describe your vision in detail. Include style preferences, colors, materials, inspiration, and any specific requirements..."
+                                required maxlength="5000"></textarea>
+                            <span class="cf-input-hint">Be as detailed as possible. The more information you provide,
+                                the better quotes you'll receive.</span>
+                        </div>
+
+                        <div class="cf-form-group">
+                            <label for="occasion" class="cf-label">Occasion</label>
+                            <select id="occasion" class="cf-select">
+                                <option value="">Select occasion (optional)</option>
+                                <option value="wedding">Wedding</option>
+                                <option value="party">Party</option>
+                                <option value="casual">Casual</option>
+                                <option value="formal">Formal</option>
+                                <option value="traditional">Traditional</option>
+                                <option value="festive">Festive</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="cf-form-group">
+                            <label for="deadline" class="cf-label">Deadline</label>
+                            <input type="date" id="deadline" class="cf-input" min="">
+                            <span class="cf-input-hint">When do you need this by? Leave blank if flexible.</span>
+                        </div>
+
+                        <div class="cf-btn-group" style="justify-content: flex-end; margin-top: 2rem;">
+                            <button type="button" class="cf-btn cf-btn-primary" onclick="nextStep(2)">
+                                Next: Budget <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Budget & Size -->
+                    <div class="cf-form-step cf-hidden" data-step="2">
+                        <h2
+                            style="font-family: var(--font-serif); color: var(--color-dark-green); margin-bottom: 2rem;">
+                            Budget & Size Information</h2>
+
+                        <div class="cf-form-group">
+                            <label class="cf-label cf-label-required">Budget Range (INR)</label>
+                            <div
+                                style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: center;">
+                                <div>
+                                    <input type="number" id="budgetMin" class="cf-input" placeholder="Min" required
+                                        min="0" step="100">
+                                </div>
+                                <span style="color: var(--color-gray-medium);">to</span>
+                                <div>
+                                    <input type="number" id="budgetMax" class="cf-input" placeholder="Max" required
+                                        min="0" step="100">
+                                </div>
+                            </div>
+                            <span class="cf-input-hint">Set a realistic budget range. Designers will quote within this
+                                range.</span>
+                        </div>
+
+                        <div class="cf-form-group">
+                            <label for="sizeInfo" class="cf-label">Size Information</label>
+                            <textarea id="sizeInfo" class="cf-textarea"
+                                placeholder='e.g., {"bust": "36", "waist": "28", "hips": "38", "height": "5\' 6\""}'
+                                rows="4"></textarea>
+                            <span class="cf-input-hint">Provide measurements or standard size. This helps designers give
+                                accurate quotes.</span>
+                        </div>
+
+                        <div class="cf-btn-group" style="justify-content: space-between; margin-top: 2rem;">
+                            <button type="button" class="cf-btn cf-btn-outline" onclick="prevStep(1)">
+                                <i class="fas fa-arrow-left"></i> Back
+                            </button>
+                            <button type="button" class="cf-btn cf-btn-primary" onclick="nextStep(3)">
+                                Next: Images <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Reference Images -->
+                    <div class="cf-form-step cf-hidden" data-step="3">
+                        <h2
+                            style="font-family: var(--font-serif); color: var(--color-dark-green); margin-bottom: 2rem;">
+                            Reference Images</h2>
+
+                        <div class="cf-form-group">
+                            <label class="cf-label">Upload Reference Images</label>
+                            <div class="cf-upload-area" id="uploadArea">
+                                <div class="cf-upload-icon">📁</div>
+                                <div class="cf-upload-text">Drag & drop images here or click to browse</div>
+                                <div class="cf-upload-hint">High-res JPG/PNG up to 100MB. PSD/AI/PDF allowed for source
+                                    files.</div>
+                                <input type="file" id="fileInput"
+                                    accept="image/jpeg,image/jpg,image/png,application/pdf" multiple
+                                    style="display: none;">
+                            </div>
+
+                            <div id="fileList" class="cf-file-list cf-hidden"></div>
+                        </div>
+
+                        <div class="cf-form-group">
+                            <label for="visibility" class="cf-label">Request Visibility</label>
+                            <select id="visibility" class="cf-select">
+                                <option value="public">Public - All designers can see and quote</option>
+                                <option value="invite-only">Invite Only - Only designers you invite can quote</option>
+                            </select>
+                        </div>
+
+                        <div class="cf-btn-group" style="justify-content: space-between; margin-top: 2rem;">
+                            <button type="button" class="cf-btn cf-btn-outline" onclick="prevStep(2)">
+                                <i class="fas fa-arrow-left"></i> Back
+                            </button>
+                            <button type="submit" class="cf-btn cf-btn-success cf-btn-lg" id="submitBtn">
+                                <i class="fas fa-check-circle"></i> Post Request
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (same as marketplace) -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About AI VOGUE</h3>
+                <ul>
+                    <li><a href="../../../about.html">Our Story</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="../../../categories.html">Vogue Vision</a></li>
+                    <li><a href="../../../mirrorx.html">MirrorX AR</a></li>
+                    <li><a href="../../../twinfit.html">TwinFit</a></li>
+                    <li><a href="../../../style-lease.html">Style Lease</a></li>
+                    <li><a href="custom-marketplace.html">Custom Fashion</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Policies</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Return Policy</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Stay Connected</h3>
+                <p>Subscribe to our newsletter for the latest in luxury fashion technology.</p>
+                <div class="newsletter">
+                    <input type="email" placeholder="Enter your email" aria-label="Email for newsletter">
+                    <button type="button">Subscribe</button>
+                </div>
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram">📷</a>
+                    <a href="mailto:hello@aivogue.com" aria-label="Email">✉️</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 AI VOGUE. All rights reserved. Luxury fashion technology redefined.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../../../js/main.js"></script>
+    <script src="assets/custom-fash.js"></script>
+    <script>
+        let uploadedFiles = [];
+        let uploadedFileIds = [];
+
+        // Set min date to today
+        document.getElementById('deadline').min = new Date().toISOString().split('T')[0];
+
+        // File upload handling
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const fileList = document.getElementById('fileList');
+
+        uploadArea.addEventListener('click', () => fileInput.click());
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+
+        function handleFiles(files) {
+            Array.from(files).forEach(file => {
+                try {
+                    customFashionAPI.validateFile(file);
+                    uploadedFiles.push(file);
+                    addFileToList(file);
+                } catch (error) {
+                    alert(error.message);
+                }
+            });
+        }
+
+        function addFileToList(file) {
+            fileList.classList.remove('cf-hidden');
+
+            const fileItem = document.createElement('div');
+            fileItem.className = 'cf-file-item';
+            fileItem.innerHTML = `
+                <div class="cf-file-info">
+                    <div class="cf-file-icon"><i class="fas fa-file-image"></i></div>
+                    <div class="cf-file-details">
+                        <div class="cf-file-name">${file.name}</div>
+                        <div class="cf-file-size">${(file.size / 1024 / 1024).toFixed(2)} MB</div>
+                        <div class="cf-progress cf-hidden">
+                            <div class="cf-progress-bar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="cf-file-remove" onclick="removeFile('${file.name}')">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+
+            fileList.appendChild(fileItem);
+        }
+
+        function removeFile(fileName) {
+            uploadedFiles = uploadedFiles.filter(f => f.name !== fileName);
+            const items = fileList.querySelectorAll('.cf-file-item');
+            items.forEach(item => {
+                if (item.querySelector('.cf-file-name').textContent === fileName) {
+                    item.remove();
+                }
+            });
+
+            if (uploadedFiles.length === 0) {
+                fileList.classList.add('cf-hidden');
+            }
+        }
+
+        // Multi-step form navigation
+        function nextStep(step) {
+            // Validate current step
+            if (step === 2) {
+                if (!document.getElementById('title').value || !document.getElementById('description').value) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+            }
+
+            if (step === 3) {
+                const budgetMin = parseInt(document.getElementById('budgetMin').value);
+                const budgetMax = parseInt(document.getElementById('budgetMax').value);
+
+                if (!budgetMin || !budgetMax) {
+                    alert('Please enter budget range');
+                    return;
+                }
+
+                if (budgetMin >= budgetMax) {
+                    alert('Maximum budget must be greater than minimum budget');
+                    return;
+                }
+            }
+
+            // Hide all steps
+            document.querySelectorAll('.cf-form-step').forEach(s => s.classList.add('cf-hidden'));
+
+            // Show target step
+            document.querySelector(`.cf-form-step[data-step="${step}"]`).classList.remove('cf-hidden');
+
+            // Update progress
+            document.querySelectorAll('.cf-step').forEach((s, i) => {
+                if (i < step) {
+                    s.classList.add('active');
+                    s.style.opacity = '1';
+                    s.querySelector('div').style.background = 'var(--color-dark-green)';
+                    s.querySelector('div').style.color = 'white';
+                    s.querySelector('div').style.border = 'none';
+                } else {
+                    s.classList.remove('active');
+                    s.style.opacity = '0.5';
+                    s.querySelector('div').style.background = 'transparent';
+                    s.querySelector('div').style.color = 'var(--color-dark-green)';
+                    s.querySelector('div').style.border = '2px solid var(--color-beige)';
+                }
+            });
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function prevStep(step) {
+            nextStep(step);
+        }
+
+        // Form submission
+        document.getElementById('requestForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Posting...';
+
+            try {
+                // Check authentication
+                const user = await customFashionAPI.getCurrentUser();
+                if (!user) {
+                    alert('Please log in to post a request');
+                    window.location.href = '../../../login.html';
+                    return;
+                }
+
+                // Upload reference images
+                uploadedFileIds = [];
+                if (uploadedFiles.length > 0) {
+                    for (let i = 0; i < uploadedFiles.length; i++) {
+                        const file = uploadedFiles[i];
+                        const fileItems = fileList.querySelectorAll('.cf-file-item');
+                        const progressBar = fileItems[i].querySelector('.cf-progress-bar');
+                        const progressContainer = fileItems[i].querySelector('.cf-progress');
+
+                        progressContainer.classList.remove('cf-hidden');
+
+                        const uploadedFile = await customFashionAPI.uploadReferenceImage(file, (percent) => {
+                            progressBar.style.width = `${percent}%`;
+                        });
+
+                        uploadedFileIds.push(uploadedFile.$id);
+                    }
+                }
+
+                // Create request
+                const requestData = {
+                    title: document.getElementById('title').value,
+                    description: document.getElementById('description').value,
+                    occasion: document.getElementById('occasion').value,
+                    budgetMin: parseInt(document.getElementById('budgetMin').value),
+                    budgetMax: parseInt(document.getElementById('budgetMax').value),
+                    sizeInfo: document.getElementById('sizeInfo').value ? JSON.parse(document.getElementById('sizeInfo').value) : {},
+                    deadline: document.getElementById('deadline').value,
+                    refImages: uploadedFileIds,
+                    visibility: document.getElementById('visibility').value
+                };
+
+                const request = await customFashionAPI.createRequest(requestData);
+
+                alert('Request posted successfully! Designers will start sending quotes soon.');
+                window.location.href = `request-detail.html?id=${request.$id}`;
+
+            } catch (error) {
+                console.error('Error posting request:', error);
+                alert(`Error: ${error.message}`);
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-check-circle"></i> Post Request';
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,7 +1,7 @@
 // Global Authentication Handler - Works on ALL Pages
 // Import this script on every page to enable centralized auth
 
-import { authService } from './appwrite-config.js';
+import { authService } from './appwrite-config.js?v=7';
 
 // Global auth state
 window.AIVOGUE_AUTH = {

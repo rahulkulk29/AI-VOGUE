@@ -16,6 +16,7 @@ Add this before the closing `</body>` tag:
 <script src="../js/services/product-search.js"></script>
 ```
 
+
 Add this search bar section in the page (usually near the top):
 ```html
 <div class="search-section">

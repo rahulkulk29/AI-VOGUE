@@ -3,7 +3,7 @@ echo ============================================
 echo   Starting AI VOGUE Frontend Server
 echo ============================================
 echo.
-echo Starting HTTP server on port 8000...
+echo Starting HTTP server on port 8000 from the FRONTEND ROOT...
 echo.
 echo ============================================
 echo   Frontend will be available at:
@@ -13,7 +13,6 @@ echo   Press Ctrl+C to stop the server
 echo ============================================
 echo.
 
-cd public
 python -m http.server 8000
 
 pause

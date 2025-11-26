@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CDN Test</title>
+</head>
+
+<body>
+    <h1>Testing CDN...</h1>
+    <div id="result">Waiting...</div>
+    <script type="module">
+        try {
+            import { Client } from 'https://cdn.jsdelivr.net/npm/appwrite@14.0.1/+esm';
+            console.log('CDN Loaded successfully');
+            document.getElementById('result').textContent = 'CDN Loaded';
+        } catch (e) {
+            console.error('CDN Error:', e);
+            document.getElementById('result').textContent = 'CDN Error: ' + e.message;
+        }
+    </script>
+    <script>
+        window.onerror = function (msg, url, line) {
+            document.getElementById('result').textContent = 'Global Error: ' + msg;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,252 @@
+{
+    "beneficial": {
+        "hyaluronic acid": {
+            "benefit": "Deep hydration & plumping effect",
+            "good_for": [
+                "dry",
+                "normal",
+                "combination",
+                "sensitive"
+            ],
+            "concerns": [
+                "dryness",
+                "aging",
+                "fine lines"
+            ]
+        },
+        "niacinamide": {
+            "benefit": "Controls oil & minimizes pores",
+            "good_for": [
+                "oily",
+                "combination"
+            ],
+            "concerns": [
+                "acne",
+                "pores",
+                "pigmentation",
+                "uneven tone"
+            ]
+        },
+        "salicylic acid": {
+            "benefit": "Unclogs pores & fights acne",
+            "good_for": [
+                "oily",
+                "combination"
+            ],
+            "concerns": [
+                "acne",
+                "blackheads",
+                "whiteheads"
+            ]
+        },
+        "retinol": {
+            "benefit": "Reduces wrinkles & improves texture",
+            "good_for": [
+                "normal",
+                "oily",
+                "combination"
+            ],
+            "concerns": [
+                "aging",
+                "fine lines",
+                "wrinkles",
+                "texture"
+            ]
+        },
+        "vitamin c": {
+            "benefit": "Brightens & evens skin tone",
+            "good_for": [
+                "all"
+            ],
+            "concerns": [
+                "pigmentation",
+                "dark spots",
+                "dullness"
+            ]
+        },
+        "ceramides": {
+            "benefit": "Strengthens skin barrier",
+            "good_for": [
+                "dry",
+                "sensitive",
+                "normal"
+            ],
+            "concerns": [
+                "dryness",
+                "sensitivity",
+                "barrier damage"
+            ]
+        },
+        "peptides": {
+            "benefit": "Firms & reduces wrinkles",
+            "good_for": [
+                "all"
+            ],
+            "concerns": [
+                "aging",
+                "sagging",
+                "loss of firmness"
+            ]
+        },
+        "glycolic acid": {
+            "benefit": "Exfoliates & brightens",
+            "good_for": [
+                "normal",
+                "oily",
+                "combination"
+            ],
+            "concerns": [
+                "dullness",
+                "texture",
+                "pigmentation"
+            ]
+        },
+        "azelaic acid": {
+            "benefit": "Treats acne & hyperpigmentation",
+            "good_for": [
+                "oily",
+                "combination",
+                "sensitive"
+            ],
+            "concerns": [
+                "acne",
+                "rosacea",
+                "pigmentation"
+            ]
+        },
+        "centella asiatica": {
+            "benefit": "Soothes & repairs skin",
+            "good_for": [
+                "sensitive",
+                "all"
+            ],
+            "concerns": [
+                "sensitivity",
+                "redness",
+                "irritation"
+            ]
+        },
+        "argan oil": {
+            "benefit": "Nourishes & adds shine to hair",
+            "good_for_hair": [
+                "dry",
+                "damaged",
+                "frizzy"
+            ],
+            "hair_concerns": [
+                "dryness",
+                "frizz",
+                "damage"
+            ]
+        },
+        "biotin": {
+            "benefit": "Strengthens hair & promotes growth",
+            "good_for_hair": [
+                "thinning",
+                "weak"
+            ],
+            "hair_concerns": [
+                "thinning",
+                "breakage",
+                "slow growth"
+            ]
+        },
+        "keratin": {
+            "benefit": "Repairs & strengthens hair",
+            "good_for_hair": [
+                "damaged",
+                "chemically treated"
+            ],
+            "hair_concerns": [
+                "damage",
+                "breakage",
+                "weak hair"
+            ]
+        },
+        "tea tree oil": {
+            "benefit": "Treats scalp issues & dandruff",
+            "good_for_hair": [
+                "oily scalp"
+            ],
+            "hair_concerns": [
+                "dandruff",
+                "scalp irritation",
+                "oiliness"
+            ]
+        }
+    },
+    "harmful": {
+        "parabens": {
+            "concern": "May cause irritation & hormonal disruption",
+            "avoid_for": [
+                "sensitive"
+            ],
+            "severity": "moderate"
+        },
+        "sulfates": {
+            "concern": "Strips natural oils & causes dryness",
+            "avoid_for": [
+                "dry",
+                "sensitive"
+            ],
+            "severity": "moderate"
+        },
+        "fragrance": {
+            "concern": "Common allergen & irritant",
+            "avoid_for": [
+                "sensitive"
+            ],
+            "severity": "high"
+        },
+        "alcohol denat": {
+            "concern": "Drying & irritating",
+            "avoid_for": [
+                "dry",
+                "sensitive"
+            ],
+            "severity": "moderate"
+        },
+        "formaldehyde": {
+            "concern": "Carcinogenic & highly irritating",
+            "avoid_for": [
+                "all"
+            ],
+            "severity": "high"
+        },
+        "phthalates": {
+            "concern": "Endocrine disruptor",
+            "avoid_for": [
+                "all"
+            ],
+            "severity": "high"
+        },
+        "mineral oil": {
+            "concern": "Clogs pores",
+            "avoid_for": [
+                "oily",
+                "acne-prone"
+            ],
+            "severity": "low"
+        },
+        "silicones": {
+            "concern": "Can build up on hair",
+            "avoid_for_hair": [
+                "fine",
+                "oily"
+            ],
+            "severity": "low"
+        }
+    },
+    "allergens": {
+        "common": [
+            "fragrance",
+            "essential oils",
+            "lanolin",
+            "formaldehyde",
+            "methylisothiazolinone",
+            "propylene glycol",
+            "coconut oil",
+            "shea butter"
+        ]
+    }
+}

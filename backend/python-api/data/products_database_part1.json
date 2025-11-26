@@ -1,0 +1,354 @@
+{
+    "skincare": {
+        "moisturizers": [
+            {
+                "id": "skin_moist_001",
+                "name": "Minimalist 10% Vitamin B5 Gel Face Moisturizer",
+                "brand": "Minimalist",
+                "category": "moisturizer",
+                "skin_types": [
+                    "oily",
+                    "combination",
+                    "sensitive"
+                ],
+                "concerns": [
+                    "hydration",
+                    "acne",
+                    "redness"
+                ],
+                "price": 349,
+                "url": "https://www.nykaa.com/minimalist-10-vitamin-b5-gel-face-moisturizer/p/709739",
+                "image": "https://images-static.nykaa.com/media/catalog/product/8/9/89dc9a78906087480004_1.jpg"
+            },
+            {
+                "id": "skin_moist_002",
+                "name": "Cetaphil DAM Daily Advance Ultra Hydrating Lotion",
+                "brand": "Cetaphil",
+                "category": "moisturizer",
+                "skin_types": [
+                    "dry",
+                    "sensitive"
+                ],
+                "concerns": [
+                    "dryness",
+                    "rough_skin"
+                ],
+                "price": 599,
+                "url": "https://www.nykaa.com/cetaphil-dam-daily-advance-ultra-hydrating-lotion/p/84695",
+                "image": "https://images-static.nykaa.com/media/catalog/product/c/e/cetaphil_dam_daily_advance_ultra_hydrating_lotion_473ml.jpg"
+            },
+            {
+                "id": "skin_moist_003",
+                "name": "Plum Green Tea Renewed Clarity Night Gel",
+                "brand": "Plum",
+                "category": "moisturizer",
+                "skin_types": [
+                    "oily",
+                    "acne_prone"
+                ],
+                "concerns": [
+                    "acne",
+                    "oil_control"
+                ],
+                "price": 447,
+                "url": "https://www.nykaa.com/plum-green-tea-renewed-clarity-night-gel/p/134447",
+                "image": "https://images-static.nykaa.com/media/catalog/product/p/l/plum_green_tea_night_gel.jpg"
+            },
+            {
+                "id": "skin_moist_004",
+                "name": "Neutrogena Hydro Boost Water Gel",
+                "brand": "Neutrogena",
+                "category": "moisturizer",
+                "skin_types": [
+                    "all"
+                ],
+                "concerns": [
+                    "hydration",
+                    "dullness"
+                ],
+                "price": 899,
+                "url": "https://www.nykaa.com/neutrogena-hydro-boost-water-gel/p/91063",
+                "image": "https://images-static.nykaa.com/media/catalog/product/n/e/neutrogena_hydro_boost.jpg"
+            },
+            {
+                "id": "skin_moist_005",
+                "name": "Dot & Key Barrier Repair Face Moisturizer",
+                "brand": "Dot & Key",
+                "category": "moisturizer",
+                "skin_types": [
+                    "sensitive",
+                    "dry"
+                ],
+                "concerns": [
+                    "barrier_repair",
+                    "irritation"
+                ],
+                "price": 795,
+                "url": "https://www.nykaa.com/dot-key-barrier-repair-face-moisturizer/p/1456789",
+                "image": "https://images-static.nykaa.com/media/catalog/product/d/o/dot_key_barrier.jpg"
+            }
+        ],
+        "serums": [
+            {
+                "id": "skin_serum_001",
+                "name": "Minimalist 10% Vitamin C Face Serum",
+                "brand": "Minimalist",
+                "category": "serum",
+                "skin_types": [
+                    "all"
+                ],
+                "concerns": [
+                    "brightening",
+                    "anti_aging",
+                    "dark_spots"
+                ],
+                "price": 699,
+                "url": "https://www.nykaa.com/minimalist-10-vitamin-c-face-serum/p/1310167",
+                "image": "https://images-static.nykaa.com/media/catalog/product/m/i/minimalist_vitamin_c.jpg"
+            },
+            {
+                "id": "skin_serum_002",
+                "name": "The Ordinary Niacinamide 10% + Zinc 1%",
+                "brand": "The Ordinary",
+                "category": "serum",
+                "skin_types": [
+                    "oily",
+                    "acne_prone"
+                ],
+                "concerns": [
+                    "acne",
+                    "pores",
+                    "oil_control"
+                ],
+                "price": 599,
+                "url": "https://www.nykaa.com/the-ordinary-niacinamide-10-zinc-1/p/430891",
+                "image": "https://images-static.nykaa.com/media/catalog/product/t/h/the_ordinary_niacinamide.jpg"
+            },
+            {
+                "id": "skin_serum_003",
+                "name": "Dot & Key Vitamin C + E Super Bright Serum",
+                "brand": "Dot & Key",
+                "category": "serum",
+                "skin_types": [
+                    "all"
+                ],
+                "concerns": [
+                    "brightening",
+                    "dullness"
+                ],
+                "price": 895,
+                "url": "https://www.nykaa.com/dot-key-vitamin-c-e-super-bright-serum/p/1218699",
+                "image": "https://images-static.nykaa.com/media/catalog/product/d/o/dot_key_vit_c.jpg"
+            },
+            {
+                "id": "skin_serum_004",
+                "name": "Plum 15% Vitamin C Face Serum",
+                "brand": "Plum",
+                "category": "serum",
+                "skin_types": [
+                    "all"
+                ],
+                "concerns": [
+                    "brightening",
+                    "pigmentation"
+                ],
+                "price": 595,
+                "url": "https://www.nykaa.com/plum-15-vitamin-c-face-serum/p/567890",
+                "image": "https://images-static.nykaa.com/media/catalog/product/p/l/plum_vit_c.jpg"
+            },
+            {
+                "id": "skin_serum_005",
+                "name": "Minimalist 2% Hyaluronic Acid Serum",
+                "brand": "Minimalist",
+                "category": "serum",
+                "skin_types": [
+                    "dry",
+                    "dehydrated"
+                ],
+                "concerns": [
+                    "hydration",
+                    "fine_lines"
+                ],
+                "price": 449,
+                "url": "https://www.nykaa.com/minimalist-2-hyaluronic-acid-serum/p/890123",
+                "image": "https://images-static.nykaa.com/media/catalog/product/m/i/minimalist_ha.jpg"
+            }
+        ],
+        "cleansers": [
+            {
+                "id": "skin_clean_001",
+                "name": "Cetaphil Gentle Skin Cleanser",
+                "brand": "Cetaphil",
+                "category": "cleanser",
+                "skin_types": [
+                    "all",
+                    "sensitive"
+                ],
+                "concerns": [
+                    "gentle_cleansing"
+                ],
+                "price": 589,
+                "url": "https://www.nykaa.com/cetaphil-gentle-skin-cleanser/p/12695",
+                "image": "https://images-static.nykaa.com/media/catalog/product/c/e/cetaphil_gentle.jpg"
+            },
+            {
+                "id": "skin_clean_002",
+                "name": "Minimalist Salicylic Acid 2% Face Wash",
+                "brand": "Minimalist",
+                "category": "cleanser",
+                "skin_types": [
+                    "oily",
+                    "acne_prone"
+                ],
+                "concerns": [
+                    "acne",
+                    "blackheads"
+                ],
+                "price": 299,
+                "url": "https://www.nykaa.com/minimalist-salicylic-acid-face-wash/p/234567",
+                "image": "https://images-static.nykaa.com/media/catalog/product/m/i/minimalist_sa.jpg"
+            },
+            {
+                "id": "skin_clean_003",
+                "name": "Bioderma Sensibio H2O Micellar Water",
+                "brand": "Bioderma",
+                "category": "cleanser",
+                "skin_types": [
+                    "sensitive",
+                    "all"
+                ],
+                "concerns": [
+                    "makeup_removal",
+                    "gentle"
+                ],
+                "price": 1550,
+                "url": "https://www.nykaa.com/bioderma-sensibio-h2o-micellar-water/p/345678",
+                "image": "https://images-static.nykaa.com/media/catalog/product/b/i/bioderma_micellar.jpg"
+            }
+        ],
+        "sunscreens": [
+            {
+                "id": "skin_sun_001",
+                "name": "La Roche-Posay Anthelios Invisible Fluid SPF 50+",
+                "brand": "La Roche-Posay",
+                "category": "sunscreen",
+                "skin_types": [
+                    "all",
+                    "sensitive"
+                ],
+                "concerns": [
+                    "sun_protection",
+                    "lightweight"
+                ],
+                "price": 1699,
+                "url": "https://www.nykaa.com/la-roche-posay-anthelios-invisible-fluid-spf-50-pa-sunscreen/p/7332305",
+                "image": "https://images-static.nykaa.com/media/catalog/product/l/a/la_roche_anthelios.jpg"
+            },
+            {
+                "id": "skin_sun_002",
+                "name": "Minimalist SPF 50 PA++++ Sunscreen",
+                "brand": "Minimalist",
+                "category": "sunscreen",
+                "skin_types": [
+                    "all"
+                ],
+                "concerns": [
+                    "sun_protection"
+                ],
+                "price": 399,
+                "url": "https://www.nykaa.com/minimalist-spf-50-sunscreen/p/456789",
+                "image": "https://images-static.nykaa.com/media/catalog/product/m/i/minimalist_spf.jpg"
+            },
+            {
+                "id": "skin_sun_003",
+                "name": "Neutrogena Ultra Sheer Dry Touch Sunscreen SPF 50+",
+                "brand": "Neutrogena",
+                "category": "sunscreen",
+                "skin_types": [
+                    "oily",
+                    "combination"
+                ],
+                "concerns": [
+                    "sun_protection",
+                    "matte_finish"
+                ],
+                "price": 699,
+                "url": "https://www.nykaa.com/neutrogena-ultra-sheer-sunscreen/p/567891",
+                "image": "https://images-static.nykaa.com/media/catalog/product/n/e/neutrogena_spf.jpg"
+            }
+        ]
+    },
+    "haircare": {
+        "shampoos": [
+            {
+                "id": "hair_shamp_001",
+                "name": "Minimalist Hair Growth Shampoo with Biotin & Redensyl",
+                "brand": "Minimalist",
+                "category": "shampoo",
+                "hair_types": [
+                    "all"
+                ],
+                "concerns": [
+                    "hair_fall",
+                    "thinning"
+                ],
+                "price": 449,
+                "url": "https://www.nykaa.com/minimalist-hair-growth-shampoo/p/678912",
+                "image": "https://images-static.nykaa.com/media/catalog/product/m/i/minimalist_shampoo.jpg"
+            },
+            {
+                "id": "hair_shamp_002",
+                "name": "L'Oreal Paris Hyaluron Moisture Shampoo",
+                "brand": "L'Oreal",
+                "category": "shampoo",
+                "hair_types": [
+                    "dry",
+                    "frizzy"
+                ],
+                "concerns": [
+                    "dryness",
+                    "frizz"
+                ],
+                "price": 875,
+                "url": "https://www.nykaa.com/loreal-hyaluron-moisture-shampoo/p/789123",
+                "image": "https://images-static.nykaa.com/media/catalog/product/l/o/loreal_shampoo.jpg"
+            }
+        ],
+        "conditioners": [
+            {
+                "id": "hair_cond_001",
+                "name": "Minimalist Hair Growth Conditioner",
+                "brand": "Minimalist",
+                "category": "conditioner",
+                "hair_types": [
+                    "all"
+                ],
+                "concerns": [
+                    "hair_fall",
+                    "strengthening"
+                ],
+                "price": 449,
+                "url": "https://www.nykaa.com/minimalist-hair-conditioner/p/891234",
+                "image": "https://images-static.nykaa.com/media/catalog/product/m/i/minimalist_cond.jpg"
+            }
+        ],
+        "serums": [
+            {
+                "id": "hair_serum_001",
+                "name": "Plum Argan Hair Serum",
+                "brand": "Plum",
+                "category": "hair_serum",
+                "hair_types": [
+                    "all"
+                ],
+                "concerns": [
+                    "frizz",
+                    "shine"
+                ],
+                "price": 475,
+                "url": "https://www.nykaa.com/plum-argan-hair-serum/p/912345",
+                "image": "https://images-static.nykaa.com/media/catalog/product/p/l/plum_serum.jpg"
+            }
+        ]
+    }
+}

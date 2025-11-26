@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prism AI 2.0 - Your Personal AI Beauty & Fashion Consultant</title>
+    <meta name="description"
+        content="Experience the next generation of AI-powered beauty and fashion recommendations with Prism AI 2.0">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="preload"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        as="style">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Appwrite SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.1"></script>
+
+    <style>
+        /* Prism AI 2.0 - Premium Wix-Style Design */
+        :root {
+            --prism-primary: linear-gradient(135deg, #1d3937 0%, #195042 100%);
+            --prism-accent: linear-gradient(135deg, #91855a 0%, #d6cabc 100%);
+            --prism-glow: 0 20px 60px rgba(29, 57, 55, 0.3);
+            --prism-text: #1d3937;
+            --prism-light: #f8f9fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .prism-hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 20px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prism-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(145, 133, 90, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .prism-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(29, 57, 55, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 15s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            50% {
+                transform: translate(30px, -30px) rotate(5deg);
+            }
+        }
+
+        .hero-content {
+            max-width: 900px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .prism-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--prism-accent);
+            color: var(--prism-text);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(145, 133, 90, 0.3);
+            animation: slideDown 0.8s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            background: var(--prism-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 24px;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: #666;
+            margin-bottom: 40px;
+            line-height: 1.6;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--prism-primary);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--prism-glow);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 25px 70px rgba(29, 57, 55, 0.4);
+        }
+
+        .hero-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 80px;
+            animation: fadeInUp 1s ease 0.8s both;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--prism-accent);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .feature-icon svg {
+            width: 30px;
+            height: 30px;
+            stroke: var(--prism-text);
+            stroke-width: 2;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--prism-text);
+            margin-bottom: 10px;
+        }
+
+        .feature-desc {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Quiz Modal */
+        .quiz-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .quiz-modal-overlay.active {
+            opacity: 1;
+        }
+
+        .quiz-modal {
+            background: white;
+            max-width: 900px;
+            width: 95%;
+            max-height: 90vh;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.3);
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .quiz-modal-overlay.active .quiz-modal {
+            transform: scale(1);
+        }
+
+        .quiz-header {
+            background: var(--prism-primary);
+            color: white;
+            padding: 40px;
+            position: relative;
+        }
+
+        .quiz-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        .quiz-header p {
+            margin: 10px 0 0;
+            opacity: 0.9;
+        }
+
+        .quiz-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .quiz-progress {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            margin: 30px 40px 0;
+        }
+
+        .quiz-progress-fill {
+            height: 100%;
+            background: var(--prism-accent);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 20px rgba(145, 133, 90, 0.5);
+        }
+
+        .quiz-progress-text {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            margin: 20px 0;
+            font-weight: 500;
+        }
+
+        .quiz-content {
+            padding: 40px;
+            max-height: 50vh;
+            overflow-y: auto;
+        }
+
+        .question-slide {
+            display: none;
+            animation: slideInRight 0.5s ease;
+        }
+
+        .question-slide.active {
+            display: block;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .question-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--prism-text);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .answer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .answer-option {
+            background: white;
+            border: 2px solid #e5e7eb;
+            padding: 20px;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            text-align: center;
+        }
+
+        .answer-option:hover {
+            border-color: #1d3937;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(29, 57, 55, 0.15);
+        }
+
+        .answer-option.selected {
+            background: var(--prism-primary);
+            border-color: #1d3937;
+            color: white;
+            box-shadow: var(--prism-glow);
+        }
+
+        .answer-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .answer-icon svg {
+            width: 100%;
+            height: 100%;
+            stroke: #666;
+            stroke-width: 1.5;
+            transition: stroke 0.3s ease;
+        }
+
+        .answer-option.selected .answer-icon svg {
+            stroke: white;
+        }
+
+        .answer-label {
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .quiz-navigation {
+            display: flex;
+            gap: 15px;
+            padding: 30px 40px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .quiz-nav-btn {
+            flex: 1;
+            padding: 16px 32px;
+            border-radius: 12px;
+            border: 2px solid var(--prism-text);
+            background: white;
+            color: var(--prism-text);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .quiz-nav-btn.primary {
+            background: var(--prism-primary);
+            border-color: transparent;
+            color: white;
+        }
+
+        .quiz-nav-btn.primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: var(--prism-glow);
+        }
+
+        /* Chat Interface */
+        .chat-section {
+            display: none;
+            min-height: 100vh;
+            padding: 120px 20px 80px;
+        }
+
+        .chat-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: var(--prism-primary);
+            color: white;
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .chat-title-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-title-icon svg {
+            width: 28px;
+            height: 28px;
+            stroke: white;
+            stroke-width: 2;
+        }
+
+        .chat-title h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .chat-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.6;
+                transform: scale(1.2);
+            }
+        }
+
+        .chat-messages {
+            height: 600px;
+            overflow-y: auto;
+            padding: 40px;
+            background: #fafafa;
+        }
+
+        .message {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            animation: messageSlide 0.4s ease;
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background: var(--prism-primary);
+        }
+
+        .message-avatar svg {
+            width: 24px;
+            height: 24px;
+            stroke: white;
+            stroke-width: 2;
+        }
+
+        .user-message .message-avatar {
+            background: var(--prism-accent);
+        }
+
+        .message-content {
+            background: white;
+            padding: 16px 20px;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            max-width: 70%;
+            border: 1px solid #e5e7eb;
+        }
+
+        .message-content p {
+            margin: 0;
+            line-height: 1.6;
+            color: var(--prism-text);
+        }
+
+        /* Product Card */
+        .product-card {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-top: 15px;
+            max-width: 550px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e5e7eb 100%);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+        }
+
+        .product-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--prism-text);
+            margin: 0;
+        }
+
+        .match-badge {
+            background: var(--prism-accent);
+            color: var(--prism-text);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .product-brand {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #91855a;
+            margin-bottom: 15px;
+        }
+
+        .product-effects {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .effect-item {
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .effect-good {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .effect-bad {
+            background: rgba(239, 68, 68, 0.1);
+            color: #dc2626;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .buy-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--prism-primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .buy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--prism-glow);
+        }
+
+        /* Chat Input */
+        .chat-input-area {
+            padding: 30px 40px;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 16px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: #1d3937;
+            box-shadow: 0 0 0 3px rgba(29, 57, 55, 0.1);
+        }
+
+        .chat-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            border: none;
+            background: #f3f4f6;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-btn:hover {
+            background: #e5e7eb;
+        }
+
+        .chat-btn.send {
+            background: var(--prism-primary);
+            color: white;
+        }
+
+        .chat-btn.send:hover {
+            transform: scale(1.05);
+            box-shadow: var(--prism-glow);
+        }
+
+        .chat-btn svg {
+            width: 22px;
+            height: 22px;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-features {
+                grid-template-columns: 1fr;
+            }
+
+            .answer-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+
+            .quiz-navigation {
+                flex-direction: column;
+            }
+
+            .message-content {
+                max-width: 85%;
+            }
+
+            .product-effects {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body class="gucci-header-page">
+    <!-- Header (Same as categories.html) -->
+    <header class="gucci-header">
+        <div class="gucci-header-left">
+            <a href="contact.html" class="gucci-contact-link">Contact Us</a>
+        </div>
+
+        <div class="gucci-header-center">
+            <a href="index.html" class="gucci-logo">AI VOGUE</a>
+        </div>
+
+        <div class="gucci-header-right">
+            <button class="gucci-icon account-link" aria-label="Account" onclick="window.location.href='profile.html'">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </button>
+            <button class="gucci-icon gucci-search-icon" aria-label="Search">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+            </button>
+            <button class="gucci-menu-btn" aria-label="Menu">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="4" y1="6" x2="20" y2="6"></line>
+                    <line x1="4" y1="12" x2="20" y2="12"></line>
+                    <line x1="4" y1="18" x2="20" y2="18"></line>
+                </svg>
+                <span>MENU</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Overlay Background -->
+    <div class="gucci-overlay-bg"></div>
+
+    <!-- Overlay Menu -->
+    <div class="gucci-overlay">
+        <button class="gucci-close-btn" aria-label="Close">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+
+        <div class="gucci-overlay-search">
+            <input type="text" class="gucci-search-input" placeholder="Search AI VOGUE..." aria-label="Search products">
+        </div>
+
+        <nav class="gucci-overlay-nav">
+            <a href="categories.html" class="gucci-nav-link">Vogue Vision</a>
+            <a href="revibe.html" class="gucci-nav-link">Revibe</a>
+            <a href="creative-threads.html" class="gucci-nav-link">Creative Threads</a>
+            <a href="mirrorx.html" class="gucci-nav-link">MirrorX</a>
+            <a href="prism-ai-v2.html" class="gucci-nav-link active">Prism AI 2.0</a>
+            <a href="style-lease.html" class="gucci-nav-link">Style Lease</a>
+            <a href="twinfit.html" class="gucci-nav-link">TwinFit</a>
+            <a href="about.html" class="gucci-nav-link">About</a>
+            <a href="contact.html" class="gucci-nav-link">Contact</a>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="prism-hero">
+        <div class="hero-content">
+            <div class="prism-badge">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+                Powered by Advanced AI
+            </div>
+
+            <h1 class="hero-title">Prism AI 2.0</h1>
+            <p class="hero-subtitle">
+                Your personal AI beauty & fashion consultant.<br>
+                Get personalized recommendations powered by advanced machine learning.
+            </p>
+
+            <button class="hero-cta" id="start-quiz-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                    <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                </svg>
+                Start Your Journey
+            </button>
+
+            <div class="hero-features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Smart Product Search</h3>
+                    <p class="feature-desc">Real-time product discovery from top Indian e-commerce sites</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                            <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">AI-Powered Matching</h3>
+                    <p class="feature-desc">Advanced semantic analysis for perfect product matches</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Ingredient Analysis</h3>
+                    <p class="feature-desc">Detailed analysis of skincare & haircare ingredients</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Modal -->
+    <div class="quiz-modal-overlay" id="quiz-modal">
+        <div class="quiz-modal">
+            <div class="quiz-header">
+                <h2>Personalize Your Experience</h2>
+                <p>Answer 12 quick questions to get tailored recommendations</p>
+                <button class="quiz-close" id="quiz-close">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="quiz-progress">
+                <div class="quiz-progress-fill" id="quiz-progress"></div>
+            </div>
+            <div class="quiz-progress-text">
+                Question <span id="current-q">1</span> of <span id="total-q">12</span>
+            </div>
+
+            <div class="quiz-content" id="quiz-content">
+                <!-- Questions will be dynamically inserted -->
+            </div>
+
+            <div class="quiz-navigation">
+                <button class="quiz-nav-btn" id="prev-btn" disabled>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                    Previous
+                </button>
+                <button class="quiz-nav-btn primary" id="next-btn">
+                    Next
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        style="display: inline-block; vertical-align: middle; margin-left: 8px;">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Section -->
+    <section class="chat-section" id="chat-section">
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="chat-title">
+                    <div class="chat-title-icon">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                            <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2>Prism AI Assistant</h2>
+                        <div class="chat-status">
+                            <div class="status-dot"></div>
+                            Online & Ready
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-messages" id="chat-messages">
+                <!-- Messages will be added here -->
+            </div>
+
+            <div class="chat-input-area">
+                <div class="chat-input-wrapper">
+                    <button class="chat-btn" id="image-btn">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                    </button>
+                    <input type="file" id="image-input" accept="image/*" style="display: none;">
+                    <input type="text" class="chat-input" id="user-input"
+                        placeholder="Ask me anything about beauty & fashion...">
+                    <button class="chat-btn send" id="send-btn">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Same as categories.html) -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About AI VOGUE</h3>
+                <ul>
+                    <li><a href="about.html">Our Story</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="categories.html">Vogue Vision</a></li>
+                    <li><a href="mirrorx.html">MirrorX AR</a></li>
+                    <li><a href="twinfit.html">TwinFit</a></li>
+                    <li><a href="style-lease.html">Style Lease</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Policies</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Return Policy</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Stay Connected</h3>
+                <p>Subscribe to our newsletter for the latest in luxury fashion technology.</p>
+                <div class="newsletter">
+                    <input type="email" placeholder="Enter your email" aria-label="Email for newsletter">
+                    <button type="button">Subscribe</button>
+                </div>
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram">📷</a>
+                    <a href="mailto:hello@aivogue.com" aria-label="Email">✉️</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 AI VOGUE. All rights reserved. Luxury fashion technology redefined.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="prism-ai-v2-app.js"></script>
+</body>
+
+</html>

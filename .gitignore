@@ -138,11 +138,12 @@ dist
 # *.ai
 # *.sketch
 
+# Ignore temporary upload files
+backend/temp_uploads/
 
-# Ignore temporary uploads and Python cache
-backend/temp_uploads/
-backend/python-api/services/__pycache__/
-# Exclude temporary and security-sensitive files
-backend/service-account.json 
-backend/temp_uploads/
-backend/python-api/services/__pycache__/
+
+# Python cache files
+**/__pycache__/
+*.pyc# Python cache files
+**/__pycache__/
+*.pyc

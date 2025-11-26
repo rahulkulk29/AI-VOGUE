@@ -1,165 +1,16 @@
-// Prism AI - Gemini AI Service
-// Handles AI-powered product recommendations via Python Backend with Direct Gemini API Integration
+// Prism AI - Gemini Service with Python Backend Integration
+// Handles communication with the Python backend for AI recommendations
 
-import { APPWRITE_CONFIG } from '../appwrite-config.js';
-import { preferencesService } from './preferences-service.js';
+// Imports removed - using global variables
+// const { APPWRITE_CONFIG, authService } = window;
+// const { preferencesService } = window;
 
-class GeminiService {
+class PrismGeminiService {
     constructor() {
-        this.pythonBackend = APPWRITE_CONFIG.pythonBackend;
-        this.apiUrl = `${this.pythonBackend.baseUrl}${this.pythonBackend.endpoints.recommend}`;
-        this.healthUrl = `${this.pythonBackend.baseUrl}${this.pythonBackend.endpoints.health}`;
-        this.timeout = 30000; // 30 seconds
+        this.pythonApiUrl = window.APPWRITE_CONFIG.pythonApiUrl;
+        this.isProcessing = false;
+        this.requestQueue = [];
         this.maxRetries = 3;
-        this.requestCount = 0;
-        this.requestWindow = 60000; // 1 minute
-        this.maxRequestsPerMinute = 15;
-        this.requestTimestamps = [];
-        this.backendHealthy = false;
-        
-        // Health check backoff
-        this.healthCheckInterval = 10000; // Start with 10s
-        this.maxHealthCheckInterval = 60000; // Max 60s
-        this.healthCheckFailCount = 0;
-        
-        // Debug URLs
-        console.log('🔧 Gemini Service URLs:');
-        console.log('📍 API URL:', this.apiUrl);
-        console.log('📍 Health URL:', this.healthUrl);
-        console.log('📍 Backend Config:', this.pythonBackend);
-        
-        // Initialize backend health check with adaptive interval
-        this.startHealthMonitoring();
-    }
-    
-    /**
-     * Start health monitoring with adaptive backoff
-     */
-    startHealthMonitoring() {
-        this.checkBackendHealth();
-        
-        // Clear any existing interval
-        if (this.healthCheckTimer) {
-            clearInterval(this.healthCheckTimer);
-        }
-        
-        // Set up interval that adapts based on backend status
-        this.healthCheckTimer = setInterval(() => {
-            this.checkBackendHealth();
-        }, this.healthCheckInterval);
-    }
-
-    /**
-     * Check if Python backend is healthy and responsive
-     */
-    async checkBackendHealth() {
-        try {
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout for health check
-
-            const response = await fetch(this.healthUrl, {
-                method: 'GET',
-                signal: controller.signal
-            });
-
-            clearTimeout(timeoutId);
-
-            if (response.ok) {
-                const data = await response.json();
-                const wasUnhealthy = !this.backendHealthy;
-                this.backendHealthy = true;
-                this.healthCheckFailCount = 0;
-                
-                // Reset to normal interval
-                if (this.healthCheckInterval !== 10000) {
-                    this.healthCheckInterval = 10000;
-                    this.startHealthMonitoring();
-                }
-                
-                if (wasUnhealthy) {
-                    console.log('✅ Backend is back online!', data.service);
-                }
-                return { healthy: true, data };
-            } else {
-                throw new Error(`Backend unhealthy: ${response.status}`);
-            }
-        } catch (error) {
-            this.backendHealthy = false;
-            this.healthCheckFailCount++;
-            
-            // Implement exponential backoff: 10s → 20s → 40s → 60s (max)
-            const newInterval = Math.min(
-                this.healthCheckInterval * 2,
-                this.maxHealthCheckInterval
-            );
-            
-            // Only log every 5th failure to reduce spam
-            if (this.healthCheckFailCount === 1 || this.healthCheckFailCount % 5 === 0) {
-                console.warn(`⚠️ Backend offline (attempt ${this.healthCheckFailCount}). Next check in ${newInterval/1000}s`);
-            }
-            
-            // Update interval if it changed
-            if (newInterval !== this.healthCheckInterval) {
-                this.healthCheckInterval = newInterval;
-                this.startHealthMonitoring();
-            }
-            
-            return { healthy: false, error: error.message };
-        }
-    }
-
-    /**
-     * Build a complete user profile by merging saved preferences
-     * with any provided overrides and sensible defaults.
-     */
-    async buildUserProfile(userProfile) {
-        try {
-            // Start with provided profile (if any)
-            let merged = (userProfile && Object.keys(userProfile || {}).length)
-                ? { ...userProfile }
-                : {};
-
-            // Merge saved preferences from Appwrite/localStorage
-            const saved = await preferencesService.getPreferences();
-            if (saved) {
-                const { $id, $createdAt, $updatedAt, $permissions, $databaseId, $collectionId, ...savedProfile } = saved;
-                // Caller overrides take precedence
-                merged = { ...savedProfile, ...merged };
-            }
-
-            // Apply defaults for critical fields
-            const defaults = {
-                skinType: 'normal',
-                skincareBudget: 'mid',
-                ageRange: 'twenties',
-                allergens: [],
-                preferredIngredients: [],
-                avoidIngredients: []
-            };
-
-            return { ...defaults, ...merged };
-        } catch (e) {
-            console.warn('buildUserProfile: unable to load saved preferences', e);
-            const defaults = {
-                skinType: 'normal',
-                skincareBudget: 'mid',
-                ageRange: 'twenties',
-                allergens: [],
-                preferredIngredients: [],
-                avoidIngredients: []
-            };
-            return { ...defaults, ...(userProfile || {}) };
-        }
-    }
-
-    /**
-     * Generate AI response with user context via Python Backend
-     * @param {string} userQuery - User's question
-     * @param {Object} userProfile - User's profile preferences
-     * @param {string} imageData - Optional base64 image data
-     * @returns {Promise<Object>} AI response with products and advice
-     */
-    async generateResponse(userQuery, userProfile, imageData = null) {
         // Check if backend is healthy
         if (!this.backendHealthy) {
             console.warn('🔄 Backend unhealthy, attempting health check...');
@@ -181,10 +32,10 @@ class GeminiService {
             try {
                 console.log('🤖 Calling Gemini AI via Python Backend...');
                 console.log('📡 Backend URL:', this.apiUrl);
-                
+
                 // Build complete user profile with defaults
                 const mergedProfile = await this.buildUserProfile(userProfile);
-                
+
                 const payload = {
                     userQuery: userQuery || 'Hello',
                     userProfile: mergedProfile,
@@ -220,7 +71,7 @@ class GeminiService {
 
                 const result = await response.json();
                 console.log('✅ Python backend response received');
-                
+
                 // CHECK IF BACKEND RETURNED FALLBACK DATA
                 if (result.fallback === true) {
                     console.warn('⚠️ BACKEND RETURNED FALLBACK - GEMINI API FAILED!');
@@ -237,10 +88,10 @@ class GeminiService {
                         console.warn('   modelErrors:', result.modelErrors);
                     }
                 }
-                
+
                 // Track successful request
                 this.trackRequest();
-                
+
                 // Ensure proper response format
                 if (result.success && result.data) {
                     return {
@@ -324,16 +175,16 @@ class GeminiService {
      */
     getFallbackResponse(userQuery, preferences, errorMessage = 'Technical difficulties') {
         const fallbackProducts = this.generateFallbackProducts(preferences);
-        
+
         let advice = `I'm experiencing some technical difficulties, but here are some general recommendations based on your profile.`;
-        
+
         // Add specific error context
         if (errorMessage.includes('Backend unavailable') || errorMessage.includes('fetch')) {
             advice = `The AI backend is currently unavailable. Here are some general recommendations while we reconnect.`;
         } else if (errorMessage.includes('timeout')) {
             advice = `The AI is taking longer than usual to respond. Here are some quick recommendations.`;
         }
-        
+
         return {
             success: true,
             generalAdvice: advice,
@@ -361,72 +212,120 @@ class GeminiService {
         const productDatabase = {
             oily: [
                 {
-                    name: "Niacinamide 10% + Zinc 1%",
-                    brand: "The Ordinary",
+                    name: "Minimalist 10% Niacinamide Face Serum (30ml)",
+                    brand: "Minimalist",
                     category: "Skincare",
-                    price: "$5.90",
-                    ingredients: ["Niacinamide", "Zinc PCA"],
-                    purchaseLink: "https://www.sephora.com/product/the-ordinary-deciem-niacinamide-10-zinc-1-P427417",
+                    price: "₹599",
+                    ingredients: ["Niacinamide", "Zinc"],
+                    purchaseLink: "https://www.amazon.in/dp/B08GY59SH4",
                     compatibility: 90,
-                    pros: ["Controls oil production", "Minimizes pores", "Affordable"],
-                    cons: ["May cause purging initially"],
-                    applicationTips: "Apply a few drops to clean skin before moisturizer"
+                    pros: ["Controls oil production", "Minimizes pores", "Budget-friendly"],
+                    cons: ["Can be drying if overused"],
+                    applicationTips: "Apply a few drops after cleansing, before moisturizer"
+                },
+                {
+                    name: "Minimalist 2% Salicylic Acid Serum (30ml)",
+                    brand: "Minimalist",
+                    category: "Skincare",
+                    price: "₹599",
+                    ingredients: ["Salicylic Acid", "LHA"],
+                    purchaseLink: "https://www.amazon.in/dp/B08L4S8F3Z",
+                    compatibility: 88,
+                    pros: ["Unclogs pores", "Reduces blackheads", "Controls excess oil"],
+                    cons: ["May be drying initially"],
+                    applicationTips: "Use 2-3 times per week in the evening"
+                },
+                {
+                    name: "Plum Green Tea Renewed Clarity Face Wash (75ml)",
+                    brand: "Plum",
+                    category: "Skincare",
+                    price: "₹345",
+                    ingredients: ["Green Tea", "Glycolic Acid"],
+                    purchaseLink: "https://www.amazon.in/dp/B01MSJXZ7L",
+                    compatibility: 86,
+                    pros: ["Oil control", "Gentle exfoliation", "Natural ingredients"],
+                    cons: ["May dry out skin if used twice daily"],
+                    applicationTips: "Use once daily, preferably in the morning"
                 }
             ],
             dry: [
                 {
-                    name: "Hyaluronic Acid 2% + B5",
-                    brand: "The Ordinary",
+                    name: "Cetaphil Moisturizing Cream (550ml)",
+                    brand: "Cetaphil",
                     category: "Skincare",
-                    price: "$6.80",
-                    ingredients: ["Hyaluronic Acid", "Vitamin B5"],
-                    purchaseLink: "https://www.sephora.com/product/the-ordinary-deciem-hyaluronic-acid-2-b5-P427419",
-                    compatibility: 88,
-                    pros: ["Deep hydration", "Plumps skin", "Lightweight"],
-                    cons: ["Needs to be sealed with moisturizer"],
-                    applicationTips: "Apply to damp skin for best results"
+                    price: "₹999",
+                    ingredients: ["Glycerin", "Panthenol", "Sweet Almond Oil"],
+                    purchaseLink: "https://www.amazon.in/dp/B003MJG19K",
+                    compatibility: 92,
+                    pros: ["Deep hydration", "Dermatologist recommended", "Non-greasy"],
+                    cons: ["Large bottle may be inconvenient for travel"],
+                    applicationTips: "Apply to clean, damp skin twice daily for best results"
+                },
+                {
+                    name: "Minimalist Sepicalm 3% + Oat Moisturizer (100ml)",
+                    brand: "Minimalist",
+                    category: "Skincare",
+                    price: "₹699",
+                    ingredients: ["Sepicalm", "Oat Extract", "Ceramides"],
+                    purchaseLink: "https://www.amazon.in/dp/B08T6X916Q",
+                    compatibility: 90,
+                    pros: ["Soothes dry skin", "Strengthens skin barrier", "Lightweight texture"],
+                    cons: ["Smaller bottle size"],
+                    applicationTips: "Apply morning and night after serum"
                 }
             ],
             combination: [
                 {
-                    name: "Salicylic Acid 2% Solution",
-                    brand: "The Ordinary",
+                    name: "Neutrogena Hydro Boost Water Gel (50g)",
+                    brand: "Neutrogena",
                     category: "Skincare",
-                    price: "$5.30",
-                    ingredients: ["Salicylic Acid"],
-                    purchaseLink: "https://www.sephora.com/product/the-ordinary-deciem-salicylic-acid-2-solution-P442563",
-                    compatibility: 85,
-                    pros: ["Exfoliates", "Clears pores", "Balances skin"],
-                    cons: ["May be drying if overused"],
-                    applicationTips: "Use 2-3 times per week on oily areas"
+                    price: "₹899",
+                    ingredients: ["Hyaluronic Acid", "Glycerin"],
+                    purchaseLink: "https://www.nykaa.com/neutrogena-hydro-boost-water-gel/p/260639",
+                    compatibility: 89,
+                    pros: ["Lightweight hydration", "Non-greasy", "Oil-free formula"],
+                    cons: ["Small jar size"],
+                    applicationTips: "Apply as last step in routine before sunscreen"
+                },
+                {
+                    name: "Minimalist 10% Niacinamide Face Serum (30ml)",
+                    brand: "Minimalist",
+                    category: "Skincare",
+                    price: "₹599",
+                    ingredients: ["Niacinamide", "Zinc"],
+                    purchaseLink: "https://www.amazon.in/dp/B08GY59SH4",
+                    compatibility: 87,
+                    pros: ["Balances oil production", "Minimizes pores", "Budget-friendly"],
+                    cons: ["May cause purging initially"],
+                    applicationTips: "Use twice daily after cleansing"
                 }
             ],
             sensitive: [
                 {
-                    name: "Moisturizing Cream",
-                    brand: "CeraVe",
+                    name: "Simple Kind to Skin Hydrating Light Moisturiser (125ml)",
+                    brand: "Simple",
                     category: "Skincare",
-                    price: "$16.99",
-                    ingredients: ["Ceramides", "Hyaluronic Acid", "MVE Technology"],
-                    purchaseLink: "https://www.amazon.com/CeraVe-Moisturizing-Cream/dp/B00TTD9BRC",
+                    price: "₹385",
+                    ingredients: ["Vitamin E", "Vitamin B5", "Bisabolol"],
+                    purchaseLink: "https://www.nykaa.com/simple-kind-to-skin-hydrating-light-moisturiser/p/129162",
                     compatibility: 92,
-                    pros: ["Gentle formula", "Fragrance-free", "Dermatologist recommended"],
-                    cons: ["May feel heavy for oily skin"],
-                    applicationTips: "Apply liberally morning and night"
+                    pros: ["Fragrance-free", "Lightweight", "Sensitive skin friendly"],
+                    cons: ["Not enough for very dry skin"],
+                    applicationTips: "Use morning and evening after cleansing"
                 }
             ],
             normal: [
                 {
-                    name: "Daily Facial Moisturizer SPF 30",
+                    name: "Neutrogena Hydro Boost Water Gel (50g)",
                     brand: "Neutrogena",
                     category: "Skincare",
-                    price: "$14.99",
-                    ingredients: ["SPF 30", "Hyaluronic Acid"],
-                    purchaseLink: "https://www.ulta.com/p/hydro-boost-water-gel-lotion-spf-30-pimprod2017839",
+                    price: "₹899",
+                    ingredients: ["Hyaluronic Acid", "Glycerin"],
+                    purchaseLink: "https://www.nykaa.com/neutrogena-hydro-boost-water-gel/p/260639",
                     compatibility: 87,
-                    pros: ["SPF protection", "Lightweight", "Non-greasy"],
-                    cons: ["Reapplication needed throughout day"],
-                    applicationTips: "Apply as last step in morning routine"
+                    pros: ["Lightweight hydration", "Non-greasy"],
+                    cons: ["Jar may require frequent restock"],
+                    applicationTips: "Apply as last step in routine (before sunscreen in AM)"
                 }
             ]
         };
@@ -439,7 +338,7 @@ class GeminiService {
      */
     checkRateLimit() {
         const now = Date.now();
-        
+
         // Remove timestamps older than window
         this.requestTimestamps = this.requestTimestamps.filter(
             timestamp => now - timestamp < this.requestWindow
@@ -458,10 +357,10 @@ class GeminiService {
      */
     formatBudget(budget) {
         const budgetMap = {
-            'budget': 'Under $50',
-            'mid': '$50-$150',
-            'premium': '$150-$300',
-            'luxury': '$300+'
+            'budget': 'Under ₹500',
+            'mid': '₹500-₹1500',
+            'premium': '₹1500-₹3000',
+            'luxury': '₹3000+'
         };
         return budgetMap[budget] || 'Any';
     }
@@ -487,10 +386,10 @@ class GeminiService {
      */
     getWaitTime() {
         if (this.requestTimestamps.length === 0) return 0;
-        
+
         const oldestTimestamp = this.requestTimestamps[0];
         const waitTime = this.requestWindow - (Date.now() - oldestTimestamp);
-        
+
         return Math.max(0, waitTime);
     }
 }

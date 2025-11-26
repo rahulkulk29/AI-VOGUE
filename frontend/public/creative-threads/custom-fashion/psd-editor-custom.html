@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSD Editor - AI VOGUE Custom Fashion</title>
+    <meta name="description" content="Professional PSD editor with full layer control, filters, and effects.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../../../assets/favicon.ico">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../../../css/styles.css">
+    <link rel="stylesheet" href="assets/custom-fash.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans-serif, 'Inter', sans-serif);
+            overflow: hidden;
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        .psd-editor {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* Header */
+        .psd-header {
+            background: var(--color-dark-green, #1d3937);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+        }
+
+        .psd-header-left {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .psd-logo {
+            font-family: var(--font-serif, 'Playfair Display', serif);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-gold, #91855a);
+            text-decoration: none;
+        }
+
+        .psd-filename {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .psd-header-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .psd-btn {
+            padding: 0.5rem 1.25rem;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .psd-btn-primary {
+            background: var(--color-gold, #91855a);
+            color: var(--color-dark-green, #1d3937);
+        }
+
+        .psd-btn-primary:hover {
+            background: #a89660;
+            transform: translateY(-1px);
+        }
+
+        .psd-btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .psd-btn-secondary:hover {
+            border-color: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Main Layout */
+        .psd-main {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* Toolbar */
+        .psd-toolbar {
+            width: 60px;
+            background: #252525;
+            border-right: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem 0;
+            gap: 0.5rem;
+        }
+
+        .psd-tool {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+            background: transparent;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .psd-tool:hover {
+            background: #333;
+            color: #fff;
+        }
+
+        .psd-tool.active {
+            background: var(--color-gold, #91855a);
+            color: var(--color-dark-green, #1d3937);
+        }
+
+        /* Canvas Area */
+        .psd-canvas-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #2a2a2a;
+            overflow: hidden;
+        }
+
+        .psd-canvas-toolbar {
+            background: #1f1f1f;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            border-bottom: 1px solid #333;
+        }
+
+        .psd-canvas-toolbar-group {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            padding-right: 1rem;
+            border-right: 1px solid #333;
+        }
+
+        .psd-canvas-toolbar-group:last-child {
+            border-right: none;
+        }
+
+        .psd-icon-btn {
+            width: 32px;
+            height: 32px;
+            background: transparent;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .psd-icon-btn:hover {
+            background: #333;
+            color: #fff;
+        }
+
+        .psd-icon-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .psd-canvas-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .psd-canvas-wrapper {
+            background: #fff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        #psdCanvas {
+            display: block;
+        }
+
+        /* Right Sidebar */
+        .psd-sidebar {
+            width: 320px;
+            background: #252525;
+            border-left: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .psd-sidebar-tabs {
+            display: flex;
+            background: #1f1f1f;
+            border-bottom: 1px solid #333;
+        }
+
+        .psd-sidebar-tab {
+            flex: 1;
+            padding: 0.75rem;
+            background: transparent;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        .psd-sidebar-tab:hover {
+            color: #fff;
+            background: #252525;
+        }
+
+        .psd-sidebar-tab.active {
+            color: var(--color-gold, #91855a);
+            border-bottom-color: var(--color-gold, #91855a);
+        }
+
+        .psd-sidebar-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .psd-panel {
+            display: none;
+        }
+
+        .psd-panel.active {
+            display: block;
+        }
+
+        /* Layers Panel */
+        .psd-layer-item {
+            background: #1f1f1f;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .psd-layer-item:hover {
+            background: #2a2a2a;
+        }
+
+        .psd-layer-item.active {
+            background: var(--color-gold, #91855a);
+            color: var(--color-dark-green, #1d3937);
+        }
+
+        .psd-layer-visibility {
+            width: 20px;
+            height: 20px;
+            background: transparent;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .psd-layer-thumbnail {
+            width: 40px;
+            height: 40px;
+            background: #333;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .psd-layer-info {
+            flex: 1;
+        }
+
+        .psd-layer-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .psd-layer-type {
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
+
+        /* Properties Panel */
+        .psd-property {
+            margin-bottom: 1.5rem;
+        }
+
+        .psd-property-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #ccc;
+        }
+
+        .psd-input {
+            width: 100%;
+            padding: 0.5rem;
+            background: #1f1f1f;
+            border: 1px solid #333;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        .psd-input:focus {
+            outline: none;
+            border-color: var(--color-gold, #91855a);
+        }
+
+        .psd-slider {
+            width: 100%;
+        }
+
+        .psd-slider-value {
+            display: inline-block;
+            margin-left: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--color-gold, #91855a);
+        }
+
+        /* Filters Panel */
+        .psd-filter-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: #1f1f1f;
+            border: 1px solid #333;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            transition: all 0.2s ease;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .psd-filter-btn:hover {
+            background: #2a2a2a;
+            border-color: var(--color-gold, #91855a);
+        }
+
+        /* Loading Overlay */
+        .psd-loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .psd-loading.hidden {
+            display: none;
+        }
+
+        .psd-loading-content {
+            text-align: center;
+        }
+
+        .psd-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top-color: var(--color-gold, #91855a);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .psd-loading-text {
+            font-size: 1rem;
+            color: #ccc;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .psd-sidebar {
+                width: 100%;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                height: 50vh;
+                transform: translateY(100%);
+                transition: transform 0.3s ease;
+                z-index: 99;
+            }
+
+            .psd-sidebar.open {
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="psd-editor">
+        <!-- Header -->
+        <div class="psd-header">
+            <div class="psd-header-left">
+                <div class="psd-logo">AI VOGUE</div>
+                <div class="psd-filename" id="fileName">design.psd</div>
+            </div>
+            <div class="psd-header-actions">
+                <button class="psd-btn psd-btn-secondary" onclick="exportFile('png')">
+                    <i class="fas fa-file-image"></i> Export PNG
+                </button>
+                <button class="psd-btn psd-btn-secondary" onclick="exportFile('jpeg')">
+                    <i class="fas fa-file-image"></i> Export JPG
+                </button>
+                <button class="psd-btn psd-btn-primary" onclick="saveAndUpload()">
+                    <i class="fas fa-save"></i> Save PSD
+                </button>
+                <button class="psd-btn psd-btn-secondary" onclick="closeEditor()">
+                    <i class="fas fa-times"></i> Close
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="psd-main">
+            <!-- Toolbar -->
+            <div class="psd-toolbar">
+                <button class="psd-tool active" data-tool="select" title="Select (V)">
+                    <i class="fas fa-mouse-pointer"></i>
+                </button>
+                <button class="psd-tool" data-tool="text" title="Text (T)">
+                    <i class="fas fa-font"></i>
+                </button>
+                <button class="psd-tool" data-tool="shape" title="Shape (U)">
+                    <i class="fas fa-shapes"></i>
+                </button>
+                <button class="psd-tool" data-tool="image" title="Image">
+                    <i class="fas fa-image"></i>
+                </button>
+                <button class="psd-tool" data-tool="crop" title="Crop (C)">
+                    <i class="fas fa-crop"></i>
+                </button>
+            </div>
+
+            <!-- Canvas Area -->
+            <div class="psd-canvas-area">
+                <div class="psd-canvas-toolbar">
+                    <div class="psd-canvas-toolbar-group">
+                        <button class="psd-icon-btn" onclick="undo()" title="Undo (Ctrl+Z)" id="undoBtn">
+                            <i class="fas fa-undo"></i>
+                        </button>
+                        <button class="psd-icon-btn" onclick="redo()" title="Redo (Ctrl+Y)" id="redoBtn">
+                            <i class="fas fa-redo"></i>
+                        </button>
+                    </div>
+                    <div class="psd-canvas-toolbar-group">
+                        <button class="psd-icon-btn" onclick="deleteSelected()" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        <button class="psd-icon-btn" onclick="duplicateSelected()" title="Duplicate (Ctrl+D)">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <div class="psd-canvas-toolbar-group">
+                        <button class="psd-icon-btn" onclick="bringToFront()" title="Bring to Front">
+                            <i class="fas fa-arrow-up"></i>
+                        </button>
+                        <button class="psd-icon-btn" onclick="sendToBack()" title="Send to Back">
+                            <i class="fas fa-arrow-down"></i>
+                        </button>
+                    </div>
+                    <div class="psd-canvas-toolbar-group">
+                        <button class="psd-icon-btn" onclick="zoomIn()" title="Zoom In (+)">
+                            <i class="fas fa-search-plus"></i>
+                        </button>
+                        <button class="psd-icon-btn" onclick="zoomOut()" title="Zoom Out (-)">
+                            <i class="fas fa-search-minus"></i>
+                        </button>
+                        <button class="psd-icon-btn" onclick="resetZoom()" title="Reset Zoom (0)">
+                            <i class="fas fa-compress"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="psd-canvas-container">
+                    <div class="psd-canvas-wrapper">
+                        <canvas id="psdCanvas"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar -->
+            <div class="psd-sidebar">
+                <div class="psd-sidebar-tabs">
+                    <button class="psd-sidebar-tab active" data-tab="layers">Layers</button>
+                    <button class="psd-sidebar-tab" data-tab="properties">Properties</button>
+                    <button class="psd-sidebar-tab" data-tab="filters">Filters</button>
+                </div>
+
+                <div class="psd-sidebar-content">
+                    <!-- Layers Panel -->
+                    <div class="psd-panel active" id="layersPanel">
+                        <div id="layersList"></div>
+                    </div>
+
+                    <!-- Properties Panel -->
+                    <div class="psd-panel" id="propertiesPanel">
+                        <div class="psd-property">
+                            <div class="psd-property-label">Opacity</div>
+                            <input type="range" class="psd-slider" id="opacitySlider" min="0" max="100" value="100"
+                                oninput="updateOpacity(this.value)">
+                            <span class="psd-slider-value" id="opacityValue">100%</span>
+                        </div>
+
+                        <div class="psd-property">
+                            <div class="psd-property-label">Position X</div>
+                            <input type="number" class="psd-input" id="posXInput" oninput="updatePosition()">
+                        </div>
+
+                        <div class="psd-property">
+                            <div class="psd-property-label">Position Y</div>
+                            <input type="number" class="psd-input" id="posYInput" oninput="updatePosition()">
+                        </div>
+
+                        <div class="psd-property">
+                            <div class="psd-property-label">Width</div>
+                            <input type="number" class="psd-input" id="widthInput" oninput="updateSize()">
+                        </div>
+
+                        <div class="psd-property">
+                            <div class="psd-property-label">Height</div>
+                            <input type="number" class="psd-input" id="heightInput" oninput="updateSize()">
+                        </div>
+
+                        <div class="psd-property">
+                            <div class="psd-property-label">Rotation</div>
+                            <input type="range" class="psd-slider" id="rotationSlider" min="0" max="360" value="0"
+                                oninput="updateRotation(this.value)">
+                            <span class="psd-slider-value" id="rotationValue">0°</span>
+                        </div>
+                    </div>
+
+                    <!-- Filters Panel -->
+                    <div class="psd-panel" id="filtersPanel">
+                        <button class="psd-filter-btn" onclick="applyFilter('brightness')">
+                            <i class="fas fa-sun"></i> Brightness
+                        </button>
+                        <button class="psd-filter-btn" onclick="applyFilter('contrast')">
+                            <i class="fas fa-adjust"></i> Contrast
+                        </button>
+                        <button class="psd-filter-btn" onclick="applyFilter('saturation')">
+                            <i class="fas fa-palette"></i> Saturation
+                        </button>
+                        <button class="psd-filter-btn" onclick="applyFilter('blur')">
+                            <i class="fas fa-droplet"></i> Blur
+                        </button>
+                        <button class="psd-filter-btn" onclick="applyFilter('grayscale')">
+                            <i class="fas fa-circle-half-stroke"></i> Grayscale
+                        </button>
+                        <button class="psd-filter-btn" onclick="applyFilter('sepia')">
+                            <i class="fas fa-image"></i> Sepia
+                        </button>
+                        <button class="psd-filter-btn" onclick="applyFilter('invert')">
+                            <i class="fas fa-repeat"></i> Invert
+                        </button>
+                        <button class="psd-filter-btn" onclick="clearFilters()">
+                            <i class="fas fa-eraser"></i> Clear All Filters
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="psd-loading" id="loadingOverlay">
+        <div class="psd-loading-content">
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 50vh;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            z-index: 99;
+            }
+
+            .psd-sidebar.open {
+            transform: translateY(0);
+            }
+            }
+            </style>
+            </head>
+
+            <body>
+                <div class="psd-editor">
+                    <!-- Header -->
+                    <div class="psd-header">
+                        <div class="psd-header-left">
+                            <div class="psd-logo">AI VOGUE</div>
+                            <div class="psd-filename" id="fileName">design.psd</div>
+                        </div>
+                        <div class="psd-header-actions">
+                            <button class="psd-btn psd-btn-secondary" onclick="exportFile('png')">
+                                <i class="fas fa-file-image"></i> Export PNG
+                            </button>
+                            <button class="psd-btn psd-btn-secondary" onclick="exportFile('jpeg')">
+                                <i class="fas fa-file-image"></i> Export JPG
+                            </button>
+                            <button class="psd-btn psd-btn-primary" onclick="saveAndUpload()">
+                                <i class="fas fa-save"></i> Save PSD
+                            </button>
+                            <button class="psd-btn psd-btn-secondary" onclick="closeEditor()">
+                                <i class="fas fa-times"></i> Close
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Main Content -->
+                    <div class="psd-main">
+                        <!-- Toolbar -->
+                        <div class="psd-toolbar">
+                            <button class="psd-tool active" data-tool="select" title="Select (V)">
+                                <i class="fas fa-mouse-pointer"></i>
+                            </button>
+                            <button class="psd-tool" data-tool="text" title="Text (T)">
+                                <i class="fas fa-font"></i>
+                            </button>
+                            <button class="psd-tool" data-tool="shape" title="Shape (U)">
+                                <i class="fas fa-shapes"></i>
+                            </button>
+                            <button class="psd-tool" data-tool="image" title="Image">
+                                <i class="fas fa-image"></i>
+                            </button>
+                            <button class="psd-tool" data-tool="crop" title="Crop (C)">
+                                <i class="fas fa-crop"></i>
+                            </button>
+                        </div>
+
+                        <!-- Canvas Area -->
+                        <div class="psd-canvas-area">
+                            <div class="psd-canvas-toolbar">
+                                <div class="psd-canvas-toolbar-group">
+                                    <button class="psd-icon-btn" onclick="undo()" title="Undo (Ctrl+Z)" id="undoBtn">
+                                        <i class="fas fa-undo"></i>
+                                    </button>
+                                    <button class="psd-icon-btn" onclick="redo()" title="Redo (Ctrl+Y)" id="redoBtn">
+                                        <i class="fas fa-redo"></i>
+                                    </button>
+                                </div>
+                                <div class="psd-canvas-toolbar-group">
+                                    <button class="psd-icon-btn" onclick="deleteSelected()" title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    <button class="psd-icon-btn" onclick="duplicateSelected()"
+                                        title="Duplicate (Ctrl+D)">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                                <div class="psd-canvas-toolbar-group">
+                                    <button class="psd-icon-btn" onclick="bringToFront()" title="Bring to Front">
+                                        <i class="fas fa-arrow-up"></i>
+                                    </button>
+                                    <button class="psd-icon-btn" onclick="sendToBack()" title="Send to Back">
+                                        <i class="fas fa-arrow-down"></i>
+                                    </button>
+                                </div>
+                                <div class="psd-canvas-toolbar-group">
+                                    <button class="psd-icon-btn" onclick="zoomIn()" title="Zoom In (+)">
+                                        <i class="fas fa-search-plus"></i>
+                                    </button>
+                                    <button class="psd-icon-btn" onclick="zoomOut()" title="Zoom Out (-)">
+                                        <i class="fas fa-search-minus"></i>
+                                    </button>
+                                    <button class="psd-icon-btn" onclick="resetZoom()" title="Reset Zoom (0)">
+                                        <i class="fas fa-compress"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="psd-canvas-container">
+                                <div class="psd-canvas-wrapper">
+                                    <canvas id="psdCanvas"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Sidebar -->
+                        <div class="psd-sidebar">
+                            <div class="psd-sidebar-tabs">
+                                <button class="psd-sidebar-tab active" data-tab="layers">Layers</button>
+                                <button class="psd-sidebar-tab" data-tab="properties">Properties</button>
+                                <button class="psd-sidebar-tab" data-tab="filters">Filters</button>
+                            </div>
+
+                            <div class="psd-sidebar-content">
+                                <!-- Layers Panel -->
+                                <div class="psd-panel active" id="layersPanel">
+                                    <div id="layersList"></div>
+                                </div>
+
+                                <!-- Properties Panel -->
+                                <div class="psd-panel" id="propertiesPanel">
+                                    <div class="psd-property">
+                                        <div class="psd-property-label">Opacity</div>
+                                        <input type="range" class="psd-slider" id="opacitySlider" min="0" max="100"
+                                            value="100" oninput="updateOpacity(this.value)">
+                                        <span class="psd-slider-value" id="opacityValue">100%</span>
+                                    </div>
+
+                                    <div class="psd-property">
+                                        <div class="psd-property-label">Position X</div>
+                                        <input type="number" class="psd-input" id="posXInput"
+                                            oninput="updatePosition()">
+                                    </div>
+
+                                    <div class="psd-property">
+                                        <div class="psd-property-label">Position Y</div>
+                                        <input type="number" class="psd-input" id="posYInput"
+                                            oninput="updatePosition()">
+                                    </div>
+
+                                    <div class="psd-property">
+                                        <div class="psd-property-label">Width</div>
+                                        <input type="number" class="psd-input" id="widthInput" oninput="updateSize()">
+                                    </div>
+
+                                    <div class="psd-property">
+                                        <div class="psd-property-label">Height</div>
+                                        <input type="number" class="psd-input" id="heightInput" oninput="updateSize()">
+                                    </div>
+
+                                    <div class="psd-property">
+                                        <div class="psd-property-label">Rotation</div>
+                                        <input type="range" class="psd-slider" id="rotationSlider" min="0" max="360"
+                                            value="0" oninput="updateRotation(this.value)">
+                                        <span class="psd-slider-value" id="rotationValue">0°</span>
+                                    </div>
+                                </div>
+
+                                <!-- Filters Panel -->
+                                <div class="psd-panel" id="filtersPanel">
+                                    <button class="psd-filter-btn" onclick="applyFilter('brightness')">
+                                        <i class="fas fa-sun"></i> Brightness
+                                    </button>
+                                    <button class="psd-filter-btn" onclick="applyFilter('contrast')">
+                                        <i class="fas fa-adjust"></i> Contrast
+                                    </button>
+                                    <button class="psd-filter-btn" onclick="applyFilter('saturation')">
+                                        <i class="fas fa-palette"></i> Saturation
+                                    </button>
+                                    <button class="psd-filter-btn" onclick="applyFilter('blur')">
+                                        <i class="fas fa-droplet"></i> Blur
+                                    </button>
+                                    <button class="psd-filter-btn" onclick="applyFilter('grayscale')">
+                                        <i class="fas fa-circle-half-stroke"></i> Grayscale
+                                    </button>
+                                    <button class="psd-filter-btn" onclick="applyFilter('sepia')">
+                                        <i class="fas fa-image"></i> Sepia
+                                    </button>
+                                    <button class="psd-filter-btn" onclick="applyFilter('invert')">
+                                        <i class="fas fa-repeat"></i> Invert
+                                    </button>
+                                    <button class="psd-filter-btn" onclick="clearFilters()">
+                                        <i class="fas fa-eraser"></i> Clear All Filters
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loading Overlay -->
+                <div class="psd-loading" id="loadingOverlay">
+                    <div class="psd-loading-content">
+                        <div class="psd-spinner"></div>
+                        <div class="psd-loading-text" id="loadingText">Loading PSD Editor...</div>
+                    </div>
+                </div>
+
+                <!-- Hidden File Input -->
+                <input type="file" id="imageInput" accept="image/*" style="display: none;"
+                    onchange="handleImageUpload(event)">
+
+                <!-- Scripts -->
+                <script src="https://cdn.jsdelivr.net/npm/fabric@5.3.0/dist/fabric.min.js"></script>
+                <script src="https://cdn.skypack.dev/ag-psd"></script>
+                <script src="assets/custom-fash.js"></script>
+                <script src="assets/psd-editor-lib.js"></script>
+                <script type="module" src="assets/psd-editor-custom.js"></script>
+            </body>
+
+</html>
