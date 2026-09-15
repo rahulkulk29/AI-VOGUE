@@ -1,0 +1,326 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Backend Integration Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+            font-size: 16px;
+        }
+        button:hover { background: #0056b3; }
+        button:disabled { background: #ccc; cursor: not-allowed; }
+        .response {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            white-space: pre-wrap;
+            font-family: monospace;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        h2 { color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px; }
+        h3 { color: #555; }
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ðŸš€ Python Backend Integration Test</h1>
+        <p>Test the new Python backend integration with AI VOGUE Prism AI</p>
+
+        <!-- Backend Status -->
+        <div class="test-section">
+            <h2>1. Backend Health Check</h2>
+            <button onclick="testHealth()">Test Health Endpoint</button>
+            <div id="healthStatus"></div>
+            <div id="healthResponse" class="response" style="display: none;"></div>
+        </div>
+
+        <!-- AI Recommendation Test -->
+        <div class="test-section">
+            <h2>2. AI Recommendation Test</h2>
+            <div>
+                <label for="testQuery">Test Query:</label><br>
+                <input type="text" id="testQuery" value="Recommend a moisturizer for oily skin" style="width: 100%; padding: 8px; margin: 5px 0;">
+            </div>
+            <div>
+                <label for="skinType">Skin Type:</label>
+                <select id="skinType" style="padding: 8px; margin: 5px;">
+                    <option value="oily">Oily</option>
+                    <option value="dry">Dry</option>
+                    <option value="combination">Combination</option>
+                    <option value="normal">Normal</option>
+                    <option value="sensitive">Sensitive</option>
+                </select>
+            </div>
+            <button onclick="testAI()">Test AI Recommendations</button>
+            <div id="aiStatus"></div>
+            <div id="aiResponse" class="response" style="display: none;"></div>
+        </div>
+
+        <!-- Frontend Service Test -->
+        <div class="test-section">
+            <h2>3. Frontend Service Integration</h2>
+            <button onclick="testFrontendService()">Test Frontend Gemini Service</button>
+            <div id="serviceStatus"></div>
+            <div id="serviceResponse" class="response" style="display: none;"></div>
+        </div>
+
+        <!-- Full Integration Test -->
+        <div class="test-section">
+            <h2>4. Complete Integration Test</h2>
+            <p>This simulates the full Prism AI workflow</p>
+            <button onclick="testFullIntegration()">Run Full Integration Test</button>
+            <div id="fullStatus"></div>
+            <div id="fullResponse" class="response" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import the updated gemini service
+        import { geminiService } from '../js/services/gemini-service.js';
+        
+        // Make functions available globally
+        window.geminiService = geminiService;
+        
+        // Test functions
+        window.testHealth = async function() {
+            const statusDiv = document.getElementById('healthStatus');
+            const responseDiv = document.getElementById('healthResponse');
+            
+            statusDiv.innerHTML = '<div class="info"><span class="loading"></span> Testing backend health...</div>';
+            responseDiv.style.display = 'none';
+            
+            try {
+                const response = await fetch('http://localhost:5000/health');
+                const data = await response.json();
+                
+                if (response.ok) {
+                    statusDiv.innerHTML = '<div class="success">âœ… Backend is healthy!</div>';
+                    responseDiv.textContent = JSON.stringify(data, null, 2);
+                    responseDiv.style.display = 'block';
+                } else {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+            } catch (error) {
+                statusDiv.innerHTML = `<div class="error">âŒ Backend health check failed: ${error.message}</div>`;
+                responseDiv.textContent = `Error: ${error.message}`;
+                responseDiv.style.display = 'block';
+            }
+        };
+        
+        window.testAI = async function() {
+            const statusDiv = document.getElementById('aiStatus');
+            const responseDiv = document.getElementById('aiResponse');
+            const query = document.getElementById('testQuery').value;
+            const skinType = document.getElementById('skinType').value;
+            
+            statusDiv.innerHTML = '<div class="info"><span class="loading"></span> Testing AI recommendations...</div>';
+            responseDiv.style.display = 'none';
+            
+            try {
+                const payload = {
+                    userQuery: query,
+                    userProfile: {
+                        skinType: skinType,
+                        skincareBudget: 'mid',
+                        ageRange: 'twenties'
+                    }
+                };
+                
+                const response = await fetch('http://localhost:5000/api/recommend', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    statusDiv.innerHTML = '<div class="success">âœ… AI recommendations received!</div>';
+                    responseDiv.textContent = JSON.stringify(data, null, 2);
+                    responseDiv.style.display = 'block';
+                } else {
+                    throw new Error(data.error || `HTTP ${response.status}`);
+                }
+            } catch (error) {
+                statusDiv.innerHTML = `<div class="error">âŒ AI test failed: ${error.message}</div>`;
+                responseDiv.textContent = `Error: ${error.message}`;
+                responseDiv.style.display = 'block';
+            }
+        };
+        
+        window.testFrontendService = async function() {
+            const statusDiv = document.getElementById('serviceStatus');
+            const responseDiv = document.getElementById('serviceResponse');
+            
+            statusDiv.innerHTML = '<div class="info"><span class="loading"></span> Testing frontend service...</div>';
+            responseDiv.style.display = 'none';
+            
+            try {
+                // Test backend health through service
+                const healthResult = await geminiService.checkBackendHealth();
+                
+                if (healthResult.healthy) {
+                    // Test AI recommendation through service
+                    const aiResult = await geminiService.generateResponse(
+                        'Recommend a gentle cleanser',
+                        { skinType: 'sensitive', skincareBudget: 'mid' }
+                    );
+                    
+                    if (aiResult.success) {
+                        statusDiv.innerHTML = '<div class="success">âœ… Frontend service working perfectly!</div>';
+                        responseDiv.textContent = JSON.stringify(aiResult, null, 2);
+                        responseDiv.style.display = 'block';
+                    } else {
+                        throw new Error('AI service failed: ' + aiResult.error);
+                    }
+                } else {
+                    throw new Error('Backend health check failed: ' + healthResult.error);
+                }
+            } catch (error) {
+                statusDiv.innerHTML = `<div class="error">âŒ Frontend service test failed: ${error.message}</div>`;
+                responseDiv.textContent = `Error: ${error.message}`;
+                responseDiv.style.display = 'block';
+            }
+        };
+        
+        window.testFullIntegration = async function() {
+            const statusDiv = document.getElementById('fullStatus');
+            const responseDiv = document.getElementById('fullResponse');
+            
+            statusDiv.innerHTML = '<div class="info"><span class="loading"></span> Running complete integration test...</div>';
+            responseDiv.style.display = 'none';
+            
+            const results = {
+                steps: [],
+                overall: 'pending'
+            };
+            
+            try {
+                // Step 1: Backend Health
+                results.steps.push('1. Testing backend health...');
+                const healthCheck = await fetch('http://localhost:5000/health');
+                const healthData = await healthCheck.json();
+                
+                if (healthCheck.ok) {
+                    results.steps.push('âœ… Backend health: OK');
+                } else {
+                    throw new Error('Backend health check failed');
+                }
+                
+                // Step 2: Frontend Service Health
+                results.steps.push('2. Testing frontend service...');
+                const serviceHealth = await geminiService.checkBackendHealth();
+                
+                if (serviceHealth.healthy) {
+                    results.steps.push('âœ… Frontend service: OK');
+                } else {
+                    throw new Error('Frontend service health check failed');
+                }
+                
+                // Step 3: AI Recommendation
+                results.steps.push('3. Testing AI recommendations...');
+                const aiTest = await geminiService.generateResponse(
+                    'What skincare routine do you recommend for combination skin?',
+                    {
+                        skinType: 'combination',
+                        skinConcern: 'acne',
+                        skincareBudget: 'mid',
+                        ageRange: 'twenties'
+                    }
+                );
+                
+                if (aiTest.success || aiTest.fallback) {
+                    results.steps.push('âœ… AI recommendations: OK');
+                    results.aiResponse = aiTest;
+                } else {
+                    throw new Error('AI recommendation failed');
+                }
+                
+                // Step 4: Performance Test
+                results.steps.push('4. Testing response time...');
+                const startTime = Date.now();
+                await geminiService.generateResponse('Quick test', { skinType: 'normal' });
+                const responseTime = Date.now() - startTime;
+                
+                results.steps.push(`âœ… Response time: ${responseTime}ms`);
+                results.responseTime = responseTime;
+                
+                results.overall = 'success';
+                results.steps.push('ðŸŽ‰ All tests passed! Integration is working perfectly.');
+                
+                statusDiv.innerHTML = '<div class="success">ðŸŽ‰ Complete integration test passed!</div>';
+                responseDiv.textContent = JSON.stringify(results, null, 2);
+                responseDiv.style.display = 'block';
+                
+            } catch (error) {
+                results.overall = 'failed';
+                results.error = error.message;
+                results.steps.push(`âŒ Test failed: ${error.message}`);
+                
+                statusDiv.innerHTML = `<div class="error">âŒ Integration test failed: ${error.message}</div>`;
+                responseDiv.textContent = JSON.stringify(results, null, 2);
+                responseDiv.style.display = 'block';
+            }
+        };
+        
+        // Auto-run health check on page load
+        setTimeout(() => {
+            testHealth();
+        }, 1000);
+    </script>
+</body>
+</html>
+

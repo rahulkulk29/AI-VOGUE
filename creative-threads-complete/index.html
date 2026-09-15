@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Threads Complete - AI VOGUE</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #faf9f7 0%, #e8d5b7 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #1a3634;
+            margin-bottom: 1rem;
+        }
+        
+        .subtitle {
+            font-size: 1.25rem;
+            color: #5a5a5a;
+            margin-bottom: 0.5rem;
+        }
+        
+        .version {
+            font-size: 0.9rem;
+            color: #c9a961;
+            font-weight: 600;
+        }
+        
+        .systems {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .system-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 16px rgba(26, 54, 52, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .system-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 32px rgba(26, 54, 52, 0.15);
+        }
+        
+        .system-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #1a3634;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .system-title i {
+            color: #c9a961;
+        }
+        
+        .system-desc {
+            color: #5a5a5a;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .pages-list {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .pages-list li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .page-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            background: #1a3634;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .page-link:hover {
+            background: #2d4f4c;
+            transform: translateX(5px);
+        }
+        
+        .page-link i {
+            font-size: 0.9rem;
+        }
+        
+        .features {
+            background: #f5f4f2;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+        
+        .features-title {
+            font-weight: 600;
+            color: #1a3634;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .features-list {
+            font-size: 0.85rem;
+            color: #5a5a5a;
+            line-height: 1.8;
+        }
+        
+        .info-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 16px rgba(26, 54, 52, 0.1);
+        }
+        
+        .info-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #1a3634;
+            margin-bottom: 1rem;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .info-item {
+            padding: 1rem;
+            background: #faf9f7;
+            border-radius: 8px;
+        }
+        
+        .info-item-title {
+            font-weight: 600;
+            color: #1a3634;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .info-item-value {
+            color: #c9a961;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid rgba(26, 54, 52, 0.1);
+            color: #5a5a5a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">AI VOGUE</div>
+            <div class="subtitle">Creative Threads Complete Package</div>
+            <div class="version">Version 3.0 - Professional Edition</div>
+        </div>
+        
+        <div class="systems">
+            <!-- T-Shirt Printing System -->
+            <div class="system-card">
+                <h2 class="system-title">
+                    <i class="fas fa-tshirt"></i>
+                    T-Shirt Printing
+                </h2>
+                <p class="system-desc">
+                    Professional t-shirt customizer with live canvas preview, layer management, and dynamic pricing.
+                </p>
+                <ul class="pages-list">
+                    <li>
+                        <a href="tshirt-printing/tshirt-customizer.html" class="page-link">
+                            <i class="fas fa-arrow-right"></i>
+                            Open T-Shirt Customizer
+                        </a>
+                    </li>
+                </ul>
+                <div class="features">
+                    <div class="features-title">✨ Features:</div>
+                    <div class="features-list">
+                        ✓ Product selection & variants<br>
+                        ✓ Color & size customization<br>
+                        ✓ Image upload & graphics library<br>
+                        ✓ Text editor (10 fonts)<br>
+                        ✓ Layer management<br>
+                        ✓ Transform controls<br>
+                        ✓ Live canvas preview<br>
+                        ✓ Dynamic pricing<br>
+                        ✓ Shopping cart
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Custom Fashion System -->
+            <div class="system-card">
+                <h2 class="system-title">
+                    <i class="fas fa-palette"></i>
+                    Custom Fashion Marketplace
+                </h2>
+                <p class="system-desc">
+                    Connect with designers for custom fashion creations. Browse requests, post projects, and edit PSDs.
+                </p>
+                <ul class="pages-list">
+                    <li>
+                        <a href="custom-fashion/custom-fashion-marketplace.html" class="page-link">
+                            <i class="fas fa-store"></i>
+                            Browse Marketplace
+                        </a>
+                    </li>
+                    <li>
+                        <a href="custom-fashion/custom-fashion-post-request.html" class="page-link">
+                            <i class="fas fa-plus-circle"></i>
+                            Post Custom Request
+                        </a>
+                    </li>
+                    <li>
+                        <a href="custom-fashion/psd-editor-advanced.html" class="page-link">
+                            <i class="fas fa-magic"></i>
+                            Advanced PSD Editor
+                        </a>
+                    </li>
+                    <li>
+                        <a href="custom-fashion/psd-editor-basic.html" class="page-link">
+                            <i class="fas fa-edit"></i>
+                            Basic PSD Editor
+                        </a>
+                    </li>
+                </ul>
+                <div class="features">
+                    <div class="features-title">✨ Features:</div>
+                    <div class="features-list">
+                        ✓ Browse custom requests<br>
+                        ✓ Multi-step request form<br>
+                        ✓ File upload (100MB)<br>
+                        ✓ Designer quotes system<br>
+                        ✓ Secure escrow payments<br>
+                        ✓ PSD editing tools<br>
+                        ✓ Layer control & filters<br>
+                        ✓ Professional design tools
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <h3 class="info-title">📊 Package Information</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-item-title">
+                        <i class="fas fa-file-code"></i>
+                        HTML Pages
+                    </div>
+                    <div class="info-item-value">5 Pages</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-item-title">
+                        <i class="fas fa-layer-group"></i>
+                        Systems
+                    </div>
+                    <div class="info-item-value">2 Complete</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-item-title">
+                        <i class="fas fa-star"></i>
+                        Features
+                    </div>
+                    <div class="info-item-value">40+</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-item-title">
+                        <i class="fas fa-book"></i>
+                        Documentation
+                    </div>
+                    <div class="info-item-value">13 Files</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><strong>AI VOGUE</strong> - Luxury Fashion Technology Redefined</p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem;">© 2024 All Rights Reserved</p>
+        </div>
+    </div>
+</body>
+</html>

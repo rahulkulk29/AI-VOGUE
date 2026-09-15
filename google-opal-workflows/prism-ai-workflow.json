@@ -1,0 +1,228 @@
+{
+  "workflow": {
+    "name": "Prism AI Beauty & Fashion Consultant",
+    "description": "AI-powered beauty and fashion recommendation system with user profiling and product analysis",
+    "version": "1.0.0",
+    "metadata": {
+      "created": "2024-10-08",
+      "author": "Prism AI Team",
+      "category": "Beauty & Fashion",
+      "tags": ["beauty", "fashion", "recommendations", "skincare", "ai"]
+    },
+    "inputs": {
+      "userQuery": {
+        "type": "string",
+        "required": true,
+        "description": "User's question or request for recommendations"
+      },
+      "userProfile": {
+        "type": "object",
+        "required": true,
+        "properties": {
+          "skinType": {"type": "string", "enum": ["oily", "dry", "combination", "normal", "sensitive"]},
+          "skinConcern": {"type": "string"},
+          "hairType": {"type": "string", "enum": ["straight", "wavy", "curly", "coily"]},
+          "hairTexture": {"type": "string", "enum": ["fine", "medium", "thick"]},
+          "hairConcern": {"type": "string"},
+          "stylePreference": {"type": "string", "enum": ["casual", "professional", "trendy", "classic", "bohemian"]},
+          "skincareBudget": {"type": "string", "enum": ["low", "mid", "high"]},
+          "fashionBudget": {"type": "string", "enum": ["low", "mid", "high"]},
+          "ageRange": {"type": "string", "enum": ["teens", "twenties", "thirties", "forties", "fifties", "sixties+"]},
+          "occasions": {"type": "string"},
+          "allergens": {"type": "array", "items": {"type": "string"}},
+          "preferredIngredients": {"type": "array", "items": {"type": "string"}},
+          "avoidIngredients": {"type": "array", "items": {"type": "string"}}
+        }
+      },
+      "imageData": {
+        "type": "string",
+        "required": false,
+        "description": "Base64 encoded image for visual analysis"
+      }
+    },
+    "outputs": {
+      "generalAdvice": {"type": "string"},
+      "products": {"type": "array"},
+      "additionalTips": {"type": "array"},
+      "compatibilityAnalysis": {"type": "object"},
+      "processingTime": {"type": "string"},
+      "confidence": {"type": "number"}
+    },
+    "agents": [
+      {
+        "id": "profile_analyzer",
+        "name": "User Profile Analyzer",
+        "type": "analysis",
+        "description": "Analyzes user profile and preferences to create detailed beauty/fashion persona",
+        "inputs": ["userProfile", "imageData"],
+        "outputs": ["analyzedProfile", "personaInsights"],
+        "prompt": "You are an expert beauty and fashion analyst. Analyze the user's profile data and create a comprehensive persona with detailed insights about their skin type, hair characteristics, style preferences, and specific needs. Consider their age, budget, concerns, and any allergies or ingredient preferences. Provide a detailed analysis that will guide product recommendations.",
+        "model": "gemini-1.5-pro",
+        "temperature": 0.3,
+        "maxTokens": 1000
+      },
+      {
+        "id": "product_researcher",
+        "name": "Product Research Specialist",
+        "type": "research",
+        "description": "Researches and identifies suitable products based on user profile and query",
+        "inputs": ["userQuery", "analyzedProfile"],
+        "outputs": ["productCandidates", "researchNotes"],
+        "prompt": "You are a product research specialist with extensive knowledge of beauty and fashion products from major retailers like Sephora, Ulta, The Ordinary, CeraVe, Neutrogena, and fashion brands. Based on the user's analyzed profile and specific query, research and identify 5-8 potential product candidates that would be suitable. Consider ingredients, price points, brand reputation, and user reviews. Focus on products that match their skin type, concerns, budget, and style preferences.",
+        "model": "gemini-1.5-flash",
+        "temperature": 0.4,
+        "maxTokens": 1500
+      },
+      {
+        "id": "compatibility_analyzer",
+        "name": "Product Compatibility Analyzer",
+        "type": "analysis",
+        "description": "Analyzes product compatibility with user's skin type and preferences",
+        "inputs": ["productCandidates", "analyzedProfile"],
+        "outputs": ["compatibilityScores", "compatibilityReasons"],
+        "prompt": "You are a dermatology and cosmetic chemistry expert. Analyze each product candidate for compatibility with the user's specific skin type, concerns, and preferences. Calculate a compatibility score (0-100) for each product based on: skin type match (30%), ingredient suitability (25%), addressing specific concerns (20%), budget appropriateness (15%), and avoiding allergens/unwanted ingredients (10%). Provide detailed reasoning for each score.",
+        "model": "gemini-1.5-pro",
+        "temperature": 0.2,
+        "maxTokens": 1200
+      },
+      {
+        "id": "ingredient_analyzer",
+        "name": "Ingredient Analysis Expert",
+        "type": "analysis",
+        "description": "Provides detailed ingredient analysis with pros and cons",
+        "inputs": ["productCandidates", "analyzedProfile"],
+        "outputs": ["ingredientAnalysis", "prosAndCons"],
+        "prompt": "You are a cosmetic chemist and ingredient expert. For each product candidate, analyze the key ingredients and their effects on the user's specific skin type and concerns. Identify the pros and cons of each ingredient for this particular user. Consider potential interactions, benefits, side effects, and suitability. Provide specific, personalized pros and cons that relate directly to the user's profile.",
+        "model": "gemini-1.5-pro",
+        "temperature": 0.3,
+        "maxTokens": 1500
+      },
+      {
+        "id": "recommendation_curator",
+        "name": "Recommendation Curator",
+        "type": "synthesis",
+        "description": "Curates final recommendations based on all analyses",
+        "inputs": ["productCandidates", "compatibilityScores", "ingredientAnalysis", "userQuery"],
+        "outputs": ["finalRecommendations", "generalAdvice"],
+        "prompt": "You are a beauty and fashion consultant curator. Based on all the research and analysis, select the top 3-4 products that best match the user's needs. Rank them by overall suitability considering compatibility scores, ingredient analysis, and the specific user query. Provide general advice that ties everything together and addresses the user's original question. Ensure recommendations are practical, achievable, and personalized.",
+        "model": "gemini-1.5-flash",
+        "temperature": 0.4,
+        "maxTokens": 1000
+      },
+      {
+        "id": "tips_generator",
+        "name": "Beauty Tips Generator",
+        "type": "generation",
+        "description": "Generates personalized beauty and application tips",
+        "inputs": ["finalRecommendations", "analyzedProfile"],
+        "outputs": ["applicationTips", "additionalAdvice"],
+        "prompt": "You are a professional beauty advisor and makeup artist. Based on the final product recommendations and user profile, generate specific application tips, usage instructions, and additional beauty advice. Include tips on how to use the products effectively, when to apply them, what to expect, and how to build a routine. Provide 3-5 actionable tips that are personalized to this user's specific needs and experience level.",
+        "model": "gemini-1.5-flash",
+        "temperature": 0.5,
+        "maxTokens": 800
+      }
+    ],
+    "workflow_steps": [
+      {
+        "step": 1,
+        "name": "Profile Analysis",
+        "agent": "profile_analyzer",
+        "parallel": false,
+        "conditions": []
+      },
+      {
+        "step": 2,
+        "name": "Product Research",
+        "agent": "product_researcher",
+        "parallel": false,
+        "conditions": [],
+        "dependencies": ["profile_analyzer"]
+      },
+      {
+        "step": 3,
+        "name": "Compatibility & Ingredient Analysis",
+        "agents": ["compatibility_analyzer", "ingredient_analyzer"],
+        "parallel": true,
+        "conditions": [],
+        "dependencies": ["product_researcher"]
+      },
+      {
+        "step": 4,
+        "name": "Recommendation Curation",
+        "agent": "recommendation_curator",
+        "parallel": false,
+        "conditions": [],
+        "dependencies": ["compatibility_analyzer", "ingredient_analyzer"]
+      },
+      {
+        "step": 5,
+        "name": "Tips Generation",
+        "agent": "tips_generator",
+        "parallel": false,
+        "conditions": [],
+        "dependencies": ["recommendation_curator"]
+      }
+    ],
+    "output_formatting": {
+      "format": "json",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "success": {"type": "boolean"},
+          "generalAdvice": {"type": "string"},
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {"type": "string"},
+                "brand": {"type": "string"},
+                "category": {"type": "string"},
+                "price": {"type": "string"},
+                "ingredients": {"type": "array", "items": {"type": "string"}},
+                "purchaseLink": {"type": "string"},
+                "compatibility": {"type": "number", "minimum": 0, "maximum": 100},
+                "pros": {"type": "array", "items": {"type": "string"}},
+                "cons": {"type": "array", "items": {"type": "string"}},
+                "applicationTips": {"type": "string"}
+              }
+            }
+          },
+          "additionalTips": {"type": "array", "items": {"type": "string"}},
+          "compatibilityAnalysis": {
+            "type": "object",
+            "properties": {
+              "overallScore": {"type": "number"},
+              "factors": {"type": "object"}
+            }
+          },
+          "processingTime": {"type": "string"},
+          "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+        }
+      }
+    },
+    "error_handling": {
+      "fallback_responses": {
+        "profile_analysis_failed": "Unable to analyze profile completely. Using general recommendations.",
+        "product_research_failed": "Product research encountered issues. Providing popular alternatives.",
+        "compatibility_analysis_failed": "Compatibility analysis unavailable. Using general suitability.",
+        "ingredient_analysis_failed": "Detailed ingredient analysis unavailable. Check product descriptions.",
+        "recommendation_curation_failed": "Unable to curate recommendations. Providing research results.",
+        "tips_generation_failed": "Custom tips unavailable. Using general application advice."
+      },
+      "retry_logic": {
+        "max_retries": 3,
+        "backoff_strategy": "exponential",
+        "retry_conditions": ["timeout", "rate_limit", "temporary_failure"]
+      }
+    },
+    "performance": {
+      "timeout": 45000,
+      "cache_ttl": 300,
+      "rate_limits": {
+        "requests_per_minute": 60,
+        "requests_per_hour": 1000
+      }
+    }
+  }
+}

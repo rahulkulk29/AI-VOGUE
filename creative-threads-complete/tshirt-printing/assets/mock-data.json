@@ -1,0 +1,211 @@
+{
+    "products": [
+        {
+            "productId": "normal-tee",
+            "name": "Normal T-Shirt",
+            "slug": "normal-tee",
+            "base_price": 499,
+            "variants": [
+                {
+                    "type": "normal",
+                    "mockup_path": "assets/products/normal-tee/Gemini_Generated_Image_dec0a3dec0a3dec0.png",
+                    "base_price": 499
+                }
+            ],
+            "colors": [
+                {
+                    "name": "White",
+                    "hex": "#FFFFFF",
+                    "premium": false
+                },
+                {
+                    "name": "Black",
+                    "hex": "#000000",
+                    "premium": false
+                },
+                {
+                    "name": "Navy",
+                    "hex": "#001F3F",
+                    "premium": false
+                },
+                {
+                    "name": "Gray",
+                    "hex": "#808080",
+                    "premium": false
+                },
+                {
+                    "name": "Red",
+                    "hex": "#FF4136",
+                    "premium": true
+                },
+                {
+                    "name": "Gold",
+                    "hex": "#91855a",
+                    "premium": true
+                }
+            ],
+            "sizes": [
+                "S",
+                "M",
+                "L",
+                "XL",
+                "XXL"
+            ],
+            "print_area": {
+                "x_percent": 25,
+                "y_percent": 30,
+                "width_percent": 50,
+                "height_percent": 40
+            },
+            "description": "Classic comfort meets modern style"
+        },
+        {
+            "productId": "oversized-tee",
+            "name": "Oversized T-Shirt",
+            "slug": "oversized-tee",
+            "base_price": 699,
+            "variants": [
+                {
+                    "type": "oversized",
+                    "mockup_path": "assets/products/normal-tee/Gemini_Generated_Image_t3ldfrt3ldfrt3ld.png",
+                    "base_price": 699
+                }
+            ],
+            "colors": [
+                {
+                    "name": "White",
+                    "hex": "#FFFFFF",
+                    "premium": false
+                },
+                {
+                    "name": "Black",
+                    "hex": "#000000",
+                    "premium": false
+                },
+                {
+                    "name": "Beige",
+                    "hex": "#F5F5DC",
+                    "premium": true
+                },
+                {
+                    "name": "Olive",
+                    "hex": "#808000",
+                    "premium": true
+                }
+            ],
+            "sizes": [
+                "M",
+                "L",
+                "XL",
+                "XXL"
+            ],
+            "print_area": {
+                "x_percent": 20,
+                "y_percent": 25,
+                "width_percent": 60,
+                "height_percent": 50
+            },
+            "description": "Relaxed fit for ultimate comfort"
+        },
+        {
+            "productId": "polo-tee",
+            "name": "Polo T-Shirt",
+            "slug": "polo-tee",
+            "base_price": 899,
+            "variants": [
+                {
+                    "type": "polo",
+                    "mockup_path": "assets/products/normal-tee/Gemini_Generated_Image_y23c2qy23c2qy23c.png",
+                    "base_price": 899
+                }
+            ],
+            "colors": [
+                {
+                    "name": "White",
+                    "hex": "#FFFFFF",
+                    "premium": false
+                },
+                {
+                    "name": "Black",
+                    "hex": "#000000",
+                    "premium": false
+                },
+                {
+                    "name": "Navy",
+                    "hex": "#001F3F",
+                    "premium": true
+                },
+                {
+                    "name": "Burgundy",
+                    "hex": "#800020",
+                    "premium": true
+                }
+            ],
+            "sizes": [
+                "S",
+                "M",
+                "L",
+                "XL",
+                "XXL"
+            ],
+            "print_area": {
+                "x_percent": 30,
+                "y_percent": 35,
+                "width_percent": 40,
+                "height_percent": 30
+            },
+            "description": "Sophisticated style with collar"
+        },
+        {
+            "productId": "long-sleeve-tee",
+            "name": "Long Sleeve T-Shirt",
+            "slug": "long-sleeve-tee",
+            "base_price": 799,
+            "variants": [
+                {
+                    "type": "long-sleeve",
+                    "mockup_path": "assets/products/normal-tee/Gemini_Generated_Image_yasqcfyasqcfyasq.png",
+                    "base_price": 799
+                }
+            ],
+            "colors": [
+                {
+                    "name": "White",
+                    "hex": "#FFFFFF",
+                    "premium": false
+                },
+                {
+                    "name": "Black",
+                    "hex": "#000000",
+                    "premium": false
+                },
+                {
+                    "name": "Gray",
+                    "hex": "#808080",
+                    "premium": false
+                },
+                {
+                    "name": "Forest Green",
+                    "hex": "#1d3937",
+                    "premium": true
+                }
+            ],
+            "sizes": [
+                "S",
+                "M",
+                "L",
+                "XL",
+                "XXL"
+            ],
+            "print_area": {
+                "x_percent": 25,
+                "y_percent": 30,
+                "width_percent": 50,
+                "height_percent": 40
+            },
+            "description": "Year-round comfort and style"
+        }
+    ],
+    "graphics": [],
+    "vendors": []
+}

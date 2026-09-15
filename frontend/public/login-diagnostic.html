@@ -1,0 +1,346 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login System Diagnostic - AI VOGUE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #ffffff;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            color: #91855A;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        h2 {
+            color: #b8a76a;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .status {
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 10px;
+            border-left: 4px solid;
+        }
+
+        .status.success {
+            background: rgba(76, 175, 80, 0.1);
+            border-color: #4caf50;
+        }
+
+        .status.error {
+            background: rgba(244, 67, 54, 0.1);
+            border-color: #f44336;
+        }
+
+        .status.warning {
+            background: rgba(255, 152, 0, 0.1);
+            border-color: #ff9800;
+        }
+
+        .status.info {
+            background: rgba(33, 150, 243, 0.1);
+            border-color: #2196f3;
+        }
+
+        .test-item {
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .test-result {
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+        }
+
+        .test-result.pass {
+            background: #4caf50;
+            color: white;
+        }
+
+        .test-result.fail {
+            background: #f44336;
+            color: white;
+        }
+
+        button {
+            background: linear-gradient(135deg, #91855A 0%, #6B6340 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(145, 133, 90, 0.3);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #b8a76a;
+        }
+
+        .console-log {
+            background: #000;
+            color: #0f0;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            max-height: 300px;
+            overflow-y: auto;
+            margin: 1rem 0;
+        }
+
+        .console-log div {
+            margin: 0.25rem 0;
+        }
+
+        .console-log .error {
+            color: #f44336;
+        }
+
+        .console-log .success {
+            color: #4caf50;
+        }
+
+        .console-log .warning {
+            color: #ff9800;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🔍 Login System Diagnostic Tool</h1>
+        <p>This page will help diagnose and fix any issues with the AI VOGUE login system.</p>
+
+        <h2>📋 System Checks</h2>
+        <div id="systemChecks"></div>
+
+        <h2>🧪 Test Actions</h2>
+        <div>
+            <button onclick="testAppwriteConnection()">Test Appwrite Connection</button>
+            <button onclick="testAuthService()">Test Auth Service</button>
+            <button onclick="testLoginForm()">Test Login Form</button>
+            <button onclick="clearAllData()">Clear All Data</button>
+            <button onclick="window.location.href='login.html'">Go to Login Page</button>
+        </div>
+
+        <h2>📊 Console Output</h2>
+        <div class="console-log" id="consoleOutput"></div>
+
+        <h2>💡 Common Issues & Solutions</h2>
+        <div class="status info">
+            <strong>Issue 1: Sign In button not working</strong><br>
+            <strong>Solution:</strong> Scripts must load in correct order: Appwrite SDK → Config → Auth Handler
+        </div>
+
+        <div class="status info">
+            <strong>Issue 2: Module import errors</strong><br>
+            <strong>Solution:</strong> Use standalone auth script (auth-standalone.js) instead of module-based auth.js
+        </div>
+
+        <div class="status info">
+            <strong>Issue 3: Appwrite connection failed</strong><br>
+            <strong>Solution:</strong> Check internet connection and Appwrite project configuration
+        </div>
+
+        <div class="status info">
+            <strong>Issue 4: Invalid credentials error</strong><br>
+            <strong>Solution:</strong> Ensure you're using correct email/password for your Appwrite account
+        </div>
+    </div>
+
+    <!-- Load Appwrite SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@14.0.1"></script>
+
+    <!-- Load Appwrite config -->
+    <script type="module" src="../js/appwrite-config.js"></script>
+
+    <script>
+        const consoleOutput = document.getElementById('consoleOutput');
+        const systemChecks = document.getElementById('systemChecks');
+
+        // Override console methods to capture output
+        const originalLog = console.log;
+        const originalError = console.error;
+        const originalWarn = console.warn;
+
+        function addToConsole(message, type = 'log') {
+            const div = document.createElement('div');
+            div.className = type;
+            div.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            consoleOutput.appendChild(div);
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        }
+
+        console.log = function (...args) {
+            originalLog.apply(console, args);
+            addToConsole(args.join(' '), 'success');
+        };
+
+        console.error = function (...args) {
+            originalError.apply(console, args);
+            addToConsole(args.join(' '), 'error');
+        };
+
+        console.warn = function (...args) {
+            originalWarn.apply(console, args);
+            addToConsole(args.join(' '), 'warning');
+        };
+
+        // Run system checks
+        function runSystemChecks() {
+            const checks = [
+                {
+                    name: 'Appwrite SDK Loaded',
+                    test: () => typeof Appwrite !== 'undefined'
+                },
+                {
+                    name: 'Appwrite Config Available',
+                    test: () => typeof window.APPWRITE_CONFIG !== 'undefined'
+                },
+                {
+                    name: 'Auth Service Available',
+                    test: () => typeof window.authService !== 'undefined'
+                },
+                {
+                    name: 'LocalStorage Available',
+                    test: () => typeof localStorage !== 'undefined'
+                },
+                {
+                    name: 'Internet Connection',
+                    test: () => navigator.onLine
+                }
+            ];
+
+            systemChecks.innerHTML = '';
+            checks.forEach(check => {
+                const result = check.test();
+                const div = document.createElement('div');
+                div.className = 'test-item';
+                div.innerHTML = `
+                    <span>${check.name}</span>
+                    <span class="test-result ${result ? 'pass' : 'fail'}">${result ? 'PASS' : 'FAIL'}</span>
+                `;
+                systemChecks.appendChild(div);
+            });
+        }
+
+        // Test Appwrite connection
+        async function testAppwriteConnection() {
+            console.log('Testing Appwrite connection...');
+            try {
+                if (!window.APPWRITE_CONFIG) {
+                    throw new Error('Appwrite config not loaded');
+                }
+
+                console.log('✅ Appwrite endpoint:', window.APPWRITE_CONFIG.endpoint);
+                console.log('✅ Project ID:', window.APPWRITE_CONFIG.projectId);
+                console.log('✅ Database ID:', window.APPWRITE_CONFIG.databaseId);
+                console.log('✅ Appwrite connection test passed');
+            } catch (error) {
+                console.error('❌ Appwrite connection test failed:', error.message);
+            }
+        }
+
+        // Test auth service
+        async function testAuthService() {
+            console.log('Testing auth service...');
+            try {
+                if (!window.authService) {
+                    throw new Error('Auth service not available');
+                }
+
+                const isAuth = await window.authService.isAuthenticated();
+                console.log('✅ Auth service working');
+                console.log('Authentication status:', isAuth ? 'Logged In' : 'Not Logged In');
+
+                if (isAuth) {
+                    const user = await window.authService.getCurrentUser();
+                    console.log('Current user:', user.name, '(' + user.email + ')');
+                }
+            } catch (error) {
+                console.error('❌ Auth service test failed:', error.message);
+            }
+        }
+
+        // Test login form
+        function testLoginForm() {
+            console.log('Testing login form...');
+            const loginPage = 'login.html';
+            console.log('Opening login page:', loginPage);
+            window.open(loginPage, '_blank');
+        }
+
+        // Clear all data
+        function clearAllData() {
+            if (confirm('This will clear all localStorage data and log you out. Continue?')) {
+                console.log('Clearing all data...');
+                localStorage.clear();
+                console.log('✅ All data cleared');
+                console.log('Please refresh the page');
+                setTimeout(() => location.reload(), 1000);
+            }
+        }
+
+        // Run checks on load
+        setTimeout(() => {
+            runSystemChecks();
+            console.log('🔍 Diagnostic tool ready');
+            console.log('Run tests using the buttons above');
+        }, 1000);
+
+        // Re-run checks every 5 seconds
+        setInterval(runSystemChecks, 5000);
+    </script>
+</body>
+
+</html>

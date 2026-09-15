@@ -1,0 +1,20 @@
+Instructions for fixing tshirt-customizer.html:
+
+1. Add at the very beginning (before line 1):
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Threads - Custom T-Shirt Printing | AI VOGUE</title>
+
+2. Change line 1 from:
+<link rel="stylesheet" href="../../../css/styles.css">
+TO:
+    <link rel="stylesheet" href="../../frontend/css/styles.css">
+
+3. Update all navigation links to use ../../frontend/public/ prefix
+
+4. At the end of the file, ensure there's a closing </html> tag
+
+5. Update main.js script path from ../../../js/main.js to ../../frontend/js/main.js

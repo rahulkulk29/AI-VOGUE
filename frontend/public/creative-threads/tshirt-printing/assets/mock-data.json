@@ -1,0 +1,443 @@
+{
+    "products": [
+        {
+            "productId": "normal-tee",
+            "name": "Normal T-Shirt",
+            "slug": "normal-tee",
+            "base_price": 499,
+            "variants": [
+                {
+                    "type": "normal",
+                    "mockup_path": "../../../assets/products/normal t-shirt/Gemini_Generated_Image_dec0a3dec0a3dec0.png",
+                    "base_price": 499
+                }
+            ],
+            "colors": [
+                {
+                    "name": "White",
+                    "hex": "#FFFFFF",
+                    "premium": false
+                },
+                {
+                    "name": "Black",
+                    "hex": "#000000",
+                    "premium": false
+                },
+                {
+                    "name": "Navy",
+                    "hex": "#001F3F",
+                    "premium": false
+                },
+                {
+                    "name": "Gray",
+                    "hex": "#808080",
+                    "premium": false
+                },
+                {
+                    "name": "Red",
+                    "hex": "#FF4136",
+                    "premium": true
+                },
+                {
+                    "name": "Gold",
+                    "hex": "#91855a",
+                    "premium": true
+                }
+            ],
+            "sizes": [
+                "S",
+                "M",
+                "L",
+                "XL",
+                "XXL"
+            ],
+            "print_area": {
+                "x_percent": 25,
+                "y_percent": 30,
+                "width_percent": 50,
+                "height_percent": 40
+            },
+            "description": "Classic comfort meets modern style"
+        },
+        {
+            "productId": "oversized-tee",
+            "name": "Oversized T-Shirt",
+            "slug": "oversized-tee",
+            "base_price": 699,
+            "variants": [
+                {
+                    "type": "oversized",
+                    "mockup_path": "../../../assets/products/normal t-shirt/Gemini_Generated_Image_t3ldfrt3ldfrt3ld.png",
+                    "base_price": 699
+                }
+            ],
+            "colors": [
+                {
+                    "name": "White",
+                    "hex": "#FFFFFF",
+                    "premium": false
+                },
+                {
+                    "name": "Black",
+                    "hex": "#000000",
+                    "premium": false
+                },
+                {
+                    "name": "Beige",
+                    "hex": "#F5F5DC",
+                    "premium": true
+                },
+                {
+                    "name": "Olive",
+                    "hex": "#808000",
+                    "premium": true
+                }
+            ],
+            "sizes": [
+                "M",
+                "L",
+                "XL",
+                "XXL"
+            ],
+            "print_area": {
+                "x_percent": 20,
+                "y_percent": 25,
+                "width_percent": 60,
+                "height_percent": 50
+            },
+            "description": "Relaxed fit for ultimate comfort"
+        },
+        {
+            "productId": "polo-tee",
+            "name": "Polo T-Shirt",
+            "slug": "polo-tee",
+            "base_price": 899,
+            "variants": [
+                {
+                    "type": "polo",
+                    "mockup_path": "../../../assets/products/normal t-shirt/Gemini_Generated_Image_y23c2qy23c2qy23c.png",
+                    "base_price": 899
+                }
+            ],
+            "colors": [
+                {
+                    "name": "White",
+                    "hex": "#FFFFFF",
+                    "premium": false
+                },
+                {
+                    "name": "Black",
+                    "hex": "#000000",
+                    "premium": false
+                },
+                {
+                    "name": "Navy",
+                    "hex": "#001F3F",
+                    "premium": true
+                },
+                {
+                    "name": "Burgundy",
+                    "hex": "#800020",
+                    "premium": true
+                }
+            ],
+            "sizes": [
+                "S",
+                "M",
+                "L",
+                "XL",
+                "XXL"
+            ],
+            "print_area": {
+                "x_percent": 30,
+                "y_percent": 35,
+                "width_percent": 40,
+                "height_percent": 30
+            },
+            "description": "Sophisticated style with collar"
+        },
+        {
+            "productId": "long-sleeve-tee",
+            "name": "Long Sleeve T-Shirt",
+            "slug": "long-sleeve-tee",
+            "base_price": 799,
+            "variants": [
+                {
+                    "type": "long-sleeve",
+                    "mockup_path": "../../../assets/products/normal t-shirt/Gemini_Generated_Image_yasqcfyasqcfyasq.png",
+                    "base_price": 799
+                }
+            ],
+            "colors": [
+                {
+                    "name": "White",
+                    "hex": "#FFFFFF",
+                    "premium": false
+                },
+                {
+                    "name": "Black",
+                    "hex": "#000000",
+                    "premium": false
+                },
+                {
+                    "name": "Gray",
+                    "hex": "#808080",
+                    "premium": false
+                },
+                {
+                    "name": "Forest Green",
+                    "hex": "#1d3937",
+                    "premium": true
+                }
+            ],
+            "sizes": [
+                "S",
+                "M",
+                "L",
+                "XL",
+                "XXL"
+            ],
+            "print_area": {
+                "x_percent": 25,
+                "y_percent": 30,
+                "width_percent": 50,
+                "height_percent": 40
+            },
+            "description": "Year-round comfort and style"
+        },
+        {
+            "productId": "crop-tee",
+            "name": "Crop T-Shirt",
+            "slug": "crop-tee",
+            "base_price": 599,
+            "variants": [
+                {
+                    "type": "crop",
+                    "mockup_path": "../../../assets/products/normal t-shirt/Gemini_Generated_Image_dec0a3dec0a3dec0.png",
+                    "base_price": 599
+                }
+            ],
+            "colors": [
+                {
+                    "name": "White",
+                    "hex": "#FFFFFF",
+                    "premium": false
+                },
+                {
+                    "name": "Black",
+                    "hex": "#000000",
+                    "premium": false
+                },
+                {
+                    "name": "Pink",
+                    "hex": "#FFC0CB",
+                    "premium": true
+                },
+                {
+                    "name": "Lavender",
+                    "hex": "#E6E6FA",
+                    "premium": true
+                }
+            ],
+            "sizes": [
+                "XS",
+                "S",
+                "M",
+                "L",
+                "XL"
+            ],
+            "print_area": {
+                "x_percent": 25,
+                "y_percent": 35,
+                "width_percent": 50,
+                "height_percent": 35
+            },
+            "description": "Trendy and fashionable"
+        },
+        {
+            "productId": "premium-cotton-tee",
+            "name": "Premium Cotton T-Shirt",
+            "slug": "premium-cotton-tee",
+            "base_price": 999,
+            "variants": [
+                {
+                    "type": "premium",
+                    "mockup_path": "../../../assets/products/normal t-shirt/Gemini_Generated_Image_t3ldfrt3ldfrt3ld.png",
+                    "base_price": 999
+                }
+            ],
+            "colors": [
+                {
+                    "name": "White",
+                    "hex": "#FFFFFF",
+                    "premium": true
+                },
+                {
+                    "name": "Black",
+                    "hex": "#000000",
+                    "premium": true
+                },
+                {
+                    "name": "Charcoal",
+                    "hex": "#36454F",
+                    "premium": true
+                },
+                {
+                    "name": "Cream",
+                    "hex": "#FFFDD0",
+                    "premium": true
+                }
+            ],
+            "sizes": [
+                "S",
+                "M",
+                "L",
+                "XL",
+                "XXL"
+            ],
+            "print_area": {
+                "x_percent": 25,
+                "y_percent": 30,
+                "width_percent": 50,
+                "height_percent": 40
+            },
+            "description": "Luxury fabric, premium quality"
+        }
+    ],
+    "graphics": [
+        {
+            "graphicId": "graphic-1",
+            "name": "AI VOGUE Logo",
+            "path": "assets/graphics/logo.png",
+            "tags": [
+                "logo",
+                "brand"
+            ]
+        },
+        {
+            "graphicId": "graphic-2",
+            "name": "Abstract Pattern",
+            "path": "assets/graphics/pattern-1.png",
+            "tags": [
+                "pattern",
+                "abstract"
+            ]
+        },
+        {
+            "graphicId": "graphic-3",
+            "name": "Geometric Design",
+            "path": "assets/graphics/geometric.png",
+            "tags": [
+                "geometric",
+                "modern"
+            ]
+        },
+        {
+            "graphicId": "graphic-4",
+            "name": "Floral Element",
+            "path": "assets/graphics/floral.png",
+            "tags": [
+                "floral",
+                "nature"
+            ]
+        },
+        {
+            "graphicId": "graphic-5",
+            "name": "Typography Art",
+            "path": "assets/graphics/typography.png",
+            "tags": [
+                "text",
+                "typography"
+            ]
+        },
+        {
+            "graphicId": "graphic-6",
+            "name": "Minimalist Icon",
+            "path": "assets/graphics/icon.png",
+            "tags": [
+                "icon",
+                "minimalist"
+            ]
+        }
+    ],
+    "vendors": [
+        {
+            "vendorId": "vendor-001",
+            "name": "Premium Print Studio",
+            "address": "123 Fashion Street, Mumbai, India",
+            "email": "prints@premiumstudio.com",
+            "phone": "+91 98765 43210",
+            "services": [
+                "DTG Printing",
+                "Screen Printing",
+                "Embroidery"
+            ],
+            "rating": 4.8,
+            "createdAt": "2024-01-15T10:00:00Z"
+        }
+    ],
+    "sampleOrder": {
+        "orderId": "ORD-2024-001",
+        "userId": "user-123",
+        "vendorId": "vendor-001",
+        "items": [
+            {
+                "productId": "normal-tee",
+                "variant": "normal",
+                "size": "L",
+                "color": "White",
+                "quantity": 2,
+                "price": 1498,
+                "customizations": {
+                    "images": [
+                        "upload-123.png"
+                    ],
+                    "texts": [
+                        "AI VOGUE"
+                    ]
+                }
+            }
+        ],
+        "totalPrice": 1498,
+        "status": "Pending",
+        "estimatedDelivery": "4-5 working days",
+        "createdAt": "2024-11-21T10:30:00Z"
+    },
+    "pricingRules": {
+        "sizeMultipliers": {
+            "XS": 1.0,
+            "S": 1.0,
+            "M": 1.0,
+            "L": 1.1,
+            "XL": 1.2,
+            "XXL": 1.3
+        },
+        "colorPremium": {
+            "standard": 0,
+            "premium": 100
+        },
+        "printComplexity": {
+            "single_color": 0,
+            "multi_color": 150,
+            "photo_quality": 300
+        },
+        "bulkDiscounts": [
+            {
+                "min": 10,
+                "discount": 0.1
+            },
+            {
+                "min": 25,
+                "discount": 0.15
+            },
+            {
+                "min": 50,
+                "discount": 0.2
+            },
+            {
+                "min": 100,
+                "discount": 0.25
+            }
+        ]
+    }
+}

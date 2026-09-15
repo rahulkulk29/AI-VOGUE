@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+  <rect width="800" height="1000" fill="#f8f8f8"/>
+  <path d="M150,100 L250,50 L350,50 L450,100 L650,100 L650,900 L150,900 Z" fill="#ffffff" stroke="#d6cabc" stroke-width="2"/>
+  <path d="M350,100 L350,200 L450,200 L450,100" fill="#ffffff" stroke="#d6cabc" stroke-width="2"/>
+  <circle cx="375" cy="140" r="8" fill="#1d3937"/>
+  <circle cx="425" cy="140" r="8" fill="#1d3937"/>
+  <rect x="220" y="180" width="360" height="450" fill="none" stroke="#91855a" stroke-width="1" stroke-dasharray="10,5" opacity="0.3"/>
+  <text x="400" y="700" font-family="Playfair Display, serif" font-size="48" fill="#1d3937" text-anchor="middle">Polo</text>
+  <text x="400" y="750" font-family="Inter, sans-serif" font-size="24" fill="#666666" text-anchor="middle">Smart Casual Polo Shirt</text>
+  <text x="400" y="800" font-family="Inter, sans-serif" font-size="32" fill="#91855a" text-anchor="middle" font-weight="600">₹699</text>
+</svg>

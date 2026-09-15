@@ -1,0 +1,1011 @@
+/**
+ * Custom Fashion Designer Marketplace - Styles
+ * Extends AI VOGUE's existing design system
+ * Uses CSS variables from main styles.css
+ */
+
+/* ==================== Custom Fashion Specific Variables ==================== */
+:root {
+    --cf-transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --cf-radius-sm: 8px;
+    --cf-radius-md: 12px;
+    --cf-radius-lg: 16px;
+    --cf-spacing-xs: 0.5rem;
+    --cf-spacing-sm: 1rem;
+    --cf-spacing-md: 1.5rem;
+    --cf-spacing-lg: 2rem;
+    --cf-spacing-xl: 3rem;
+}
+
+/* ==================== Page Layout ==================== */
+.cf-page {
+    min-height: 100vh;
+    padding-top: 80px;
+    /* Account for fixed header */
+    background-color: var(--color-white);
+}
+
+.cf-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.cf-container-narrow {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* ==================== Hero Section ==================== */
+.cf-hero {
+    padding: 6rem 2rem 4rem;
+    text-align: center;
+    background: linear-gradient(135deg, var(--color-beige) 0%, var(--color-white) 100%);
+    border-bottom: 1px solid rgba(29, 57, 55, 0.1);
+}
+
+.cf-hero-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--color-dark-green);
+    margin-bottom: 1rem;
+    font-family: var(--font-serif);
+    font-weight: 600;
+}
+
+.cf-hero-subtitle {
+    font-size: 1.2rem;
+    color: var(--color-gray-medium);
+    max-width: 700px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+}
+
+.cf-hero-cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+/* ==================== Cards ==================== */
+.cf-card {
+    background: var(--color-white);
+    border-radius: var(--cf-radius-md);
+    box-shadow: var(--shadow-light);
+    padding: var(--cf-spacing-lg);
+    transition: var(--transition-smooth);
+    border: 1px solid rgba(29, 57, 55, 0.08);
+}
+
+.cf-card:hover {
+    box-shadow: var(--shadow-medium);
+    transform: translateY(-2px);
+}
+
+.cf-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--cf-spacing-md);
+    padding-bottom: var(--cf-spacing-md);
+    border-bottom: 1px solid var(--color-beige);
+}
+
+.cf-card-title {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    color: var(--color-dark-green);
+    margin-bottom: 0.5rem;
+}
+
+.cf-card-meta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+    color: var(--color-gray-medium);
+}
+
+.cf-card-body {
+    margin-bottom: var(--cf-spacing-md);
+}
+
+.cf-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--cf-spacing-md);
+    border-top: 1px solid var(--color-beige);
+}
+
+/* ==================== Grid Layouts ==================== */
+.cf-grid {
+    display: grid;
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.cf-grid-2 {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+}
+
+.cf-grid-3 {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.cf-grid-4 {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* ==================== Forms ==================== */
+.cf-form-group {
+    margin-bottom: 1.5rem;
+}
+
+.cf-label {
+    display: block;
+    font-weight: 500;
+    color: var(--color-dark-green);
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.cf-label-required::after {
+    content: ' *';
+    color: #e74c3c;
+}
+
+.cf-input,
+.cf-textarea,
+.cf-select {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 2px solid var(--color-beige);
+    border-radius: var(--cf-radius-sm);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: var(--color-black);
+    background-color: var(--color-white);
+    transition: var(--cf-transition-fast);
+}
+
+.cf-input:focus,
+.cf-textarea:focus,
+.cf-select:focus {
+    outline: none;
+    border-color: var(--color-dark-green);
+    box-shadow: 0 0 0 3px rgba(29, 57, 55, 0.1);
+}
+
+.cf-input::placeholder,
+.cf-textarea::placeholder {
+    color: var(--color-gray-medium);
+    opacity: 0.7;
+}
+
+.cf-textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.cf-input-hint {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--color-gray-medium);
+    margin-top: 0.5rem;
+    font-style: italic;
+}
+
+.cf-input-error {
+    border-color: #e74c3c;
+}
+
+.cf-error-message {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+/* ==================== Buttons ==================== */
+.cf-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    border: 2px solid transparent;
+    border-radius: var(--cf-radius-sm);
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.cf-btn-primary {
+    background-color: var(--color-dark-green);
+    color: var(--color-white);
+    border-color: var(--color-dark-green);
+}
+
+.cf-btn-primary:hover {
+    background-color: var(--color-deep-green);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.cf-btn-secondary {
+    background-color: transparent;
+    color: var(--color-dark-green);
+    border-color: var(--color-dark-green);
+}
+
+.cf-btn-secondary:hover {
+    background-color: var(--color-dark-green);
+    color: var(--color-white);
+    transform: translateY(-2px);
+}
+
+.cf-btn-outline {
+    background-color: transparent;
+    color: var(--color-gray-medium);
+    border-color: var(--color-beige);
+}
+
+.cf-btn-outline:hover {
+    background-color: var(--color-beige);
+    color: var(--color-dark-green);
+    border-color: var(--color-beige);
+}
+
+.cf-btn-success {
+    background-color: #27ae60;
+    color: var(--color-white);
+    border-color: #27ae60;
+}
+
+.cf-btn-success:hover {
+    background-color: #229954;
+}
+
+.cf-btn-danger {
+    background-color: #e74c3c;
+    color: var(--color-white);
+    border-color: #e74c3c;
+}
+
+.cf-btn-danger:hover {
+    background-color: #c0392b;
+}
+
+.cf-btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+}
+
+.cf-btn-lg {
+    padding: 1.125rem 2.5rem;
+    font-size: 1.05rem;
+}
+
+.cf-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.cf-btn-group {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* ==================== Badges & Tags ==================== */
+.cf-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.375rem 0.875rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.cf-badge-open {
+    background-color: #e8f5e9;
+    color: #27ae60;
+}
+
+.cf-badge-in-progress {
+    background-color: #fff3e0;
+    color: #f39c12;
+}
+
+.cf-badge-completed {
+    background-color: #e3f2fd;
+    color: #3498db;
+}
+
+.cf-badge-cancelled {
+    background-color: #ffebee;
+    color: #e74c3c;
+}
+
+.cf-badge-held {
+    background-color: #fff9e6;
+    color: #f39c12;
+}
+
+.cf-badge-released {
+    background-color: #e8f5e9;
+    color: #27ae60;
+}
+
+.cf-tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background-color: var(--color-beige);
+    color: var(--color-dark-green);
+    border-radius: 4px;
+    font-size: 0.85rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* ==================== File Upload ==================== */
+.cf-upload-area {
+    border: 2px dashed var(--color-beige);
+    border-radius: var(--cf-radius-md);
+    padding: 3rem 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--cf-transition-fast);
+    background-color: var(--color-gray-light);
+}
+
+.cf-upload-area:hover,
+.cf-upload-area.dragover {
+    border-color: var(--color-dark-green);
+    background-color: rgba(29, 57, 55, 0.05);
+}
+
+.cf-upload-icon {
+    font-size: 3rem;
+    color: var(--color-gold);
+    margin-bottom: 1rem;
+}
+
+.cf-upload-text {
+    font-size: 1.1rem;
+    color: var(--color-dark-green);
+    margin-bottom: 0.5rem;
+}
+
+.cf-upload-hint {
+    font-size: 0.9rem;
+    color: var(--color-gray-medium);
+}
+
+.cf-file-list {
+    margin-top: 1.5rem;
+}
+
+.cf-file-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-beige);
+    border-radius: var(--cf-radius-sm);
+    margin-bottom: 0.75rem;
+}
+
+.cf-file-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+}
+
+.cf-file-icon {
+    font-size: 1.5rem;
+    color: var(--color-gold);
+}
+
+.cf-file-details {
+    flex: 1;
+}
+
+.cf-file-name {
+    font-weight: 500;
+    color: var(--color-dark-green);
+    margin-bottom: 0.25rem;
+}
+
+.cf-file-size {
+    font-size: 0.85rem;
+    color: var(--color-gray-medium);
+}
+
+.cf-file-remove {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    transition: var(--cf-transition-fast);
+}
+
+.cf-file-remove:hover {
+    color: #c0392b;
+    transform: scale(1.1);
+}
+
+/* Progress Bar */
+.cf-progress {
+    width: 100%;
+    height: 8px;
+    background-color: var(--color-beige);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 0.5rem;
+}
+
+.cf-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-dark-green), var(--color-gold));
+    transition: width 0.3s ease;
+}
+
+/* ==================== Budget Display ==================== */
+.cf-budget {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-gold);
+    font-family: var(--font-serif);
+}
+
+.cf-budget-range {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* ==================== Timeline ==================== */
+.cf-timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin: 2rem 0;
+}
+
+.cf-timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: var(--color-beige);
+}
+
+.cf-timeline-item {
+    position: relative;
+    padding-bottom: 2rem;
+}
+
+.cf-timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2.5rem;
+    top: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--color-beige);
+    border: 2px solid var(--color-white);
+}
+
+.cf-timeline-item.active::before {
+    background-color: var(--color-dark-green);
+    box-shadow: 0 0 0 4px rgba(29, 57, 55, 0.2);
+}
+
+.cf-timeline-item.completed::before {
+    background-color: var(--color-gold);
+}
+
+.cf-timeline-label {
+    font-weight: 600;
+    color: var(--color-dark-green);
+    margin-bottom: 0.25rem;
+}
+
+.cf-timeline-date {
+    font-size: 0.85rem;
+    color: var(--color-gray-medium);
+}
+
+/* ==================== Modal ==================== */
+.cf-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition-smooth);
+}
+
+.cf-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cf-modal {
+    background-color: var(--color-white);
+    border-radius: var(--cf-radius-lg);
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-heavy);
+    transform: scale(0.9);
+    transition: var(--transition-smooth);
+}
+
+.cf-modal-overlay.active .cf-modal {
+    transform: scale(1);
+}
+
+.cf-modal-header {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--color-beige);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cf-modal-title {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    color: var(--color-dark-green);
+    margin: 0;
+}
+
+.cf-modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--color-gray-medium);
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: var(--cf-transition-fast);
+}
+
+.cf-modal-close:hover {
+    color: var(--color-dark-green);
+    transform: rotate(90deg);
+}
+
+.cf-modal-body {
+    padding: 2rem;
+}
+
+.cf-modal-footer {
+    padding: 1.5rem 2rem;
+    border-top: 1px solid var(--color-beige);
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+/* ==================== Image Gallery ==================== */
+.cf-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.cf-gallery-item {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: var(--cf-radius-sm);
+    overflow: hidden;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.cf-gallery-item:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-medium);
+}
+
+.cf-gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.cf-gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(29, 57, 55, 0.7), rgba(25, 80, 66, 0.5));
+    opacity: 0;
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+    font-size: 2rem;
+}
+
+.cf-gallery-item:hover .cf-gallery-overlay {
+    opacity: 1;
+}
+
+/* ==================== Designer Profile ==================== */
+.cf-designer-card {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    padding: 2rem;
+    background: var(--color-white);
+    border-radius: var(--cf-radius-md);
+    box-shadow: var(--shadow-light);
+}
+
+.cf-designer-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--color-beige);
+}
+
+.cf-designer-info {
+    flex: 1;
+}
+
+.cf-designer-name {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    color: var(--color-dark-green);
+    margin-bottom: 0.5rem;
+}
+
+.cf-designer-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.cf-stars {
+    color: var(--color-gold);
+    font-size: 1.2rem;
+}
+
+.cf-designer-bio {
+    color: var(--color-gray-medium);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.cf-designer-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.cf-designer-stats {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-beige);
+}
+
+.cf-stat {
+    text-align: center;
+}
+
+.cf-stat-value {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-dark-green);
+    display: block;
+}
+
+.cf-stat-label {
+    font-size: 0.85rem;
+    color: var(--color-gray-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ==================== Messages ==================== */
+.cf-messages {
+    max-height: 500px;
+    overflow-y: auto;
+    padding: 1.5rem;
+    background-color: var(--color-gray-light);
+    border-radius: var(--cf-radius-md);
+    margin-bottom: 1.5rem;
+}
+
+.cf-message {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.cf-message.own {
+    flex-direction: row-reverse;
+}
+
+.cf-message-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.cf-message-content {
+    flex: 1;
+    max-width: 70%;
+}
+
+.cf-message.own .cf-message-content {
+    text-align: right;
+}
+
+.cf-message-sender {
+    font-weight: 600;
+    color: var(--color-dark-green);
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+}
+
+.cf-message-bubble {
+    background-color: var(--color-white);
+    padding: 1rem;
+    border-radius: var(--cf-radius-sm);
+    box-shadow: var(--shadow-light);
+}
+
+.cf-message.own .cf-message-bubble {
+    background-color: var(--color-dark-green);
+    color: var(--color-white);
+}
+
+.cf-message-time {
+    font-size: 0.75rem;
+    color: var(--color-gray-medium);
+    margin-top: 0.5rem;
+}
+
+.cf-message-input {
+    display: flex;
+    gap: 1rem;
+}
+
+.cf-message-input input {
+    flex: 1;
+}
+
+/* ==================== Empty State ==================== */
+.cf-empty {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--color-gray-medium);
+}
+
+.cf-empty-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.cf-empty-title {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    color: var(--color-dark-green);
+    margin-bottom: 0.5rem;
+}
+
+.cf-empty-text {
+    margin-bottom: 2rem;
+}
+
+/* ==================== Loading State ==================== */
+.cf-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+}
+
+.cf-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--color-beige);
+    border-top-color: var(--color-dark-green);
+    border-radius: 50%;
+    animation: cf-spin 0.8s linear infinite;
+}
+
+@keyframes cf-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ==================== Responsive Design ==================== */
+@media (max-width: 768px) {
+    .cf-hero {
+        padding: 4rem 1.5rem 3rem;
+    }
+
+    .cf-container,
+    .cf-container-narrow {
+        padding: 0 1.5rem;
+    }
+
+    .cf-grid-2,
+    .cf-grid-3,
+    .cf-grid-4 {
+        grid-template-columns: 1fr;
+    }
+
+    .cf-card {
+        padding: 1.5rem;
+    }
+
+    .cf-card-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .cf-card-footer {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+    }
+
+    .cf-btn-group {
+        flex-direction: column;
+    }
+
+    .cf-btn {
+        width: 100%;
+    }
+
+    .cf-designer-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .cf-designer-stats {
+        justify-content: center;
+    }
+
+    .cf-modal {
+        width: 95%;
+    }
+
+    .cf-modal-body {
+        padding: 1.5rem;
+    }
+
+    .cf-message-content {
+        max-width: 85%;
+    }
+}
+
+/* ==================== Utility Classes ==================== */
+.cf-text-center {
+    text-align: center;
+}
+
+.cf-text-right {
+    text-align: right;
+}
+
+.cf-text-muted {
+    color: var(--color-gray-medium);
+}
+
+.cf-text-success {
+    color: #27ae60;
+}
+
+.cf-text-danger {
+    color: #e74c3c;
+}
+
+.cf-text-warning {
+    color: #f39c12;
+}
+
+.cf-mt-1 {
+    margin-top: 0.5rem;
+}
+
+.cf-mt-2 {
+    margin-top: 1rem;
+}
+
+.cf-mt-3 {
+    margin-top: 1.5rem;
+}
+
+.cf-mt-4 {
+    margin-top: 2rem;
+}
+
+.cf-mb-1 {
+    margin-bottom: 0.5rem;
+}
+
+.cf-mb-2 {
+    margin-bottom: 1rem;
+}
+
+.cf-mb-3 {
+    margin-bottom: 1.5rem;
+}
+
+.cf-mb-4 {
+    margin-bottom: 2rem;
+}
+
+.cf-hidden {
+    display: none !important;
+}
+
+.cf-visible {
+    display: block !important;
+}
+
+/* ==================== Print Styles ==================== */
+@media print {
+
+    .cf-btn,
+    .cf-modal-close,
+    .gucci-header,
+    .footer {
+        display: none;
+    }
+
+    .cf-page {
+        padding-top: 0;
+    }
+}

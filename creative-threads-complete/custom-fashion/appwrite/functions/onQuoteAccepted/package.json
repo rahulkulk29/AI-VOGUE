@@ -1,0 +1,20 @@
+{
+    "name": "on-quote-accepted",
+    "version": "1.0.0",
+    "description": "Appwrite Function to handle quote acceptance and create Stripe Checkout session",
+    "main": "src/index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "appwrite",
+        "stripe",
+        "custom-fashion"
+    ],
+    "author": "AI VOGUE",
+    "license": "ISC",
+    "dependencies": {
+        "node-appwrite": "^11.0.0",
+        "stripe": "^14.0.0"
+    }
+}

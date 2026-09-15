@@ -1,0 +1,19 @@
+//shoes
+{
+  "url": "https://www.flipkart.com/search?q=shoes+for+men",
+  "count": 1,
+  "items": [
+    {
+      "id": "SHOHBYCAGFX9SD3P",
+      "brand": "BRUTON",
+      "title": "-740 EVA Men's Sport Shoes Running Shoes For Men",
+      "link": "https://www.flipkart.com/bruton-740-eva-men-s-sport-shoes-running-men/p/itmc708b7b639208?pid=SHOHBYCAGFX9SD3P&lid=LSTSHOHBYCAGFX9SD3PCD8M7T&marketplace=FLIPKART&q=shoes+for+men&store=osp%2Fcil&srno=s_1_1&otracker=search&iid=en_Gw4heeUug149jvQv0tykwxbU5Wf_q-ToUEbrM29N6YDkWh-__7O4IuL-Cjg1HhpVxduILiydLHc8CNgNAI7v1A%3D%3D&ssid=q7xip0uez40000001763491272283&qH=9b802224ae37096b",
+      "image": "https://rukminim2.flixcart.com/image/612/612/xif0q/shoe/k/m/y/6-rng-eva-740-wht-blk-6-bruton-white-black-original-imahbzgxejrntkz5.jpeg?q=70",
+      "price": 381,
+      "originalPrice": 2999,
+      "discount": "87% off",
+      "tags": [],
+      "sizes": null
+    }
+  ]
+}

@@ -1,0 +1,527 @@
+// AI VOGUE - Appwrite Configuration and Authentication Service
+
+import { Client, Account, Databases, Storage, Functions, Query } from 'https://cdn.jsdelivr.net/npm/appwrite@14.0.1/+esm';
+
+// Appwrite Configuration
+const APPWRITE_CONFIG = {
+    endpoint: 'https://nyc.cloud.appwrite.io/v1',
+    projectId: '68dd18860033ab7dffac',
+    // Updated to new database ID
+    // Updated to correct database ID
+    databaseId: '68dd21f50029362dfb7a',
+    collections: {
+        users: 'users',                 // collection id for users
+        orders: 'orders',
+        wishlist: 'wishlist',
+        addresses: 'addresses',
+        user_preferences: 'user_preferences', // User preferences collection
+        voguevision: 'voguevision', // Vogue Vision scraped products (scraper)
+        shirt: 'shirt', // Shirts listing collection
+        pant: 'pant',   // Pants listing collection
+        shoe: 'shoe'    // Shoes listing collection
+    },
+    bucketId: 'avatars',
+    functions: {
+        geminiProxy: 'gemini-proxy' // Gemini AI proxy function (backup)
+    },
+    // Python Backend Configuration
+    pythonBackend: {
+        baseUrl: 'http://localhost:5000',
+        endpoints: {
+            recommend: '/api/recommend',
+            health: '/health',
+            test: '/api/test'
+        }
+    }
+};
+
+// Initialize Appwrite client with API key
+const client = new Client()
+    .setEndpoint(APPWRITE_CONFIG.endpoint)
+    .setProject(APPWRITE_CONFIG.projectId);
+
+const account = new Account(client);
+const databases = new Databases(client);
+const storage = new Storage(client);
+const functions = new Functions(client);
+
+// Authentication Service
+class AuthService {
+    // Get current user session
+    async getCurrentUser() {
+        try {
+            return await account.get();
+        } catch (error) {
+            console.error('Get current user error:', error);
+            return null;
+        }
+    }
+
+    // Check if user is authenticated
+    async isAuthenticated() {
+        try {
+            await account.get();
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    // Register new user
+    async register(email, password, name) {
+        try {
+            const response = await account.create('unique()', email, password, name);
+            console.log('Registration successful:', response);
+
+            // Auto login after registration
+            await account.createEmailPasswordSession(email, password);
+
+            // Create user profile in database
+            await this.createUserProfile(response.$id, name, email);
+
+            return response;
+        } catch (error) {
+            console.error('Registration error:', error);
+            throw error;
+        }
+    }
+
+    // Login user
+    async login(email, password) {
+        try {
+            // Check if already logged in
+            const currentUser = await this.getCurrentUser();
+            if (currentUser) {
+                console.log('Already logged in:', currentUser);
+                return currentUser;
+            }
+
+            const session = await account.createEmailPasswordSession(email, password);
+            console.log('Login successful:', session);
+            return session;
+        } catch (error) {
+            console.error('Login error:', error);
+            throw error;
+        }
+    }
+
+    // Login with Google
+    async loginWithGoogle() {
+        try {
+            // Determine current origin for redirects
+            const origin = window.location.origin;
+
+            // Get current path to construct correct redirect URLs
+            const path = window.location.pathname;
+            const basePath = path.substring(0, path.lastIndexOf('/'));
+
+            const successUrl = `${origin}${basePath}/profile.html`;
+            const failureUrl = `${origin}${basePath}/login.html?error=google_login_failed`;
+
+            console.log('Initiating Google Login...');
+
+            await account.createOAuth2Session(
+                'google',
+                successUrl,
+                failureUrl
+            );
+        } catch (error) {
+            console.error('Google login error:', error);
+            throw error;
+        }
+    }
+
+    // Logout user
+    async logout() {
+        try {
+            await account.deleteSession('current');
+            console.log('Logout successful');
+            window.location.href = 'index.html';
+        } catch (error) {
+            console.error('Logout error:', error);
+            throw error;
+        }
+    }
+
+    // Create user profile in database
+    async createUserProfile(userId, name, email) {
+        try {
+            const [firstName, ...lastNameParts] = name.split(' ');
+            const lastName = lastNameParts.join(' ');
+
+            const profile = await databases.createDocument(
+                APPWRITE_CONFIG.databaseId,
+                APPWRITE_CONFIG.collections.users,
+                userId,
+                {
+                    userId: userId,
+                    firstName: firstName,
+                    lastName: lastName || '',
+                    email: email,
+                    phone: '',
+                    avatar: 'https://placehold.co/160x160/png',
+                    membershipTier: 'Silver',
+                    rewardPoints: 0,
+                    newsletter: true
+                    // Note: createdAt is auto-generated by Appwrite
+                }
+            );
+            return profile;
+        } catch (error) {
+            if (error.message && error.message.includes('Collection with the requested ID could not be found')) {
+                console.error('❌ CONFIGURATION ERROR: The "users" collection ID is incorrect.');
+                console.error('Please open frontend/public/setup-appwrite.html to fix this.');
+            } else {
+                console.error('Create profile error:', error);
+            }
+            throw error;
+        }
+    }
+
+    // Update user profile
+    async updateProfile(userId, data) {
+        try {
+            const updated = await databases.updateDocument(
+                APPWRITE_CONFIG.databaseId,
+                APPWRITE_CONFIG.collections.users,
+                userId,
+                data
+            );
+            return updated;
+        } catch (error) {
+            console.error('Update profile error:', error);
+            throw error;
+        }
+    }
+
+    // Get user profile
+    async getUserProfile(userId) {
+        try {
+            const profile = await databases.getDocument(
+                APPWRITE_CONFIG.databaseId,
+                APPWRITE_CONFIG.collections.users,
+                userId
+            );
+            return profile;
+        } catch (error) {
+            if (error.message && error.message.includes('Collection with the requested ID could not be found')) {
+                console.error('❌ CONFIGURATION ERROR: The "users" collection ID is incorrect.');
+                console.error('Please open frontend/public/setup-appwrite.html to fix this.');
+                console.error('Current ID:', APPWRITE_CONFIG.collections.users);
+            } else {
+                console.error('Get profile error:', error);
+            }
+            return null;
+        }
+    }
+
+    // Upload profile picture
+    async uploadAvatar(file) {
+        try {
+            const response = await storage.createFile(
+                APPWRITE_CONFIG.bucketId,
+                'unique()',
+                file
+            );
+
+            const fileUrl = storage.getFileView(APPWRITE_CONFIG.bucketId, response.$id);
+            return fileUrl;
+        } catch (error) {
+            console.error('Upload avatar error:', error);
+            throw error;
+        }
+    }
+}
+
+// Profile Service
+class ProfileService {
+    // Get user orders
+    async getOrders(userId) {
+        try {
+            const orders = await databases.listDocuments(
+                APPWRITE_CONFIG.databaseId,
+                APPWRITE_CONFIG.collections.orders,
+                [Query.equal('userId', userId), Query.orderDesc('$createdAt')]
+            );
+            return orders.documents;
+        } catch (error) {
+            console.error('Get orders error:', error);
+            return [];
+        }
+    }
+
+    // Get wishlist
+    async getWishlist(userId) {
+        try {
+            const wishlist = await databases.listDocuments(
+                APPWRITE_CONFIG.databaseId,
+                APPWRITE_CONFIG.collections.wishlist,
+                [Query.equal('userId', userId)]
+            );
+            return wishlist.documents;
+        } catch (error) {
+            console.error('Get wishlist error:', error);
+            return [];
+        }
+    }
+
+    // Add to wishlist
+    async addToWishlist(userId, productId, productData) {
+        try {
+            const item = await databases.createDocument(
+                APPWRITE_CONFIG.databaseId,
+                APPWRITE_CONFIG.collections.wishlist,
+                'unique()',
+                {
+                    userId: userId,
+                    productId: productId,
+                    productName: productData.name,
+                    productPrice: productData.price,
+                    productImage: productData.image,
+                    addedAt: new Date().toISOString()
+                }
+            );
+            return item;
+        } catch (error) {
+            console.error('Add to wishlist error:', error);
+            throw error;
+        }
+    }
+
+    // Remove from wishlist
+    async removeFromWishlist(itemId) {
+        try {
+            await databases.deleteDocument(
+                APPWRITE_CONFIG.databaseId,
+                APPWRITE_CONFIG.collections.wishlist,
+                itemId
+            );
+        } catch (error) {
+            console.error('Remove from wishlist error:', error);
+            throw error;
+        }
+    }
+
+    // Get saved addresses
+    async getAddresses(userId) {
+        try {
+            const addresses = await databases.listDocuments(
+                APPWRITE_CONFIG.databaseId,
+                APPWRITE_CONFIG.collections.addresses,
+                [Query.equal('userId', userId)]
+            );
+            return addresses.documents;
+        } catch (error) {
+            console.error('Get addresses error:', error);
+            return [];
+        }
+    }
+
+    // Add address
+    async addAddress(userId, addressData) {
+        try {
+            const address = await databases.createDocument(
+                APPWRITE_CONFIG.databaseId,
+                APPWRITE_CONFIG.collections.addresses,
+                'unique()',
+                {
+                    userId: userId,
+                    ...addressData,
+                    createdAt: new Date().toISOString()
+                }
+            );
+            return address;
+        } catch (error) {
+            console.error('Add address error:', error);
+            throw error;
+        }
+    }
+
+    // Update address
+    async updateAddress(addressId, addressData) {
+        try {
+            const updated = await databases.updateDocument(
+                APPWRITE_CONFIG.databaseId,
+                APPWRITE_CONFIG.collections.addresses,
+                addressId,
+                addressData
+            );
+            return updated;
+        } catch (error) {
+            console.error('Update address error:', error);
+            throw error;
+        }
+    }
+
+    // Delete address
+    async deleteAddress(addressId) {
+        try {
+            await databases.deleteDocument(
+                APPWRITE_CONFIG.databaseId,
+                APPWRITE_CONFIG.collections.addresses,
+                addressId
+            );
+        } catch (error) {
+            console.error('Delete address error:', error);
+            throw error;
+        }
+    }
+}
+
+// VogueVision Service - Manage scraped products
+class VogueVisionService {
+    // Save scraped products to database
+    async saveProducts(products, category, searchQuery) {
+        try {
+            const savedProducts = [];
+            for (const product of products) {
+                const doc = await databases.createDocument(
+                    APPWRITE_CONFIG.databaseId,
+                    APPWRITE_CONFIG.collections.voguevision,
+                    'unique()',
+                    {
+                        name: product.name,
+                        price: product.price,
+                        image_url: product.image_url,
+                        product_link: product.product_link,
+                        discount: product.discount || '',
+                        brand: product.brand || '',
+                        platform: product.platform || 'flipkart',
+                        category: category,
+                        searchQuery: searchQuery,
+                        addedAt: new Date().toISOString()
+                    }
+                );
+                savedProducts.push(doc);
+            }
+            return savedProducts;
+        } catch (error) {
+            console.error('Save products error:', error);
+            throw error;
+        }
+    }
+
+    // Get products by category
+    async getProductsByCategory(category, limit = 12) {
+        try {
+            const products = await databases.listDocuments(
+                APPWRITE_CONFIG.databaseId,
+                APPWRITE_CONFIG.collections.voguevision,
+                [Query.equal('category', category), Query.orderDesc('$createdAt'), Query.limit(limit)]
+            );
+            return products.documents;
+        } catch (error) {
+            console.error('Get products by category error:', error);
+            return [];
+        }
+    }
+
+    // Search products
+    async searchProducts(searchQuery, category, limit = 12) {
+        try {
+            const products = await databases.listDocuments(
+                APPWRITE_CONFIG.databaseId,
+                APPWRITE_CONFIG.collections.voguevision,
+                [
+                    Query.equal('category', category),
+                    Query.search('name', searchQuery),
+                    Query.orderDesc('$createdAt'),
+                    Query.limit(limit)
+                ]
+            );
+            return products.documents;
+        } catch (error) {
+            console.error('Search products error:', error);
+            return [];
+        }
+    }
+
+    // Get all products
+    async getAllProducts(limit = 100) {
+        try {
+            const products = await databases.listDocuments(
+                APPWRITE_CONFIG.databaseId,
+                APPWRITE_CONFIG.collections.voguevision,
+                [Query.orderDesc('$createdAt'), Query.limit(limit)]
+            );
+            return products.documents;
+        } catch (error) {
+            console.error('Get all products error:', error);
+            return [];
+        }
+    }
+
+    // Get products by platform
+    async getProductsByPlatform(platform, category, limit = 12) {
+        try {
+            const products = await databases.listDocuments(
+                APPWRITE_CONFIG.databaseId,
+                APPWRITE_CONFIG.collections.voguevision,
+                [
+                    Query.equal('platform', platform),
+                    Query.equal('category', category),
+                    Query.orderDesc('$createdAt'),
+                    Query.limit(limit)
+                ]
+            );
+            return products.documents;
+        } catch (error) {
+            console.error('Get products by platform error:', error);
+            return [];
+        }
+    }
+
+    // Delete old products (cleanup)
+    async deleteOldProducts(hoursOld = 24) {
+        try {
+            const cutoffTime = new Date(Date.now() - hoursOld * 60 * 60 * 1000).toISOString();
+            const oldProducts = await databases.listDocuments(
+                APPWRITE_CONFIG.databaseId,
+                APPWRITE_CONFIG.collections.voguevision,
+                [Query.lessThan('$createdAt', cutoffTime)]
+            );
+
+            let deletedCount = 0;
+            for (const product of oldProducts.documents) {
+                try {
+                    await databases.deleteDocument(
+                        APPWRITE_CONFIG.databaseId,
+                        APPWRITE_CONFIG.collections.voguevision,
+                        product.$id
+                    );
+                    deletedCount++;
+                } catch (err) {
+                    console.error('Error deleting product:', err);
+                }
+            }
+
+            console.log(`Deleted ${deletedCount} old products`);
+            return deletedCount;
+        } catch (error) {
+            console.error('Delete old products error:', error);
+            return 0;
+        }
+    }
+}
+
+// Initialize services
+const authService = new AuthService();
+const profileService = new ProfileService();
+const vogueVisionService = new VogueVisionService();
+
+// Export the databases object for direct use in HTML files
+// Export services and config
+export { client, databases, APPWRITE_CONFIG, Query, authService, profileService, vogueVisionService, account, storage, functions };
+
+// Attach to window for backward compatibility with non-module scripts
+if (typeof window !== 'undefined') {
+    window.APPWRITE_CONFIG = APPWRITE_CONFIG;
+    window.authService = authService;
+    window.profileService = profileService;
+    window.vogueVisionService = vogueVisionService;
+    window.account = account;
+    window.databases = databases;
+    window.storage = storage;
+    window.functions = functions;
+    window.Query = Query;
+}

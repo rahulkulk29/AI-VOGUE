@@ -1,0 +1,898 @@
+{
+  "projectId": "custom_fashion_marketplace",
+  "projectName": "AI VOGUE Custom Fashion",
+  "databaseId": "custom_fashion_db",
+  "databaseName": "Custom Fashion Database",
+  "collections": [
+    {
+      "$id": "users",
+      "name": "Users",
+      "$permissions": [
+        "read(\"any\")"
+      ],
+      "documentSecurity": true,
+      "enabled": true,
+      "attributes": [
+        {
+          "key": "name",
+          "type": "string",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null
+        },
+        {
+          "key": "email",
+          "type": "string",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null
+        },
+        {
+          "key": "phone",
+          "type": "string",
+          "status": "available",
+          "required": false,
+          "array": false,
+          "size": 15,
+          "default": null
+        },
+        {
+          "key": "role",
+          "type": "enum",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "elements": ["customer", "designer", "admin"],
+          "format": "enum",
+          "default": "customer"
+        },
+        {
+          "key": "verified_designer",
+          "type": "boolean",
+          "status": "available",
+          "required": false,
+          "array": false,
+          "default": false
+        },
+        {
+          "key": "bio",
+          "type": "string",
+          "status": "available",
+          "required": false,
+          "array": false,
+          "size": 2000,
+          "default": null
+        },
+        {
+          "key": "profile_pic",
+          "type": "string",
+          "status": "available",
+          "required": false,
+          "array": false,
+          "size": 500,
+          "default": null
+        },
+        {
+          "key": "portfolio",
+          "type": "string",
+          "status": "available",
+          "required": false,
+          "array": true,
+          "size": 500,
+          "default": null
+        },
+        {
+          "key": "created_at",
+          "type": "datetime",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "default": null
+        }
+      ],
+      "indexes": [
+        {
+          "key": "email_index",
+          "type": "unique",
+          "status": "available",
+          "attributes": ["email"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "role_index",
+          "type": "key",
+          "status": "available",
+          "attributes": ["role"],
+          "orders": ["ASC"]
+        }
+      ]
+    },
+    {
+      "$id": "designer_profiles",
+      "name": "Designer Profiles",
+      "$permissions": [
+        "read(\"any\")"
+      ],
+      "documentSecurity": true,
+      "enabled": true,
+      "attributes": [
+        {
+          "key": "user_id",
+          "type": "string",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null
+        },
+        {
+          "key": "business_name",
+          "type": "string",
+          "status": "available",
+          "required": false,
+          "array": false,
+          "size": 255,
+          "default": null
+        },
+        {
+          "key": "skills_tags",
+          "type": "string",
+          "status": "available",
+          "required": false,
+          "array": true,
+          "size": 100,
+          "default": null
+        },
+        {
+          "key": "avg_delivery_days",
+          "type": "integer",
+          "status": "available",
+          "required": false,
+          "array": false,
+          "min": 1,
+          "max": 365,
+          "default": 7
+        },
+        {
+          "key": "approved_at",
+          "type": "datetime",
+          "status": "available",
+          "required": false,
+          "array": false,
+          "default": null
+        },
+        {
+          "key": "bank_details_encrypted",
+          "type": "string",
+          "status": "available",
+          "required": false,
+          "array": false,
+          "size": 1000,
+          "default": null
+        }
+      ],
+      "indexes": [
+        {
+          "key": "user_id_index",
+          "type": "unique",
+          "status": "available",
+          "attributes": ["user_id"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "approved_index",
+          "type": "key",
+          "status": "available",
+          "attributes": ["approved_at"],
+          "orders": ["DESC"]
+        }
+      ]
+    },
+    {
+      "$id": "custom_requests",
+      "name": "Custom Requests",
+      "$permissions": [
+        "read(\"any\")"
+      ],
+      "documentSecurity": true,
+      "enabled": true,
+      "attributes": [
+        {
+          "key": "customer_id",
+          "type": "string",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null
+        },
+        {
+          "key": "title",
+          "type": "string",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null
+        },
+        {
+          "key": "description",
+          "type": "string",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "size": 5000,
+          "default": null
+        },
+        {
+          "key": "occasion",
+          "type": "string",
+          "status": "available",
+          "required": false,
+          "array": false,
+          "size": 100,
+          "default": null
+        },
+        {
+          "key": "budget_min",
+          "type": "integer",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "min": 0,
+          "max": 10000000,
+          "default": null
+        },
+        {
+          "key": "budget_max",
+          "type": "integer",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "min": 0,
+          "max": 10000000,
+          "default": null
+        },
+        {
+          "key": "size_json",
+          "type": "string",
+          "status": "available",
+          "required": false,
+          "array": false,
+          "size": 1000,
+          "default": null
+        },
+        {
+          "key": "deadline_date",
+          "type": "datetime",
+          "status": "available",
+          "required": false,
+          "array": false,
+          "default": null
+        },
+        {
+          "key": "ref_images",
+          "type": "string",
+          "status": "available",
+          "required": false,
+          "array": true,
+          "size": 500,
+          "default": null
+        },
+        {
+          "key": "visibility",
+          "type": "enum",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "elements": ["public", "invite-only"],
+          "format": "enum",
+          "default": "public"
+        },
+        {
+          "key": "status",
+          "type": "enum",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "elements": ["open", "assigned", "closed", "cancelled"],
+          "format": "enum",
+          "default": "open"
+        },
+        {
+          "key": "created_at",
+          "type": "datetime",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "default": null
+        }
+      ],
+      "indexes": [
+        {
+          "key": "customer_index",
+          "type": "key",
+          "status": "available",
+          "attributes": ["customer_id"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "status_index",
+          "type": "key",
+          "status": "available",
+          "attributes": ["status"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "created_index",
+          "type": "key",
+          "status": "available",
+          "attributes": ["created_at"],
+          "orders": ["DESC"]
+        }
+      ]
+    },
+    {
+      "$id": "quotes",
+      "name": "Quotes",
+      "$permissions": [
+        "read(\"any\")"
+      ],
+      "documentSecurity": true,
+      "enabled": true,
+      "attributes": [
+        {
+          "key": "request_id",
+          "type": "string",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null
+        },
+        {
+          "key": "designer_id",
+          "type": "string",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null
+        },
+        {
+          "key": "price",
+          "type": "integer",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "min": 0,
+          "max": 10000000,
+          "default": null
+        },
+        {
+          "key": "delivery_days",
+          "type": "integer",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "min": 1,
+          "max": 365,
+          "default": null
+        },
+        {
+          "key": "revisions_included",
+          "type": "integer",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "min": 0,
+          "max": 10,
+          "default": 2
+        },
+        {
+          "key": "message",
+          "type": "string",
+          "status": "available",
+          "required": false,
+          "array": false,
+          "size": 2000,
+          "default": null
+        },
+        {
+          "key": "sample_file",
+          "type": "string",
+          "status": "available",
+          "required": false,
+          "array": false,
+          "size": 500,
+          "default": null
+        },
+        {
+          "key": "status",
+          "type": "enum",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "elements": ["sent", "withdrawn", "accepted", "rejected"],
+          "format": "enum",
+          "default": "sent"
+        },
+        {
+          "key": "created_at",
+          "type": "datetime",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "default": null
+        }
+      ],
+      "indexes": [
+        {
+          "key": "request_index",
+          "type": "key",
+          "status": "available",
+          "attributes": ["request_id"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "designer_index",
+          "type": "key",
+          "status": "available",
+          "attributes": ["designer_id"],
+          "orders": ["ASC"]
+        }
+      ]
+    },
+    {
+      "$id": "orders",
+      "name": "Orders",
+      "$permissions": [
+        "read(\"any\")"
+      ],
+      "documentSecurity": true,
+      "enabled": true,
+      "attributes": [
+        {
+          "key": "quote_id",
+          "type": "string",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null
+        },
+        {
+          "key": "customer_id",
+          "type": "string",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null
+        },
+        {
+          "key": "designer_id",
+          "type": "string",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null
+        },
+        {
+          "key": "amount",
+          "type": "integer",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "min": 0,
+          "max": 10000000,
+          "default": null
+        },
+        {
+          "key": "escrow_status",
+          "type": "enum",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "elements": ["held", "released", "refunded"],
+          "format": "enum",
+          "default": "held"
+        },
+        {
+          "key": "revision_count_remaining",
+          "type": "integer",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "min": 0,
+          "max": 10,
+          "default": 2
+        },
+        {
+          "key": "status",
+          "type": "enum",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "elements": ["in_progress", "delivered", "completed", "disputed", "cancelled"],
+          "format": "enum",
+          "default": "in_progress"
+        },
+        {
+          "key": "created_at",
+          "type": "datetime",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "default": null
+        },
+        {
+          "key": "completed_at",
+          "type": "datetime",
+          "status": "available",
+          "required": false,
+          "array": false,
+          "default": null
+        }
+      ],
+      "indexes": [
+        {
+          "key": "customer_index",
+          "type": "key",
+          "status": "available",
+          "attributes": ["customer_id"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "designer_index",
+          "type": "key",
+          "status": "available",
+          "attributes": ["designer_id"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "status_index",
+          "type": "key",
+          "status": "available",
+          "attributes": ["status"],
+          "orders": ["ASC"]
+        }
+      ]
+    },
+    {
+      "$id": "order_assets",
+      "name": "Order Assets",
+      "$permissions": [],
+      "documentSecurity": true,
+      "enabled": true,
+      "attributes": [
+        {
+          "key": "order_id",
+          "type": "string",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null
+        },
+        {
+          "key": "uploader_id",
+          "type": "string",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null
+        },
+        {
+          "key": "file_id",
+          "type": "string",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null
+        },
+        {
+          "key": "file_type",
+          "type": "string",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "size": 50,
+          "default": null
+        },
+        {
+          "key": "thumbnail_id",
+          "type": "string",
+          "status": "available",
+          "required": false,
+          "array": false,
+          "size": 255,
+          "default": null
+        },
+        {
+          "key": "notes",
+          "type": "string",
+          "status": "available",
+          "required": false,
+          "array": false,
+          "size": 1000,
+          "default": null
+        },
+        {
+          "key": "uploaded_at",
+          "type": "datetime",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "default": null
+        }
+      ],
+      "indexes": [
+        {
+          "key": "order_index",
+          "type": "key",
+          "status": "available",
+          "attributes": ["order_id"],
+          "orders": ["DESC"]
+        }
+      ]
+    },
+    {
+      "$id": "messages",
+      "name": "Messages",
+      "$permissions": [],
+      "documentSecurity": true,
+      "enabled": true,
+      "attributes": [
+        {
+          "key": "order_id",
+          "type": "string",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null
+        },
+        {
+          "key": "sender_id",
+          "type": "string",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null
+        },
+        {
+          "key": "text",
+          "type": "string",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "size": 5000,
+          "default": null
+        },
+        {
+          "key": "attachments",
+          "type": "string",
+          "status": "available",
+          "required": false,
+          "array": true,
+          "size": 500,
+          "default": null
+        },
+        {
+          "key": "created_at",
+          "type": "datetime",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "default": null
+        }
+      ],
+      "indexes": [
+        {
+          "key": "order_index",
+          "type": "key",
+          "status": "available",
+          "attributes": ["order_id"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "created_index",
+          "type": "key",
+          "status": "available",
+          "attributes": ["created_at"],
+          "orders": ["ASC"]
+        }
+      ]
+    },
+    {
+      "$id": "reviews",
+      "name": "Reviews",
+      "$permissions": [
+        "read(\"any\")"
+      ],
+      "documentSecurity": true,
+      "enabled": true,
+      "attributes": [
+        {
+          "key": "order_id",
+          "type": "string",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null
+        },
+        {
+          "key": "customer_id",
+          "type": "string",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null
+        },
+        {
+          "key": "designer_id",
+          "type": "string",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null
+        },
+        {
+          "key": "rating",
+          "type": "integer",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "min": 1,
+          "max": 5,
+          "default": null
+        },
+        {
+          "key": "comment",
+          "type": "string",
+          "status": "available",
+          "required": false,
+          "array": false,
+          "size": 2000,
+          "default": null
+        },
+        {
+          "key": "created_at",
+          "type": "datetime",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "default": null
+        }
+      ],
+      "indexes": [
+        {
+          "key": "designer_index",
+          "type": "key",
+          "status": "available",
+          "attributes": ["designer_id"],
+          "orders": ["DESC"]
+        },
+        {
+          "key": "order_index",
+          "type": "unique",
+          "status": "available",
+          "attributes": ["order_id"],
+          "orders": ["ASC"]
+        }
+      ]
+    },
+    {
+      "$id": "transactions",
+      "name": "Transactions",
+      "$permissions": [],
+      "documentSecurity": true,
+      "enabled": true,
+      "attributes": [
+        {
+          "key": "order_id",
+          "type": "string",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null
+        },
+        {
+          "key": "stripe_payment_id",
+          "type": "string",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null
+        },
+        {
+          "key": "amount",
+          "type": "integer",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "min": 0,
+          "max": 10000000,
+          "default": null
+        },
+        {
+          "key": "fee_percent",
+          "type": "float",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "min": 0,
+          "max": 100,
+          "default": 5.5
+        },
+        {
+          "key": "fee_amount",
+          "type": "integer",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "min": 0,
+          "max": 10000000,
+          "default": null
+        },
+        {
+          "key": "net_amount",
+          "type": "integer",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "min": 0,
+          "max": 10000000,
+          "default": null
+        },
+        {
+          "key": "status",
+          "type": "string",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "size": 50,
+          "default": "pending"
+        },
+        {
+          "key": "created_at",
+          "type": "datetime",
+          "status": "available",
+          "required": true,
+          "array": false,
+          "default": null
+        }
+      ],
+      "indexes": [
+        {
+          "key": "order_index",
+          "type": "key",
+          "status": "available",
+          "attributes": ["order_id"],
+          "orders": ["DESC"]
+        },
+        {
+          "key": "stripe_index",
+          "type": "unique",
+          "status": "available",
+          "attributes": ["stripe_payment_id"],
+          "orders": ["ASC"]
+        }
+      ]
+    }
+  ]
+}

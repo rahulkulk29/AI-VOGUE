@@ -1,0 +1,18 @@
+{
+    "name": "prism-ai-backend",
+    "version": "1.0.0",
+    "description": "Prism AI 3.0 Backend - Chat API with GROQ and SERP",
+    "type": "module",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "node-appwrite": "^11.0.0",
+        "node-fetch": "^2.7.0",
+        "serpapi": "^2.1.0"
+    }
+}

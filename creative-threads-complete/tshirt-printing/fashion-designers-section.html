@@ -1,0 +1,38 @@
+<!-- Fashion Designers Section - Add this after line 180 (after </div> of customizer-preview) -->
+<div class="fashion-designers-section">
+    <div class="designers-header">
+        <h3>Find Local T-Shirt Printing Services</h3>
+        <p class="designers-subtitle">Connect with professional printing services in your city</p>
+    </div>
+
+    <!-- City Selection -->
+    <div class="city-selector-container">
+        <label for="designerCitySelect" class="city-label">SELECT YOUR CITY</label>
+        <select id="designerCitySelect" class="city-select">
+            <option value="">Choose a city...</option>
+            <option value="Belgaum">Belgaum</option>
+            <option value="Hubli">Hubli</option>
+            <option value="Hubli/Dharwad">Hubli/Dharwad</option>
+        </select>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" id="designerSearchInput" class="search-input" placeholder="Search by name or location..."
+            disabled>
+        <button id="designerSearchBtn" class="search-btn" disabled>
+            <i class="fas fa-search"></i>
+            <span>Search</span>
+        </button>
+    </div>
+
+    <p class="search-hint" id="designerSearchHint">Please select a city first</p>
+
+    <!-- Results Count -->
+    <div class="results-count" id="resultsCount" style="display: none;"></div>
+
+    <!-- Designers Grid -->
+    <div class="designers-grid" id="designersGrid">
+        <p class="empty-state">Select a city to view available printing services</p>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500">
+  <rect width="500" height="500" fill="#f8f8f8"/>
+  <circle cx="250" cy="250" r="150" fill="none" stroke="#1d3937" stroke-width="4"/>
+  <circle cx="250" cy="250" r="120" fill="none" stroke="#91855a" stroke-width="3"/>
+  <text x="250" y="270" font-family="Playfair Display, serif" font-size="120" fill="#1d3937" text-anchor="middle" font-weight="600">AV</text>
+</svg>

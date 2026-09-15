@@ -1,0 +1,806 @@
+/* ========================================
+   AI VOGUE - MOBILE RESPONSIVE ENHANCEMENTS
+   Mobile-First Approach with Enhanced Breakpoints
+   ======================================== */
+
+/* ========================================
+   MOBILE BREAKPOINTS
+   ======================================== */
+:root {
+    --mobile-sm: 320px;
+    --mobile-md: 375px;
+    --mobile-lg: 425px;
+    --tablet: 768px;
+    --laptop: 1024px;
+    --desktop: 1440px;
+}
+
+/* ========================================
+   BASE MOBILE STYLES (320px+)
+   ======================================== */
+@media (max-width: 767px) {
+
+    /* Prevent horizontal scroll */
+    html,
+    body {
+        overflow-x: hidden;
+        width: 100%;
+    }
+
+    body {
+        font-size: 14px;
+    }
+
+    /* Container padding for mobile */
+    .container {
+        padding: 0 1rem;
+    }
+
+    /* ========================================
+     HEADER - MOBILE - FIXED OVERLAP ISSUE
+     ======================================== */
+    header {
+        padding: 0.75rem 1rem !important;
+        height: 60px !important;
+        display: flex !important;
+        justify-content: flex-end !important;
+        align-items: center !important;
+        position: relative !important;
+    }
+
+    header.scrolled {
+        height: 60px !important;
+        padding: 0.75rem 1rem !important;
+    }
+
+    /* Fix header logo positioning - prevent overlap */
+    .header-logo {
+        font-size: 0.95rem !important;
+        letter-spacing: 1px !important;
+        position: absolute !important;
+        left: 50% !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        opacity: 1 !important;
+        margin: 0 !important;
+        white-space: nowrap !important;
+        pointer-events: none !important;
+    }
+
+    header.scrolled .header-logo {
+        opacity: 1 !important;
+        transform: translate(-50%, -50%) !important;
+    }
+
+    /* Menu toggle positioning - right side */
+    .menu-toggle {
+        width: 26px;
+        height: 20px;
+        position: relative;
+        z-index: 1001;
+        flex-shrink: 0;
+    }
+
+    .menu-toggle span {
+        height: 2px;
+    }
+
+    /* Enhanced Header - Mobile */
+    .enhanced-header {
+        padding: 0.75rem 1rem !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+    }
+
+    .enhanced-header .header-logo {
+        font-size: 0.95rem !important;
+        letter-spacing: 1.5px !important;
+    }
+
+    /* Header left section */
+    .header-left {
+        flex-shrink: 0;
+        z-index: 1001;
+    }
+
+    /* Header right section */
+    .header-right {
+        gap: 0.5rem;
+        flex-shrink: 0;
+        z-index: 1001;
+    }
+
+    .header-icon {
+        padding: 0.25rem;
+    }
+
+    .header-icon svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .menu-text {
+        font-size: 0.6rem;
+        letter-spacing: 0.5px;
+        display: none;
+        /* Hide MENU text on mobile */
+    }
+
+    .contact-link {
+        display: none !important;
+        /* Hide contact link on mobile */
+    }
+
+    .menu-toggle-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    /* ========================================
+     NAVIGATION DRAWER - MOBILE
+     ======================================== */
+    .nav-drawer {
+        width: 100vw;
+        right: -100vw;
+        padding: 3rem 1.5rem 2rem;
+    }
+
+    .nav-drawer.open {
+        right: 0;
+    }
+
+    .nav-close {
+        top: 1rem;
+        right: 1rem;
+        width: 26px;
+        height: 26px;
+    }
+
+    .nav-links {
+        margin-bottom: 1.5rem;
+    }
+
+    .nav-links li {
+        margin-bottom: 1.5rem;
+    }
+
+    .nav-links a {
+        font-size: 1.1rem;
+    }
+
+    .nav-icons {
+        gap: 0.75rem;
+        flex-wrap: wrap;
+    }
+
+    .nav-icons a {
+        width: 36px;
+        height: 36px;
+    }
+
+    .nav-icons svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* ========================================
+     GUCCI HEADER - MOBILE
+     ======================================== */
+    .gucci-header {
+        padding: 0 1rem !important;
+        height: 60px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+    }
+
+    .gucci-header-left {
+        flex-shrink: 0;
+    }
+
+    .gucci-header-center {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+    }
+
+    .gucci-header-right {
+        flex-shrink: 0;
+        gap: 0.5rem;
+    }
+
+    .gucci-logo {
+        font-size: 1rem !important;
+        letter-spacing: 0.1em !important;
+    }
+
+    .gucci-contact-link {
+        display: none !important;
+        /* Hide on mobile */
+    }
+
+    .gucci-icon {
+        font-size: 0.9rem;
+        padding: 0.3rem;
+    }
+
+    .gucci-icon svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .gucci-menu-btn {
+        font-size: 0.65rem;
+        padding: 0.3rem;
+    }
+
+    .gucci-overlay {
+        width: 100vw;
+        right: -100vw;
+        padding: 1.5rem;
+    }
+
+    .gucci-overlay.active {
+        right: 0;
+    }
+
+    .gucci-overlay-search {
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .gucci-search-input {
+        font-size: 0.75rem;
+        padding: 0.5rem 0;
+    }
+
+    .gucci-nav-link {
+        font-size: 0.75rem;
+        padding: 0.5rem 0.75rem;
+    }
+
+    body.gucci-header-page {
+        padding-top: 60px;
+    }
+
+    /* ========================================
+     HERO SECTION - MOBILE
+     ======================================== */
+    .hero {
+        min-height: 100vh;
+        height: auto;
+    }
+
+    .hero-content {
+        padding: 0 1rem;
+    }
+
+    .hero-title-container {
+        height: auto;
+        margin-bottom: 1rem;
+    }
+
+    .hero-brand {
+        font-size: 3rem !important;
+        letter-spacing: 0.3rem !important;
+        position: static !important;
+        transform: none !important;
+    }
+
+    .hero-title {
+        font-size: 3rem !important;
+        white-space: normal;
+        word-break: break-word;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem !important;
+        margin-bottom: 2rem;
+        line-height: 1.5;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        gap: 0.75rem;
+        width: 100%;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+        max-width: 280px;
+        padding: 0.875rem 1.5rem;
+        font-size: 0.85rem;
+    }
+
+    /* ========================================
+     BUTTONS - MOBILE
+     ======================================== */
+    .btn {
+        padding: 0.875rem 1.5rem;
+        font-size: 0.8rem;
+        min-width: 120px;
+        letter-spacing: 0.5px;
+    }
+
+    /* ========================================
+     SECTIONS - MOBILE
+     ======================================== */
+    .products,
+    .features,
+    .ai-feed {
+        padding: 3rem 1rem;
+    }
+
+    .editorial {
+        padding: 4rem 1rem;
+    }
+
+    .section-title {
+        font-size: 1.75rem !important;
+        margin-bottom: 2rem;
+        line-height: 1.3;
+    }
+
+    /* ========================================
+     PRODUCTS GRID - MOBILE
+     ======================================== */
+    .products-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .product-card {
+        border-radius: 6px;
+    }
+
+    .product-image {
+        height: 280px;
+    }
+
+    .product-info {
+        padding: 1rem;
+    }
+
+    .product-title {
+        font-size: 1rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .product-price {
+        font-size: 0.95rem;
+    }
+
+    /* ========================================
+     FEATURES GRID - MOBILE
+     ======================================== */
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .feature-card {
+        padding: 2rem 1.5rem;
+        border-radius: 8px;
+    }
+
+    .feature-icon {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 1.5rem;
+    }
+
+    .feature-icon svg {
+        width: 28px;
+        height: 28px;
+    }
+
+    .feature-card h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .feature-card p {
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.5;
+    }
+
+    .feature-link {
+        font-size: 0.8rem;
+    }
+
+    /* ========================================
+     EDITORIAL SECTION - MOBILE
+     ======================================== */
+    .editorial-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .editorial-text h2 {
+        font-size: 1.75rem !important;
+        margin-bottom: 1rem;
+    }
+
+    .editorial-text p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+    }
+
+    .editorial-image img {
+        height: 250px;
+        border-radius: 8px;
+    }
+
+    /* ========================================
+     AI FEED - MOBILE
+     ======================================== */
+    .feed-header {
+        flex-direction: column;
+        text-align: center;
+        margin-bottom: 2rem;
+        gap: 0.75rem;
+    }
+
+    .feed-status {
+        font-size: 0.8rem;
+        justify-content: center;
+    }
+
+    .live-indicator {
+        width: 6px;
+        height: 6px;
+    }
+
+    .feed-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .feed-card {
+        border-radius: 12px;
+    }
+
+    .look-image {
+        height: 250px;
+    }
+
+    .ai-badge {
+        top: 0.75rem;
+        left: 0.75rem;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.7rem;
+        border-radius: 16px;
+    }
+
+    .occasion-tag {
+        top: 0.75rem;
+        right: 0.75rem;
+        padding: 0.25rem 0.6rem;
+        font-size: 0.65rem;
+        border-radius: 10px;
+    }
+
+    .look-details {
+        padding: 1rem;
+    }
+
+    .look-title {
+        font-size: 1.1rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .look-description {
+        font-size: 0.85rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .ai-insights {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .confidence-score {
+        padding: 0.25rem 0.6rem;
+        font-size: 0.7rem;
+        border-radius: 10px;
+    }
+
+    .style-tags {
+        font-size: 0.75rem;
+    }
+
+    .recreate-btn {
+        padding: 0.7rem 1.25rem;
+        font-size: 0.8rem;
+        border-radius: 6px;
+    }
+
+    .feed-cta {
+        padding: 2rem 1.5rem;
+        border-radius: 12px;
+    }
+
+    .cta-content h3 {
+        font-size: 1.5rem !important;
+        margin-bottom: 0.75rem;
+    }
+
+    .cta-content p {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+    }
+
+    /* ========================================
+     FOOTER - MOBILE
+     ======================================== */
+    .footer {
+        padding: 3rem 1rem 2rem;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .footer-section h3 {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+
+    .footer-section li {
+        margin-bottom: 0.6rem;
+    }
+
+    .footer-section a {
+        font-size: 0.9rem;
+    }
+
+    .newsletter {
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-top: 0.75rem;
+    }
+
+    .newsletter input {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+        text-align: center;
+    }
+
+    .newsletter button {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.9rem;
+        width: 100%;
+    }
+
+    .social-links {
+        justify-content: center;
+        gap: 0.75rem;
+        margin-top: 0.75rem;
+    }
+
+    .social-links a {
+        width: 40px;
+        height: 40px;
+    }
+
+    .social-links svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .footer-bottom {
+        padding-top: 1.5rem;
+        font-size: 0.85rem;
+    }
+
+    /* ========================================
+     TOUCH TARGETS - MOBILE
+     ======================================== */
+    a,
+    button,
+    input[type="submit"],
+    input[type="button"] {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* ========================================
+     TYPOGRAPHY - MOBILE
+     ======================================== */
+    h1 {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        line-height: 1.3;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+        line-height: 1.3;
+    }
+
+    h4 {
+        font-size: 1.1rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+
+    /* ========================================
+     UTILITY CLASSES - MOBILE
+     ======================================== */
+    .mb-2 {
+        margin-bottom: 1rem;
+    }
+
+    .mb-4 {
+        margin-bottom: 2rem;
+    }
+
+    .hide-mobile {
+        display: none !important;
+    }
+
+    .show-mobile {
+        display: block !important;
+    }
+}
+
+/* ========================================
+   TABLET STYLES (768px - 1023px)
+   ======================================== */
+@media (min-width: 768px) and (max-width: 1023px) {
+
+    .container {
+        padding: 0 2rem;
+    }
+
+    header {
+        padding: 1.25rem 2rem;
+    }
+
+    .gucci-header {
+        padding: 0 2rem;
+    }
+
+    .nav-drawer {
+        width: 400px;
+        right: -400px;
+    }
+
+    .gucci-overlay {
+        width: 400px;
+        right: -400px;
+    }
+
+    .hero-brand {
+        font-size: 5rem !important;
+        letter-spacing: 0.6rem !important;
+    }
+
+    .hero-subtitle {
+        font-size: 1.15rem !important;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+
+    .feed-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .editorial-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+    }
+
+    .editorial-image img {
+        height: 400px;
+    }
+
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2.5rem;
+    }
+}
+
+/* ========================================
+   SMALL MOBILE (320px - 374px)
+   ======================================== */
+@media (max-width: 374px) {
+
+    body {
+        font-size: 13px;
+    }
+
+    .container {
+        padding: 0 0.75rem;
+    }
+
+    .header-logo {
+        font-size: 0.85rem !important;
+    }
+
+    .hero-brand {
+        font-size: 2.5rem !important;
+        letter-spacing: 0.2rem !important;
+    }
+
+    .section-title {
+        font-size: 1.5rem !important;
+    }
+
+    .product-image {
+        height: 240px;
+    }
+
+    .look-image {
+        height: 220px;
+    }
+
+    .btn {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.75rem;
+        min-width: 100px;
+    }
+
+    .footer-section h3 {
+        font-size: 1rem;
+    }
+
+    .footer-section a {
+        font-size: 0.85rem;
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY ENHANCEMENTS
+   ======================================== */
+*:focus-visible {
+    outline: 2px solid var(--color-gold, #91855a);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+@media (prefers-contrast: high) {
+    .btn {
+        border-width: 3px;
+    }
+}
